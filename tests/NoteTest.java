@@ -1,9 +1,10 @@
 import cs3500.music.model.*;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-/** Tests for the {@Link Note} class */
+/** Tests for the {@link Note} class */
 public class NoteTest {
     @Test (expected = IllegalArgumentException.class)
     public void testNoteOctaveTooHighException() {
@@ -25,6 +26,9 @@ public class NoteTest {
         new Note(2, 0, 3, Pitch.C);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testNoteNegativeStart() { new Note(-1, 2, 3, Pitch.D); }
+
     @Test
     public void testGetStart() {
         Note n1 = new Note();
@@ -42,7 +46,7 @@ public class NoteTest {
         Note n2 = new Note(5, 4, 3, Pitch.D);
         Note n3 = new Note(10, 2, 4, Pitch.C);
 
-        assertEquals(0, n1.getDuration());
+        assertEquals(1, n1.getDuration());
         assertEquals(4, n2.getDuration());
         assertEquals(2, n3.getDuration());
     }
@@ -94,43 +98,56 @@ public class NoteTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testChangePitchThrowsExceptionNegative() {
+    public void testChangeNoteThrowsExceptionNegativeOctave() {
         Note n1 = new Note();
-        n1.changePitch(-1, Pitch.C);
+        n1.changeNote(1 , -1, Pitch.C);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testChangePitchThrowsExceptionHigh() {
+    public void testChangeNoteThrowsExceptionHighOctave() {
         Note n1 = new Note();
-        n1.changePitch(105, Pitch.D);
+        n1.changeNote(5, 105, Pitch.D);
     }
 
     @Test (expected = NullPointerException.class)
-    public void testChangePitchNonNull() {
+    public void testChangeNotePitchNonNull() {
         Note n1 = new Note();
-        n1.changePitch(5, null);
+        n1.changeNote(5, 5, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testChangeNoteThrowsExceptionNegativeStart() {
+        Note n1 = new Note();
+        n1.changeNote(-1, 5, Pitch.E);
     }
 
     @Test
-    public void testChangePitch() {
+    public void testChangeNote() {
         Note n1 = new Note(5, 4, 3, Pitch.D);
-        Note n2 = new Note(10, 2, 4, Pitch.CS);
 
+        n1.changeNote(5, 2, Pitch.D);
+        assertEquals(5, n1.getStart());
+        assertEquals(2, n1.getOctave());
         assertEquals(Pitch.D, n1.getPitch());
-        assertEquals(3, n1.getOctave());
-        n1.changePitch(3, Pitch.B);
-        assertEquals(Pitch.B, n1.getPitch());
-        assertEquals(3, n1.getOctave());
+        assertEquals(4, n1.getDuration());
 
-        assertEquals(4, n2.getOctave());
-        assertEquals(Pitch.CS, n2.getPitch());
-        n2.changePitch(4, Pitch.CS);
-        assertEquals(4, n2.getOctave());
-        assertEquals(Pitch.CS, n2.getPitch());
+        n1.changeNote(2, 2, Pitch.D);
+        assertEquals(2, n1.getStart());
+        assertEquals(2, n1.getOctave());
+        assertEquals(Pitch.D, n1.getPitch());
+        assertEquals(4, n1.getDuration());
 
-        n2.changePitch(0, Pitch.A);
-        assertEquals(0, n2.getOctave());
-        assertEquals(Pitch.A, n2.getPitch());
+        n1.changeNote(2, 2, Pitch.E);
+        assertEquals(2, n1.getStart());
+        assertEquals(2, n1.getOctave());
+        assertEquals(Pitch.E, n1.getPitch());
+        assertEquals(4, n1.getDuration());
+
+        n1.changeNote(0, 4, Pitch.C);
+        assertEquals(0, n1.getStart());
+        assertEquals(4, n1.getOctave());
+        assertEquals(Pitch.C, n1.getPitch());
+        assertEquals(4, n1.getDuration());
     }
 
     @Test
@@ -146,5 +163,18 @@ public class NoteTest {
         assertTrue(n2.compareTo(n3) < 0);
         assertTrue(n3.compareTo(n2) > 0);
         assertTrue(n1.compareTo(n2) > 0);
+    }
+
+    @Test
+    public void testNoteEquality() {
+        Note n1 = new Note(5, 4, 3, Pitch.D);
+        Note n2 = new Note(5, 4, 3, Pitch.D);
+        Note n3 = new Note(5, 4, 3, Pitch.E);
+
+        assertEquals(n1, n2);
+        assertEquals(n1, n1);
+        assertEquals(n3, n3);
+        assertNotEquals(n1, n3);
+        assertNotEquals(n2, n3);
     }
 }
