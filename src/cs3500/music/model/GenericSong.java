@@ -1,24 +1,27 @@
 package cs3500.music.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a piece of music
  */
 public class GenericSong implements SongRep {
     private int currentBeat;
-    private List<Note> notes;
-    public static final int BPM = 120;
+    private List<NoteRep> notes;
 
     /** Public default constructor */
     public GenericSong() {
         this.currentBeat = 0;
-        this.notes = new ArrayList<Note>();
+        this.notes = new ArrayList<>();
     }
 
     /** Constructor for a pre-made song */
-    public GenericSong(List<Note> notes) {
+    public GenericSong(List<NoteRep> notes) {
+        Objects.requireNonNull(notes);
+
         this.currentBeat = 0;
         this.notes = notes;
     }
@@ -29,23 +32,32 @@ public class GenericSong implements SongRep {
     }
 
     @Override
-    public void addNote(Note n) {
+    public void addNote(NoteRep n) {
+        Objects.requireNonNull(n);
         if (!notes.contains(n)) notes.add(n);
     }
 
     @Override
-    public void removeNote(Note n) { this.notes.remove(n); }
+    public void removeNote(NoteRep n) {
+        Objects.requireNonNull(n);
+        this.notes.remove(n);
+    }
 
     @Override
     public int getLength() {
         int out = 0;
 
-        for (Note n : notes) {
+        for (NoteRep n : notes) {
             int end = n.getEnd();
             out = end > out ? end : out;
         }
 
         return out;
+    }
+
+    @Override
+    public List<NoteRep> getNotes() {
+        return Collections.unmodifiableList(notes);
     }
 
     @Override
@@ -70,19 +82,36 @@ public class GenericSong implements SongRep {
 
     @Override
     public void combineSimultaneously(SongRep other) {
+        Objects.requireNonNull(other);
 
+        for (NoteRep n : other.getNotes()) {
+            addNote(n);
+        }
     }
 
     @Override
     public void combineConsecutively(SongRep other) {
+        Objects.requireNonNull(other);
+        int thisSongLength = getLength();
+        for (NoteRep n : other.getNotes()) {
+            n.changeNote(n.getStart() + thisSongLength, n.getOctave(), n.getPitch());
+            notes.add(n);
+        }
+    }
 
+    @Override
+    public void setCurrentBeat(int set) {
+        if (set < 0) {
+            throw new IllegalArgumentException("Current beat must be positive");
+        }
+        this.currentBeat = set;
     }
 
     /** @return a String representing the range of notes in this song. */
     private ArrayList<String> getRange() {
-        Note lowestNote = getLowestNote();
+        NoteRep lowestNote = getLowestNote();
         int lowestOctave = lowestNote.getOctave();
-        Note highestNote = getHighestNote();
+        NoteRep highestNote = getHighestNote();
         int highestOctave = highestNote.getOctave();
         ArrayList<String> out = new ArrayList<>();
 
@@ -96,11 +125,8 @@ public class GenericSong implements SongRep {
                     pitchInRange = pitchAboveLowest && pitchBelowHighest;
                 } else if (i == lowestOctave) {
                     pitchInRange = pitchAboveLowest;
-                } else if (i == highestOctave) {
-                    pitchInRange = pitchBelowHighest;
-                } else {
-                    pitchInRange = true;
-                }
+                } else
+                    pitchInRange = i != highestOctave || pitchBelowHighest;
 
                 if (pitchInRange) out.add(p.getString() + i);
             }
@@ -121,7 +147,7 @@ public class GenericSong implements SongRep {
 
         for (String s : noteRange) {
             String temp = "     ";
-            for (Note n : notes) {
+            for (NoteRep n : notes) {
                 boolean noteStarting = n.toString().equals(s) && n.getStart() == line;
                 boolean noteInProgress = n.toString().equals(s) && (n.getStart() < line) &&
                         (n.getEnd() >= line);
@@ -141,24 +167,24 @@ public class GenericSong implements SongRep {
     }
 
     /** @return the lowest note in this song (as on a piano) */
-    private Note getLowestNote() {
+    private NoteRep getLowestNote() {
         if (notes.isEmpty()) throw new IllegalArgumentException("There are no notes");
 
-        Note lowestNote = notes.get(0);
-        for (Note n : notes) {
-            if (n.compareTo(lowestNote) < 0) lowestNote = n;
+        NoteRep lowestNote = notes.get(0);
+        for (NoteRep n : notes) {
+            if (new NoteRepComparator().compare(n, lowestNote) < 0) lowestNote = n;
         }
 
         return lowestNote;
     }
 
     /** @return the highest note in this song (as on a piano) */
-    private Note getHighestNote() {
+    private NoteRep getHighestNote() {
         if (notes.isEmpty()) throw new IllegalArgumentException("There are no notes");
 
-        Note highestNote = notes.get(0);
-        for (Note n : notes) {
-            if (n.compareTo(highestNote) > 0) highestNote = n;
+        NoteRep highestNote = notes.get(0);
+        for (NoteRep n : notes) {
+            if (new NoteRepComparator().compare(n, highestNote) > 0) highestNote = n;
         }
 
         return highestNote;

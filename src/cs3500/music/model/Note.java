@@ -3,9 +3,7 @@ package cs3500.music.model;
 import java.util.Objects;
 
 /** Represents a musical note */
-public class Note implements Comparable<Note> {
-
-
+public class Note implements Comparable<Note>, NoteRep {
     /** The starting beat of the note */
     private int start;
     /** The amount of beats this note lasts */
@@ -15,7 +13,7 @@ public class Note implements Comparable<Note> {
     /** The pitch of this note (C to B) */
     private Pitch pitch;
 
-    /** Public default constructor defaults to middle C quarter note */
+    /** Public default constructor defaults to middle C quarter note at time 0*/
     public Note() {
         this.start = 0;
         this.duration = 1;
@@ -31,6 +29,9 @@ public class Note implements Comparable<Note> {
         if (duration < 1) {
             throw new IllegalArgumentException("Duration must be at least 1");
         }
+        if (start < 0) {
+            throw new IllegalArgumentException("Starting beat must be positive");
+        }
 
         Objects.requireNonNull(pitch);
         this.pitch = pitch;
@@ -39,27 +40,39 @@ public class Note implements Comparable<Note> {
         this.octave = octave;
     }
 
-    /** @return the starting beat of the note */
+    @Override
     public int getStart() {
         return start;
     }
-    /** @return the number of beats the note lasts */
+
+    @Override
     public int getDuration() { return duration; }
-    /** @return the {@Link Pitch} of the note */
+
+    @Override
     public Pitch getPitch() { return pitch; }
-    /** @return the octave of the note (between 0 and 99) */
+
+    @Override
     public int getOctave() { return octave; }
-    /** @return the beat the note ends on */
+
+    @Override
     public int getEnd() { return start + duration - 1; }
-    /** @return the pitch and octave of the note */
+
+    @Override
     public String toString() { return pitch.getString() + Integer.toString(octave); }
 
-    /** Change the pitch of this note */
-    public void changePitch(int octave, Pitch pitch) {
-        if (octave > 99 || octave < 0) throw new IllegalArgumentException("Octave must be between 0 and 99");
+    @Override
+    public void changeNote(int start, int octave, Pitch pitch) {
+        if (octave > 99 || octave < 0) {
+            throw new IllegalArgumentException("Octave must be between 0 and 99");
+        }
+        if (start < 0) {
+            throw new IllegalArgumentException("Starting beat must be positive");
+        }
         Objects.requireNonNull(pitch);
+
         this.octave = octave;
         this.pitch = pitch;
+        this.start = start;
     }
 
     /**
@@ -72,5 +85,19 @@ public class Note implements Comparable<Note> {
     public int compareTo(Note o) {
         if (this.octave == o.octave) return this.pitch.compareTo(o.pitch);
         return this.octave - o.octave;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Note)) return false;
+        Note n = (Note)obj;
+
+        return (this.start == n.getStart()) && (this.duration == n.getDuration()) &&
+                (this.octave == n.getOctave()) && (this.pitch.equals(n.getPitch()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, duration, octave, pitch);
     }
 }
