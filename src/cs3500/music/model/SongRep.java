@@ -5,7 +5,8 @@ import java.util.List;
 /** A representation for a song.  Songs are defined as a */
 public interface SongRep {
     /**
-     * The current beat of a song not in progress is 0.  After the first beat, it is 1, then 2, etc.
+     * The current beat of a song not in progress is 0.
+     * After the first beat, it is 1, then 2, etc.
      * @return the current beat of the song
      */
     int getBeat();
