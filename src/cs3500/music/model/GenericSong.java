@@ -32,27 +32,39 @@ public class GenericSong implements SongRep {
     }
 
     @Override
+    /** Adds a note to the song only if it doesn't collide with any current notes */
     public void addNote(NoteRep n) {
         Objects.requireNonNull(n);
-        if (!notes.contains(n)) notes.add(n);
+
+        boolean shouldAdd = true;
+
+        for (NoteRep note : notes) {
+            boolean sameNote = note.getPitch().equals(n.getPitch());
+            int nLo = n.getStart();
+            int nHi = n.getEnd();
+            boolean hasOverlap = false;
+
+            for (int i = nLo; i <= nHi; i++) {
+                if (i >= note.getStart() && i <= note.getEnd()) {
+                    hasOverlap = true;
+                }
+            }
+
+            if (sameNote && hasOverlap) {
+                shouldAdd = false;
+                break;
+            }
+        }
+
+        if (shouldAdd) {
+            notes.add(n);
+        }
     }
 
     @Override
     public void removeNote(NoteRep n) {
         Objects.requireNonNull(n);
         this.notes.remove(n);
-    }
-
-    @Override
-    public int getLength() {
-        int out = 0;
-
-        for (NoteRep n : notes) {
-            int end = n.getEnd();
-            out = end > out ? end : out;
-        }
-
-        return out;
     }
 
     @Override
@@ -188,5 +200,17 @@ public class GenericSong implements SongRep {
         }
 
         return highestNote;
+    }
+
+    /** @return the number of beats this song spans */
+    private int getLength() {
+        int out = 0;
+
+        for (NoteRep n : notes) {
+            int end = n.getEnd();
+            out = end > out ? end : out;
+        }
+
+        return out;
     }
 }

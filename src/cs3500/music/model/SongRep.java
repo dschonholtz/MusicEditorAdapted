@@ -13,8 +13,6 @@ public interface SongRep {
     void addNote(NoteRep note);
     /** Removes a given note from the song */
     void removeNote(NoteRep note);
-    /** Returns the number of beats this song spans */
-    int getLength();
     /** Returns a list of the notes in this song */
     List<NoteRep> getNotes();
     /**

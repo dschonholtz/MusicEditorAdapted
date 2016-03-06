@@ -37,8 +37,10 @@ public class GenericSongTest {
         assertEquals(2, gs1.getNotes().size());
         gs1.addNote(new Note(5, 4, 3, Pitch.C));
         assertEquals(2, gs1.getNotes().size());
-        gs1.addNote(new Note(6, 4, 3, Pitch.C));
-        assertEquals(3, gs1.getNotes().size());
+        gs1.addNote(new Note(6, 4, 3, Pitch.C)); //overlapping note won't be added
+        assertEquals(2, gs1.getNotes().size());
+        gs1.addNote(new Note(10, 4, 3, Pitch.C));
+        assertEquals(3, gs1.getNotes().size()); //consecutive notes will be added
     }
 
     @Test (expected = NullPointerException.class)
@@ -64,20 +66,6 @@ public class GenericSongTest {
     public void testRemoveNoteNonNull() {
         SongRep gs1 = new GenericSong();
         gs1.removeNote(null);
-    }
-
-    @Test
-    public void testGetLength() {
-        SongRep gs1 = new GenericSong();
-        assertEquals(0, gs1.getLength());
-        gs1.addNote(new Note());
-        assertEquals(0, gs1.getLength());
-        gs1.addNote(new Note(5, 10, 3, Pitch.D));
-        assertEquals(14, gs1.getLength());
-        gs1.addNote(new Note(5, 7, 2, Pitch.E));
-        assertEquals(14, gs1.getLength());
-        gs1.addNote(new Note(8, 8, 2, Pitch.C));
-        assertEquals(15, gs1.getLength());
     }
 
     @Test
