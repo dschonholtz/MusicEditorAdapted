@@ -33,4 +33,7 @@ Overlapping or duplicate notes are handled in the following way:
     -Overlapping notes will not be added by addNote
     -If there are two same notes playing at the same time, getState will print the first one
         it finds in the list
-       
+
+Pitch and octave were split up because pitches are a very limited range of notes, and many octaves
+of those specific notes can be played.  This makes it easy to have pitch as an enum and octaves
+simply modifying that pitch.
