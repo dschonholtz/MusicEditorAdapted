@@ -2,15 +2,9 @@ import cs3500.music.model.*;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 /** Tests for the {@link Note} class */
 public class NoteTest {
-    @Test (expected = IllegalArgumentException.class)
-    public void testNoteOctaveTooHighException() {
-        new Note(5, 10, 100, Pitch.CS);
-    }
-
     @Test (expected = IllegalArgumentException.class)
     public void testNoteOctaveNegativeException() {
         new Note(2, 3, -1, Pitch.D);
@@ -95,74 +89,6 @@ public class NoteTest {
         assertEquals("C4", n1.toString());
         assertEquals("D3", n2.toString());
         assertEquals("C#4", n3.toString());
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testChangeNoteThrowsExceptionNegativeOctave() {
-        Note n1 = new Note();
-        n1.changeNote(1 , -1, Pitch.C);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testChangeNoteThrowsExceptionHighOctave() {
-        Note n1 = new Note();
-        n1.changeNote(5, 105, Pitch.D);
-    }
-
-    @Test (expected = NullPointerException.class)
-    public void testChangeNotePitchNonNull() {
-        Note n1 = new Note();
-        n1.changeNote(5, 5, null);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testChangeNoteThrowsExceptionNegativeStart() {
-        Note n1 = new Note();
-        n1.changeNote(-1, 5, Pitch.E);
-    }
-
-    @Test
-    public void testChangeNote() {
-        Note n1 = new Note(5, 4, 3, Pitch.D);
-
-        n1.changeNote(5, 2, Pitch.D);
-        assertEquals(5, n1.getStart());
-        assertEquals(2, n1.getOctave());
-        assertEquals(Pitch.D, n1.getPitch());
-        assertEquals(4, n1.getDuration());
-
-        n1.changeNote(2, 2, Pitch.D);
-        assertEquals(2, n1.getStart());
-        assertEquals(2, n1.getOctave());
-        assertEquals(Pitch.D, n1.getPitch());
-        assertEquals(4, n1.getDuration());
-
-        n1.changeNote(2, 2, Pitch.E);
-        assertEquals(2, n1.getStart());
-        assertEquals(2, n1.getOctave());
-        assertEquals(Pitch.E, n1.getPitch());
-        assertEquals(4, n1.getDuration());
-
-        n1.changeNote(0, 4, Pitch.C);
-        assertEquals(0, n1.getStart());
-        assertEquals(4, n1.getOctave());
-        assertEquals(Pitch.C, n1.getPitch());
-        assertEquals(4, n1.getDuration());
-    }
-
-    @Test
-    public void testNoteCompareTo() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D);
-        Note n3 = new Note(5, 4, 3, Pitch.E);
-        Note n4 = new Note(5, 4, 4, Pitch.D);
-
-        assertTrue(n2.compareTo(n2) == 0);
-        assertTrue(n2.compareTo(n4) < 0);
-        assertTrue(n4.compareTo(n2) > 0);
-        assertTrue(n2.compareTo(n3) < 0);
-        assertTrue(n3.compareTo(n2) > 0);
-        assertTrue(n1.compareTo(n2) > 0);
     }
 
     @Test
