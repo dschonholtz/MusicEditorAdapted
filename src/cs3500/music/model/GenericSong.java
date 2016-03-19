@@ -1,14 +1,12 @@
 package cs3500.music.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Represents a piece of music
  */
 public class GenericSong implements SongRep {
+    //TODO add tempo
     private int currentBeat;
     private List<NoteRep> notes;
 
@@ -35,7 +33,6 @@ public class GenericSong implements SongRep {
     /** Adds a note to the song only if it doesn't collide with any current notes */
     public void addNote(NoteRep n) {
         Objects.requireNonNull(n);
-
         boolean shouldAdd = true;
 
         for (NoteRep note : notes) {
@@ -68,8 +65,33 @@ public class GenericSong implements SongRep {
     }
 
     @Override
-    public List<NoteRep> getNotes() {
+    public List<NoteRep> getAllNotes() {
         return Collections.unmodifiableList(notes);
+    }
+
+    @Override
+    public List<NoteRep> getNotesStartingAtT(int t) {
+        ArrayList<NoteRep> out = new ArrayList<NoteRep>();
+        for (NoteRep n : getAllNotes()) {
+            if (n.getStart() == t) out.add(n);
+        }
+        return out;
+    }
+
+    @Override
+    public List<NoteRep> getNotesPlayingAtT(int t) {
+        ArrayList<NoteRep> started = new ArrayList<NoteRep>();
+        ArrayList<NoteRep> out = new ArrayList<>();
+
+        for (int i = 0; i <= t; i++) {
+            started.addAll(getNotesStartingAtT(i));
+        }
+
+        for (NoteRep n : started) {
+            if (n.getEnd() >= t) out.add(n);
+        }
+
+        return out;
     }
 
     @Override
@@ -96,7 +118,7 @@ public class GenericSong implements SongRep {
     public void combineSimultaneously(SongRep other) {
         Objects.requireNonNull(other);
 
-        for (NoteRep n : other.getNotes()) {
+        for (NoteRep n : other.getAllNotes()) {
             addNote(n);
         }
     }
@@ -105,9 +127,9 @@ public class GenericSong implements SongRep {
     public void combineConsecutively(SongRep other) {
         Objects.requireNonNull(other);
         int thisSongLength = getLength();
-        for (NoteRep n : other.getNotes()) {
-            n.changeNote(n.getStart() + thisSongLength, n.getOctave(), n.getPitch());
-            notes.add(n);
+        for (NoteRep n : other.getAllNotes()) {
+            Note n2 = new Note(n.getStart() + thisSongLength, n.getDuration(), n.getOctave(), n.getPitch());
+            notes.add(n2);
         }
     }
 
@@ -202,8 +224,8 @@ public class GenericSong implements SongRep {
         return highestNote;
     }
 
-    /** @return the number of beats this song spans */
-    private int getLength() {
+    @Override
+    public int getLength() {
         int out = 0;
 
         for (NoteRep n : notes) {

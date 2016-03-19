@@ -12,14 +12,6 @@ public interface NoteRep {
     Pitch getPitch();
     /** @return the octave this note is in */
     int getOctave();
-    /**
-     * Change the start, octave, pitch of this note to the give values
-     *
-     * @param start the new starting beat for this note
-     * @param octave the new octave for this note
-     * @param pitch the new pitch for this note
-     */
-    void changeNote(int start, int octave, Pitch pitch);
     /** @return the string representation of this note */
     String toString();
 }

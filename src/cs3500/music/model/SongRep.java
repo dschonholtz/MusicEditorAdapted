@@ -5,7 +5,8 @@ import java.util.List;
 /** A representation for a song.  Songs are defined as a */
 public interface SongRep {
     /**
-     * The current beat of a song not in progress is 0.  After the first beat, it is 1, then 2, etc.
+     * The current beat of a song not in progress is 0.
+     * After the first beat, it is 1, then 2, etc.
      * @return the current beat of the song
      */
     int getBeat();
@@ -14,7 +15,11 @@ public interface SongRep {
     /** Removes a given note from the song */
     void removeNote(NoteRep note);
     /** Returns a list of the notes in this song */
-    List<NoteRep> getNotes();
+    List<NoteRep> getAllNotes();
+    /** Returns a list of all notes that start at beat t */
+    List<NoteRep> getNotesStartingAtT(int t);
+    /** Returns a list of all notes that are playing at beat t */
+    List<NoteRep> getNotesPlayingAtT(int t);
     /**
      * Returns the song as a String representation.  It lists the range of notes across the top,
      * and the length of the song from 0 to the last beat.  Notes are represented with "X" at
@@ -28,4 +33,6 @@ public interface SongRep {
     void combineConsecutively(SongRep other);
     /** Sets the current beat to the given */
     void setCurrentBeat(int target);
+    /** The number of beats this song spans*/
+    int getLength();
 }
