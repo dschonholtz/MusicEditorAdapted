@@ -11,7 +11,7 @@ public class NoteRepComparatorTest {
         NoteRepComparator nrc = new NoteRepComparator();
         Note n1 = new Note();
         Note n2 = new Note();
-        Note n3 = new Note(5, 4, 3, Pitch.D);
+        Note n3 = new Note(5, 4, 3, Pitch.D, 1, 65);
 
         assertTrue(nrc.compare(n1, n1) == 0);
         assertTrue(nrc.compare(n1, n2) == 0);
