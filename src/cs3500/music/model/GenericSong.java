@@ -6,7 +6,7 @@ import java.util.*;
  * Represents a piece of music
  */
 public class GenericSong implements SongRep {
-    private int tempo;
+    private int tempo; // in microseconds per beat
     private int currentBeat;
     private List<NoteRep> notes;
 

@@ -37,6 +37,12 @@ public final class Note implements NoteRep {
         if (start < 0) {
             throw new IllegalArgumentException("Starting beat must be positive");
         }
+        if (instrument < 0) {
+            throw new IllegalArgumentException("Instrument cannot be negative");
+        }
+        if (volume < 0) {
+            throw new IllegalArgumentException("Volume cannot be negative");
+        }
 
         Objects.requireNonNull(pitch);
         this.pitch = pitch;
@@ -84,11 +90,12 @@ public final class Note implements NoteRep {
         Note n = (Note)obj;
 
         return (this.start == n.getStart()) && (this.duration == n.getDuration()) &&
-                (this.octave == n.getOctave()) && (this.pitch.equals(n.getPitch()));
+                (this.octave == n.getOctave()) && (this.pitch.equals(n.getPitch())) &&
+                (this.volume == n.getVolume()) && (this.instrument == n.getInstrument());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(start, duration, octave, pitch);
+        return Objects.hash(start, duration, octave, pitch, instrument, volume);
     }
 }
