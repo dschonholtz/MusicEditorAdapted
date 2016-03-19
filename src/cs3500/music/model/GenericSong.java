@@ -128,19 +128,23 @@ public class GenericSong implements SongRep {
 
     @Override
     public String getState() {
+
+        int len = getLength();// LINEAR
+        ArrayList<String> range = getRange();
+
         if (notes.isEmpty()) return "This song is empty";
 
         // space for the beats column
-        String out = String.format("%" + Integer.toString(getLength()).length() + "s", "");
+        String out = String.format("%" + Integer.toString(len).length() + "s", "");
 
         // add each pitch in the range
-        for (String s : getRange()) {
+        for (String s : range) {                                                       // LINEAR
             out += String.format("%5s", String.format("%-2s", s));
         }
 
         // print line by line for the entire length of the song
-        for (int i = 0; i <= getLength(); i++) {
-            out += "\n" + printLine(i);
+        for (int i = 0; i <= len; i++) {
+            out += "\n" + printLine(i, range);
         }
 
         return out;
@@ -208,8 +212,7 @@ public class GenericSong implements SongRep {
      *
      *  @return a String representation for any notes on the given line of the song
      */
-    private String printLine(int line) {
-        ArrayList<String> noteRange = getRange();
+    private String printLine(int line, ArrayList<String> noteRange) {
         String out = String.format("%" + (Integer.toString(getLength()).length() + 1) + "s", line);
 
         for (String s : noteRange) {
@@ -265,7 +268,6 @@ public class GenericSong implements SongRep {
             int end = n.getEnd();
             out = end > out ? end : out;
         }
-
         return out;
     }
 }
