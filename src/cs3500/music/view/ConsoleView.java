@@ -1,5 +1,6 @@
 package cs3500.music.view;
 
+import cs3500.music.model.GenericSong;
 import cs3500.music.model.SongRep;
 
 /**
@@ -8,5 +9,16 @@ import cs3500.music.model.SongRep;
 public class ConsoleView implements IMusicView {
     private SongRep model;
 
+    public ConsoleView() {
+        model = new GenericSong();
+    }
 
+    public ConsoleView(GenericSong model) {
+        this.model = model;
+    }
+
+    @Override
+    public void run() {
+        model.getState();
+    }
 }
