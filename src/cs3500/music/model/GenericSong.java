@@ -6,7 +6,6 @@ import java.util.*;
  * Represents a piece of music
  */
 public class GenericSong implements SongRep {
-    //TODO add tempo
     private int tempo;
     private int currentBeat;
     private List<NoteRep> notes;
@@ -18,9 +17,9 @@ public class GenericSong implements SongRep {
     }
 
     /** Constructor for a pre-made song */
-    public GenericSong(List<NoteRep> notes) {
+    public GenericSong(List<NoteRep> notes, int tempo) {
         Objects.requireNonNull(notes);
-
+        this.tempo = tempo;
         this.currentBeat = 0;
         this.notes = notes;
     }
