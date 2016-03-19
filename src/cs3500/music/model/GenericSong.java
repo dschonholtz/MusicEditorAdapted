@@ -1,11 +1,40 @@
 package cs3500.music.model;
 
+import cs3500.music.util.CompositionBuilder;
+
 import java.util.*;
 
 /**
  * Represents a piece of music
  */
 public class GenericSong implements SongRep {
+    public class BUILDER implements CompositionBuilder<SongRep> {
+        private int tempo;
+        private List<NoteRep> notes = new ArrayList<>();
+
+        @Override
+        public SongRep build() {
+            return new GenericSong(this.notes, this.tempo);
+        }
+
+        @Override
+        public CompositionBuilder<SongRep> setTempo(int tempo) {
+            this.tempo = tempo;
+            return this;
+        }
+
+        @Override
+        public CompositionBuilder<SongRep> addNote(int start, int end, int instrument, int pitch, int volume) {
+
+            int octave = pitch/11;
+            Pitch p = Pitch.values()[pitch - octave];
+
+            NoteRep note = new Note(start, end-start, octave, p, instrument, volume);
+            notes.add(note);
+            return this;
+        }
+    }
+
     private int tempo; // in microseconds per beat
     private int currentBeat;
     private List<NoteRep> notes;
