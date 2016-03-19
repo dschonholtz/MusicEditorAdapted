@@ -19,6 +19,6 @@ public class ConsoleView implements IMusicView {
 
     @Override
     public void run() {
-        model.getState();
+        System.out.println(model.getState());
     }
 }
