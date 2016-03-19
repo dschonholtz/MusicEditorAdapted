@@ -5,7 +5,7 @@ package cs3500.music.view;
  */
 public interface IMusicView {
     /**
-     * Creates the view auditory, visual or otherwise
+     * Creates the view-- auditory, visual or otherwise
      */
     public void run();
 }
