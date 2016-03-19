@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 /** Tests for the {@link GenericSong} class */
 public class GenericSongTest {
     @Test (expected = NullPointerException.class)
     public void testConstructorNotesNonNull() {
         new GenericSong(null, 0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructorNegativeTempo() {
+        new GenericSong(new ArrayList<NoteRep>(), -5);
     }
 
     @Test
@@ -339,5 +345,58 @@ public class GenericSongTest {
                      " 1                                X  \n" +
                      " 2  X                             X  \n" +
                      " 3  |                             X  ", test.getState());
+    }
+
+
+    @Test
+    public void testGetNotesStartingAtT() {
+        GenericSong g = new GenericSong();
+        NoteRep n1 = new Note(0, 2, 4, Pitch.E, 1, 65);
+        NoteRep n2 = new Note(2, 2, 4, Pitch.D, 1, 65);
+        NoteRep n3 = new Note(2, 2, 4, Pitch.B, 1, 65);
+        NoteRep n4 = new Note(4, 2, 4, Pitch.C, 1, 65);
+        NoteRep n5 = new Note(6, 2, 4, Pitch.D, 1, 65);
+        NoteRep n6 = new Note(8, 2, 4, Pitch.E, 1, 65);
+
+        g.addNote(n1);
+        g.addNote(n2);
+        g.addNote(n3);
+        g.addNote(n4);
+        g.addNote(n5);
+        g.addNote(n6);
+
+        assertEquals(new ArrayList(Arrays.asList(n1)), g.getNotesStartingAtT(0));
+        assertEquals(new ArrayList(Arrays.asList(n2, n3)), g.getNotesStartingAtT(2));
+        assertEquals(new ArrayList<>(), g.getNotesStartingAtT(5));
+        assertEquals(new ArrayList<>(), g.getNotesStartingAtT(50));
+    }
+
+    @Test
+    public void testGetNotesPlayingAtT() {
+        GenericSong g = new GenericSong();
+        NoteRep n1 = new Note(0, 2, 4, Pitch.E, 1, 65);
+        NoteRep n2 = new Note(2, 2, 4, Pitch.D, 1, 65);
+        NoteRep n3 = new Note(2, 10, 4, Pitch.B, 1, 65);
+        NoteRep n4 = new Note(4, 2, 4, Pitch.C, 1, 65);
+
+        g.addNote(n1);
+        g.addNote(n2);
+        g.addNote(n3);
+        g.addNote(n4);
+
+        assertEquals(new ArrayList(Arrays.asList(n1)), g.getNotesPlayingAtT(0));
+        assertEquals(new ArrayList(Arrays.asList(n1)), g.getNotesPlayingAtT(1));
+        assertEquals(new ArrayList(Arrays.asList(n3, n4)), g.getNotesPlayingAtT(5));
+    }
+
+
+    @Test
+    public void testGetLength() {
+        GenericSong g1 = new GenericSong();
+        assertEquals(0, g1.getLength());
+        g1.addNote(new Note(0, 10, 4, Pitch.C, 1, 65));
+        assertEquals(9, g1.getLength());
+        g1.addNote(new Note(5, 2, 4, Pitch.D, 1, 65));
+        assertEquals(9, g1.getLength());
     }
 }

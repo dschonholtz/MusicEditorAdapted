@@ -19,6 +19,9 @@ public class GenericSong implements SongRep {
     /** Constructor for a pre-made song */
     public GenericSong(List<NoteRep> notes, int tempo) {
         Objects.requireNonNull(notes);
+        if (tempo < 0) {
+            throw new IllegalArgumentException("Tempo must be positive");
+        }
         this.tempo = tempo;
         this.currentBeat = 0;
         this.notes = notes;
