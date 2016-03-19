@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class GenericSong implements SongRep {
     //TODO add tempo
+    private int tempo;
     private int currentBeat;
     private List<NoteRep> notes;
 
@@ -71,7 +72,7 @@ public class GenericSong implements SongRep {
 
     @Override
     public List<NoteRep> getNotesStartingAtT(int t) {
-        ArrayList<NoteRep> out = new ArrayList<NoteRep>();
+        ArrayList<NoteRep> out = new ArrayList<>();
         for (NoteRep n : getAllNotes()) {
             if (n.getStart() == t) out.add(n);
         }
@@ -80,7 +81,7 @@ public class GenericSong implements SongRep {
 
     @Override
     public List<NoteRep> getNotesPlayingAtT(int t) {
-        ArrayList<NoteRep> started = new ArrayList<NoteRep>();
+        ArrayList<NoteRep> started = new ArrayList<>();
         ArrayList<NoteRep> out = new ArrayList<>();
 
         for (int i = 0; i <= t; i++) {
@@ -128,7 +129,8 @@ public class GenericSong implements SongRep {
         Objects.requireNonNull(other);
         int thisSongLength = getLength();
         for (NoteRep n : other.getAllNotes()) {
-            Note n2 = new Note(n.getStart() + thisSongLength, n.getDuration(), n.getOctave(), n.getPitch());
+            Note n2 = new Note(n.getStart() + thisSongLength, n.getDuration(), n.getOctave(),
+                    n.getPitch(), n.getInstrument(), n.getVolume());
             notes.add(n2);
         }
     }

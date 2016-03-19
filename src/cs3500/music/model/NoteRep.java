@@ -14,4 +14,12 @@ public interface NoteRep {
     int getOctave();
     /** @return the string representation of this note */
     String toString();
+    /**
+     * @return the volume of the note
+     */
+    int getVolume();
+    /** @return the instrument number
+     *
+     */
+    int getInstrument();
 }

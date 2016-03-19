@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /** Represents a musical note */
 public final class Note implements NoteRep {
-    //TODO volume not constant, add instruments (int)
+
     /** The starting beat of the note */
     private int start;
     /** The amount of beats this note lasts */
@@ -14,7 +14,9 @@ public final class Note implements NoteRep {
     /** The pitch of this note (C to B) */
     private Pitch pitch;
     /** The volume of all notes in decibels (65 is average for conversation) */
-    private static final int volume = 65;
+    private int volume;
+    /*The instrument playing the note*/
+    private int instrument;                                        //TODO: Should this be moved to an enum?
 
     /** Public default constructor defaults to middle C quarter note at time 0*/
     public Note() {
@@ -22,10 +24,12 @@ public final class Note implements NoteRep {
         this.duration = 1;
         this.pitch = Pitch.C;
         this.octave = 4;
+        this.instrument = 1;
+        this.volume = 65;
     }
 
     /** Constructor choosing all fields */
-    public Note(int start, int duration, int octave, Pitch pitch) {
+    public Note(int start, int duration, int octave, Pitch pitch, int instrument, int volume) {
         if (octave < 0) throw new IllegalArgumentException("Octave must be positive");
         if (duration < 1) {
             throw new IllegalArgumentException("Duration must be at least 1");
@@ -39,6 +43,8 @@ public final class Note implements NoteRep {
         this.start = start;
         this.duration = duration;
         this.octave = octave;
+        this.instrument = instrument;
+        this.volume = volume;
     }
 
     @Override
@@ -55,11 +61,22 @@ public final class Note implements NoteRep {
     @Override
     public int getOctave() { return octave; }
 
+
     @Override
     public int getEnd() { return start + duration - 1; }
 
     @Override
     public String toString() { return pitch.getString() + Integer.toString(octave); }
+
+    @Override
+    public int getVolume() {
+        return this.volume;
+    }
+
+    @Override
+    public int getInstrument() {
+        return this.instrument;
+    }
 
     @Override
     public boolean equals(Object obj) {
