@@ -15,7 +15,7 @@ public final class Note implements NoteRep {
     private Pitch pitch;
     /** The volume of all notes in decibels (65 is average for conversation) */
     private int volume;
-    /*The instrument playing the note*/
+    /** The instrument playing the note */
     private int instrument;                                        //TODO: Should this be moved to an enum?
 
     /** Public default constructor defaults to middle C quarter note at time 0*/
