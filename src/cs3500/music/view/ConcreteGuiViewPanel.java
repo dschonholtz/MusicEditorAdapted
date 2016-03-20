@@ -1,6 +1,7 @@
 package cs3500.music.view;
 
 import cs3500.music.model.GenericSong;
+import cs3500.music.model.Note;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 import javafx.geometry.Side;
@@ -74,11 +75,17 @@ public class ConcreteGuiViewPanel extends JPanel {
         for(NoteRep n : notes) {
             //model.
             int noteY = NOTE_HEIGHT; // Calculate difference between n and lowest note add appropriate constant
-            g.drawRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
-            g.drawRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
+            g.setColor(Color.CYAN);
+            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
+            g.setColor(Color.BLACK);
+            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
 
 
         }
+
+    }
+
+    int calculateY(NoteRep n) {
 
     }
 
