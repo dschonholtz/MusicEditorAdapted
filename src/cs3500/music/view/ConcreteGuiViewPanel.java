@@ -12,12 +12,14 @@ import java.util.Objects;
 import javax.swing.*;
 
 /**
- * A dummy view that simply draws a string
+ * Panel that actually draws the music editor gui
  */
 public class ConcreteGuiViewPanel extends JPanel {
     private SongRep model;                //TODO should this go in the guiviewframe or here?  I feel like this class needs
-    List<String> rangeOfNotes;            //TODO all this information to draw stuff.  but i'm not really sure wh'at sgoing on
-    int songLength;
+    private List<String> rangeOfNotes;            //TODO all this information to draw stuff.  but i'm not really sure wh'at sgoing on
+    private int songLength;
+    public static final int BEAT_WIDTH = 5; // in pixels
+    public static final int NOTE_HEIGHT = 10; // in pixels
 
     public ConcreteGuiViewPanel(SongRep model) {
         super();
@@ -35,26 +37,29 @@ public class ConcreteGuiViewPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g){
-        // Look for more documentation about the Graphics class,
-        // and methods on it that may be useful
-//        g.drawString("Hello World", 25, 25);
-        int i = 60;
         for (String s : rangeOfNotes) {
-            g.drawString(s, 10, i);
-            i += 30;
+            // write out the note names on the left column
+
+            // draw the lines for where the notes go
+
         }
 
-        for (i = 0; i <= songLength; i++) {
-            if (i % 16 == 0) {
-                g.drawString(Integer.toString(i), 60 + (i * 15), 10);
+        for (int j = 0; j <= songLength; j++) {
+            int xValue = (j + 1) * BEAT_WIDTH * 4;
+            if (j % 16 == 0) { // label every 16th beat / 4 measures
+                g.drawString(Integer.toString(j), xValue,  NOTE_HEIGHT);
+            }
+            if (j % 4 == 0) { // draw lines separating every 4th beat / 1 measure
+                g.drawLine(xValue, NOTE_HEIGHT * 2, xValue, (rangeOfNotes.size() + 1) * NOTE_HEIGHT * 2);
             }
         }
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int width = songLength * 30;
-        int height = 90 + (rangeOfNotes.size() * 30);
-        return new Dimension(width, height);
+        int width = songLength * BEAT_WIDTH * 4; //TODO whyd oes this need to be multiplied by 4? something is wrong
+        System.out.println(songLength);
+        int height = (rangeOfNotes.size() * NOTE_HEIGHT);
+        return new Dimension(width, height); //TODO calculate this better.  look up scroll bars?
     }
 }
