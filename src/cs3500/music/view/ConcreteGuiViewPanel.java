@@ -1,7 +1,9 @@
 package cs3500.music.view;
 
 import cs3500.music.model.GenericSong;
+import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
+import javafx.geometry.Side;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,15 +39,21 @@ public class ConcreteGuiViewPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g){
+        int count = 0;
+        int SideWidth = 10;
         for (String s : rangeOfNotes) {
             // write out the note names on the left column
+            int y = count * NOTE_HEIGHT * 2 + NOTE_HEIGHT * 4;
+            g.drawString(s, SideWidth, y);
+            g.drawLine(SideWidth + 5, y, songLength * BEAT_WIDTH * 4, y);
 
             // draw the lines for where the notes go
 
+            count++;
         }
 
         for (int j = 0; j <= songLength; j++) {
-            int xValue = (j + 1) * BEAT_WIDTH * 4;
+            int xValue = (j + 1) * BEAT_WIDTH * 4 + (SideWidth + 5);
             if (j % 16 == 0) { // label every 16th beat / 4 measures
                 g.drawString(Integer.toString(j), xValue,  NOTE_HEIGHT);
             }
@@ -59,7 +67,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     public Dimension getPreferredSize() {
         int width = songLength * BEAT_WIDTH * 4; //TODO whyd oes this need to be multiplied by 4? something is wrong
         System.out.println(songLength);
-        int height = (rangeOfNotes.size() * NOTE_HEIGHT);
+        int height = (rangeOfNotes.size() * NOTE_HEIGHT*2 + NOTE_HEIGHT * 7);
         return new Dimension(width, height); //TODO calculate this better.  look up scroll bars?
     }
 }
