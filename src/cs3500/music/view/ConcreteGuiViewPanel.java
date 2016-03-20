@@ -1,14 +1,9 @@
 package cs3500.music.view;
 
 import cs3500.music.model.*;
-import javafx.geometry.Side;
-
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-
 import javax.swing.*;
 
 /**
@@ -77,6 +72,10 @@ public class ConcreteGuiViewPanel extends JPanel {
                 g.drawLine(xValue, NOTE_HEIGHT, xValue, (rangeOfNotes.size() + 1) * NOTE_HEIGHT);
             }
         }
+
+        // red time line
+        g.setColor(Color.RED);
+        g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT, (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
 
     }
 

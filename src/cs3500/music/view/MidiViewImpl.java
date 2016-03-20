@@ -58,32 +58,33 @@ public class MidiViewImpl implements IMusicView {
     /**
      * Relevant classes and methods from the javax.sound.midi library:
      * <ul>
-     *  <li>{@link MidiSystem#getSynthesizer()}</li>
-     *  <li>{@link Synthesizer}
-     *    <ul>
-     *      <li>{@link Synthesizer#open()}</li>
-     *      <li>{@link Synthesizer#getReceiver()}</li>
-     *      <li>{@link Synthesizer#getChannels()}</li>
-     *    </ul>
-     *  </li>
-     *  <li>{@link Receiver}
-     *    <ul>
-     *      <li>{@link Receiver#send(MidiMessage, long)}</li>
-     *      <li>{@link Receiver#close()}</li>
-     *    </ul>
-     *  </li>
-     *  <li>{@link MidiMessage}</li>
-     *  <li>{@link ShortMessage}</li>
-     *  <li>{@link MidiChannel}
-     *    <ul>
-     *      <li>{@link MidiChannel#getProgram()}</li>
-     *      <li>{@link MidiChannel#programChange(int)}</li>
-     *    </ul>
-     *  </li>
+     * <li>{@link MidiSystem#getSynthesizer()}</li>
+     * <li>{@link Synthesizer}
+     * <ul>
+     * <li>{@link Synthesizer#open()}</li>
+     * <li>{@link Synthesizer#getReceiver()}</li>
+     * <li>{@link Synthesizer#getChannels()}</li>
      * </ul>
+     * </li>
+     * <li>{@link Receiver}
+     * <ul>
+     * <li>{@link Receiver#send(MidiMessage, long)}</li>
+     * <li>{@link Receiver#close()}</li>
+     * </ul>
+     * </li>
+     * <li>{@link MidiMessage}</li>
+     * <li>{@link ShortMessage}</li>
+     * <li>{@link MidiChannel}
+     * <ul>
+     * <li>{@link MidiChannel#getProgram()}</li>
+     * <li>{@link MidiChannel#programChange(int)}</li>
+     * </ul>
+     * </li>
+     * </ul>
+     *
      * @see <a href="https://en.wikipedia.org/wiki/General_MIDI">
-     *   https://en.wikipedia.org/wiki/General_MIDI
-     *   </a>
+     * https://en.wikipedia.org/wiki/General_MIDI
+     * </a>
      */
 
     public void playNote(NoteRep n) {
@@ -103,19 +104,13 @@ public class MidiViewImpl implements IMusicView {
         } catch (NullPointerException c) {
             c.printStackTrace();
         }
-        /*MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
-        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
-        this.receiver.send(start, -1);
-        this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
-        //this.receiver.close(); // Only call this once you're done playing *all* notes
-        */
     }
 
     @Override
     public void run() {
-        for(int i = 0; i < song.getLength(); i++) {
+        for (int i = 0; i < song.getLength(); i++) {
             List<NoteRep> notes = song.getNotesStartingAtT(i);
-            for(NoteRep n : notes) {
+            for (NoteRep n : notes) {
                 playNote(n);
             }
         }
@@ -128,7 +123,7 @@ public class MidiViewImpl implements IMusicView {
     }
 
     private int calcMidiValue(NoteRep n) {
-        int value = n.getOctave()*11;
+        int value = n.getOctave() * 11;
         value += n.getPitch().ordinal();
         return value;
     }
