@@ -86,11 +86,23 @@ public class MidiViewImpl implements IMusicView {
      *   </a>
      */
 
-    public void playNote(int strt, int stp, int volume) throws InvalidMidiDataException {
-        MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
-        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
-        this.receiver.send(start, -1);
-        this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
+    public void playNote(NoteRep n) {
+
+        try {
+            MidiMessage start = null;
+            MidiMessage stop = null;
+            try {
+                start = new ShortMessage(ShortMessage.NOTE_ON, 0, calcMidiValue(n), n.getVolume());
+                stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, calcMidiValue(n), n.getVolume());
+            } catch (InvalidMidiDataException e) {
+                e.printStackTrace();
+            }
+
+            this.receiver.send(start, n.getStart() * song.getTempo());
+            this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
+        } catch (NullPointerException c) {
+            c.printStackTrace();
+        }
         /*MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
         MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
         this.receiver.send(start, -1);
@@ -102,11 +114,15 @@ public class MidiViewImpl implements IMusicView {
     @Override
     public void run() {
         for(int i = 0; i < song.getLength(); i++) {
-            List notes = song.getNotesStartingAtT(i);
-            for(Object o : notes) {
-                Note n = (Note)o;
-
+            List<NoteRep> notes = song.getNotesStartingAtT(i);
+            for(NoteRep n : notes) {
+                playNote(n);
             }
+        }
+        try {
+            Thread.sleep(10000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         this.receiver.close(); // Only call this once you're done playing *all* notes
     }

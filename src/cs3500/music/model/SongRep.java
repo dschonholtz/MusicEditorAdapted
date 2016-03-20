@@ -37,4 +37,6 @@ public interface SongRep {
     int getLength();
     /** The range of notes this song spans */
     List<String> getRange();
+    /** The tempo of the piece in microseconds per beat.*/
+    int getTempo();
 }

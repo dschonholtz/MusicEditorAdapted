@@ -1,16 +1,27 @@
 package cs3500.music.view;
 
+import cs3500.music.model.GenericSong;
+import cs3500.music.util.CompositionBuilder;
+import cs3500.music.util.MusicReader;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 public class ViewFactory {
-    IMusicView buildView(String viewName) {
+    public IMusicView buildView(String fileName, String viewName) throws FileNotFoundException {
+        MusicReader mr = new MusicReader();
+        CompositionBuilder<GenericSong> cb = new GenericSong.Builder();
+        String path = "C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\";             //TODO how to import this?
+
         switch (viewName) {
             case "visual":
-                return new GuiViewFrame();
-//            case "midi":
-//                return new MidiViewImpl();
+                return new GuiViewFrame(mr.parseFile(new FileReader(path + fileName), cb));
+            case "midi":
+                return new MidiViewImpl(mr.parseFile(new FileReader(path + fileName), cb));
             case "console":
-                return new ConsoleView();
+                return new ConsoleView(mr.parseFile(new FileReader(path + fileName), cb));
             default:
-                return new ConsoleView(); //TODO: what should the default really be?
+                return new GuiViewFrame(mr.parseFile(new FileReader(path + fileName), cb));
         }
     }
 }
