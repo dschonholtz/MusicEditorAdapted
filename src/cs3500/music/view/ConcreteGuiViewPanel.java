@@ -20,8 +20,8 @@ public class ConcreteGuiViewPanel extends JPanel {
     private SongRep model;                //TODO should this go in the guiviewframe or here?  I feel like this class needs
     private List<String> rangeOfNotes;            //TODO all this information to draw stuff.  but i'm not really sure wh'at sgoing on
     private int songLength;
-    public static final int BEAT_WIDTH = 5; // in pixels
-    public static final int NOTE_HEIGHT = 10; // in pixels
+    public static final int BEAT_WIDTH = 20; // in pixels
+    public static final int NOTE_HEIGHT = 20; // in pixels
 
     public ConcreteGuiViewPanel(SongRep model) {
         super();
@@ -41,31 +41,50 @@ public class ConcreteGuiViewPanel extends JPanel {
     public void paintComponent(Graphics g){
         int count = 0;
         int SideWidth = 10;
-        for (String s : rangeOfNotes) {
-            // write out the note names on the left column
-            int y = count * NOTE_HEIGHT * 2 + NOTE_HEIGHT * 4;
-            g.drawString(s, SideWidth, y);
-            g.drawLine(SideWidth + 5, y, songLength * BEAT_WIDTH * 4, y);
 
+        int xInit = BEAT_WIDTH + (SideWidth + 5);
+
+        //top line
+        g.drawLine(xInit, NOTE_HEIGHT,songLength * BEAT_WIDTH, NOTE_HEIGHT);
+
+        //for (String s : rangeOfNotes) {
+        for(int i = rangeOfNotes.size() - 1; i >= 0; i--) {
+            String s = rangeOfNotes.get(i);
+            // write out the note names on the left column
+            int y = count * NOTE_HEIGHT + NOTE_HEIGHT * 2;
+            g.drawString(s, SideWidth, y);
             // draw the lines for where the notes go
+            g.drawLine(xInit, y, songLength * BEAT_WIDTH, y);
 
             count++;
         }
 
         for (int j = 0; j <= songLength; j++) {
-            int xValue = (j + 1) * BEAT_WIDTH * 4 + (SideWidth + 5);
+            int xValue = (j + 1) * xInit;
             if (j % 16 == 0) { // label every 16th beat / 4 measures
                 g.drawString(Integer.toString(j), xValue,  NOTE_HEIGHT);
             }
             if (j % 4 == 0) { // draw lines separating every 4th beat / 1 measure
-                g.drawLine(xValue, NOTE_HEIGHT * 2, xValue, (rangeOfNotes.size() + 1) * NOTE_HEIGHT * 2);
+                g.drawLine(xValue, NOTE_HEIGHT, xValue, (rangeOfNotes.size() + 1) * NOTE_HEIGHT);
             }
         }
+
+        //Draw the notes themselves
+        List<NoteRep> notes = model.getAllNotes();
+        for(NoteRep n : notes) {
+            //model.
+            int noteY = 25; // Calculate difference between n and lowest note add appropriate constant
+            g.drawRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
+            g.drawRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
+
+
+        }
+
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int width = songLength * BEAT_WIDTH * 4; //TODO whyd oes this need to be multiplied by 4? something is wrong
+        int width = songLength * BEAT_WIDTH; //TODO whyd oes this need to be multiplied by 4? something is wrong
         System.out.println(songLength);
         int height = (rangeOfNotes.size() * NOTE_HEIGHT*2 + NOTE_HEIGHT * 7);
         return new Dimension(width, height); //TODO calculate this better.  look up scroll bars?

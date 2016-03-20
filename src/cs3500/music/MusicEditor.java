@@ -18,11 +18,11 @@ public class MusicEditor {
         MusicReader mr = new MusicReader();
         CompositionBuilder<GenericSong> cb = new GenericSong.Builder();
 
-        //ConsoleView test1 = new ConsoleView(mr.parseFile(new FileReader("C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\mystery-3.txt"), cb));
-        //test1.run();
+        ConsoleView test1 = new ConsoleView(mr.parseFile(new FileReader("C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\mary-little-lamb.txt"), cb));
+        test1.run();
 
-        GuiViewFrame view = new GuiViewFrame(mr.parseFile(new FileReader("C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\mystery-1.txt"), cb));
-        view.run();
+        //GuiViewFrame view = new GuiViewFrame(mr.parseFile(new FileReader("C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\mary-little-lamb.txt"), cb));
+        //view.run();
 
 //      MidiViewImpl midiView = new MidiViewImpl();
 
