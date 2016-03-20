@@ -12,12 +12,12 @@ import java.util.Objects;
 import javax.swing.*;
 
 /**
- * A dummy view that simply draws a string
+ * Panel that actually draws the music editor gui
  */
 public class ConcreteGuiViewPanel extends JPanel {
     private SongRep model;                //TODO should this go in the guiviewframe or here?  I feel like this class needs
-    List<String> rangeOfNotes;            //TODO all this information to draw stuff.  but i'm not really sure wh'at sgoing on
-    int songLength;
+    private List<String> rangeOfNotes;            //TODO all this information to draw stuff.  but i'm not really sure wh'at sgoing on
+    private int songLength;
 
     public ConcreteGuiViewPanel(SongRep model) {
         super();
@@ -38,15 +38,15 @@ public class ConcreteGuiViewPanel extends JPanel {
         // Look for more documentation about the Graphics class,
         // and methods on it that may be useful
 //        g.drawString("Hello World", 25, 25);
-        int i = 60;
+        int i = 45;
         for (String s : rangeOfNotes) {
             g.drawString(s, 10, i);
             i += 30;
         }
 
-        for (i = 0; i <= songLength; i++) {
-            if (i % 16 == 0) {
-                g.drawString(Integer.toString(i), 60 + (i * 15), 10);
+        for (int j = 0; j <= songLength; j++) {
+            if (j % 16 == 0) {
+                g.drawString(Integer.toString(j), 60 + (j * 15), 20);
             }
         }
     }
@@ -55,6 +55,6 @@ public class ConcreteGuiViewPanel extends JPanel {
     public Dimension getPreferredSize() {
         int width = songLength * 30;
         int height = 90 + (rangeOfNotes.size() * 30);
-        return new Dimension(width, height);
+        return new Dimension(width, height); //TODO calculate this better.  look up scroll bars?
     }
 }
