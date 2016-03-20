@@ -177,8 +177,8 @@ public class GenericSong implements SongRep {
         this.currentBeat = set;
     }
 
-    /** @return a String representing the range of notes in this song. */
-    private ArrayList<String> getRange() {
+    @Override
+    public ArrayList<String> getRange() {
         NoteRep lowestNote = getLowestNote();
         int lowestOctave = lowestNote.getOctave();
         NoteRep highestNote = getHighestNote();
