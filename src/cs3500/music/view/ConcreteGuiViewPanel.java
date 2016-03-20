@@ -48,12 +48,11 @@ public class ConcreteGuiViewPanel extends JPanel {
         //top line
         g.drawLine(xInit, NOTE_HEIGHT, songLength * BEAT_WIDTH, NOTE_HEIGHT);
 
-        //for (String s : rangeOfNotes) {
         for(int i = rangeOfNotes.size() - 1; i >= 0; i--) {
             String s = rangeOfNotes.get(i);
             // write out the note names on the left column
             int y = count * NOTE_HEIGHT + NOTE_HEIGHT * 2;
-            g.drawString(s, SideWidth, y);
+            g.drawString(s, SideWidth, y - 5);
             // draw the lines for where the notes go
             g.drawLine(xInit, y, songLength * BEAT_WIDTH, y);
 
