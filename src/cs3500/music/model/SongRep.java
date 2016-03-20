@@ -35,4 +35,6 @@ public interface SongRep {
     void setCurrentBeat(int target);
     /** The number of beats this song spans*/
     int getLength();
+    /** The range of notes this song spans */
+    List<String> getRange();
 }
