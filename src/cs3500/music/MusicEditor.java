@@ -21,7 +21,7 @@ public class MusicEditor {
         //ConsoleView test1 = new ConsoleView(mr.parseFile(new FileReader("C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\mystery-3.txt"), cb));
         //test1.run();
 
-        GuiViewFrame view = new GuiViewFrame(mr.parseFile(new FileReader("C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\mary-little-lamb.txt"), cb));
+        GuiViewFrame view = new GuiViewFrame(mr.parseFile(new FileReader("C:\\Users\\Ari\\Dropbox\\Code\\Java\\MusicEditor\\src\\mary-little-lamb.txt"), cb));
         view.run();
 
 //      MidiViewImpl midiView = new MidiViewImpl();
