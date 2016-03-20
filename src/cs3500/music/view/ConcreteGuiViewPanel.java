@@ -45,7 +45,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         int xInit = BEAT_WIDTH + (SideWidth + 5);
 
         //top line
-        g.drawLine(xInit, NOTE_HEIGHT,songLength * BEAT_WIDTH, NOTE_HEIGHT);
+        g.drawLine(xInit, NOTE_HEIGHT, songLength * BEAT_WIDTH, NOTE_HEIGHT);
 
         //for (String s : rangeOfNotes) {
         for(int i = rangeOfNotes.size() - 1; i >= 0; i--) {
@@ -60,7 +60,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         for (int j = 0; j <= songLength; j++) {
-            int xValue = (j + 1) * xInit;
+            int xValue = (j + 1) * BEAT_WIDTH + SideWidth + 5;
             if (j % 16 == 0) { // label every 16th beat / 4 measures
                 g.drawString(Integer.toString(j), xValue,  NOTE_HEIGHT);
             }
@@ -73,7 +73,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         List<NoteRep> notes = model.getAllNotes();
         for(NoteRep n : notes) {
             //model.
-            int noteY = 25; // Calculate difference between n and lowest note add appropriate constant
+            int noteY = NOTE_HEIGHT; // Calculate difference between n and lowest note add appropriate constant
             g.drawRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
             g.drawRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
 
