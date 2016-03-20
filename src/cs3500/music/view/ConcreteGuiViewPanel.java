@@ -86,12 +86,12 @@ public class ConcreteGuiViewPanel extends JPanel {
     }
 
     int calculateY(NoteRep n) {
-
+        return 0;
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int width = songLength * BEAT_WIDTH; //TODO whyd oes this need to be multiplied by 4? something is wrong
+        int width = songLength * BEAT_WIDTH + BEAT_WIDTH + 15; //TODO whyd oes this need to be multiplied by 4? something is wrong
         System.out.println(songLength);
         int height = (rangeOfNotes.size() * NOTE_HEIGHT*2 + NOTE_HEIGHT * 7);
         return new Dimension(width, height); //TODO calculate this better.  look up scroll bars?
