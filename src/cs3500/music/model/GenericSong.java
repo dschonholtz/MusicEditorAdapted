@@ -128,8 +128,7 @@ public class GenericSong implements SongRep {
 
     @Override
     public String getState() {
-
-        int len = getLength();// LINEAR
+        int len = getLength();                                                         // LINEAR
         ArrayList<String> range = getRange();
 
         if (notes.isEmpty()) return "This song is empty";
