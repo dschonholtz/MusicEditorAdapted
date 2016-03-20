@@ -19,7 +19,7 @@ public class MusicEditor {
         MusicReader mr = new MusicReader();
         CompositionBuilder<GenericSong> cb = new GenericSong.Builder();
 
-        ConsoleView test1 = new ConsoleView(mr.parseFile(new FileReader("C:\\Users\\Ari\\Dropbox\\Code\\Java\\MusicEditor\\src\\mystery-1.txt"), cb));
+        ConsoleView test1 = new ConsoleView(mr.parseFile(new FileReader("C:\\Users\\Ari\\Dropbox\\Code\\Java\\MusicEditor\\src\\mystery-3.txt"), cb));
         test1.run();
 //         You probably need to connect these views to your model, too...
     }
