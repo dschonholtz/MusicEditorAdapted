@@ -58,61 +58,72 @@ public class MidiViewImpl implements IMusicView {
     /**
      * Relevant classes and methods from the javax.sound.midi library:
      * <ul>
-     *  <li>{@link MidiSystem#getSynthesizer()}</li>
-     *  <li>{@link Synthesizer}
-     *    <ul>
-     *      <li>{@link Synthesizer#open()}</li>
-     *      <li>{@link Synthesizer#getReceiver()}</li>
-     *      <li>{@link Synthesizer#getChannels()}</li>
-     *    </ul>
-     *  </li>
-     *  <li>{@link Receiver}
-     *    <ul>
-     *      <li>{@link Receiver#send(MidiMessage, long)}</li>
-     *      <li>{@link Receiver#close()}</li>
-     *    </ul>
-     *  </li>
-     *  <li>{@link MidiMessage}</li>
-     *  <li>{@link ShortMessage}</li>
-     *  <li>{@link MidiChannel}
-     *    <ul>
-     *      <li>{@link MidiChannel#getProgram()}</li>
-     *      <li>{@link MidiChannel#programChange(int)}</li>
-     *    </ul>
-     *  </li>
+     * <li>{@link MidiSystem#getSynthesizer()}</li>
+     * <li>{@link Synthesizer}
+     * <ul>
+     * <li>{@link Synthesizer#open()}</li>
+     * <li>{@link Synthesizer#getReceiver()}</li>
+     * <li>{@link Synthesizer#getChannels()}</li>
      * </ul>
+     * </li>
+     * <li>{@link Receiver}
+     * <ul>
+     * <li>{@link Receiver#send(MidiMessage, long)}</li>
+     * <li>{@link Receiver#close()}</li>
+     * </ul>
+     * </li>
+     * <li>{@link MidiMessage}</li>
+     * <li>{@link ShortMessage}</li>
+     * <li>{@link MidiChannel}
+     * <ul>
+     * <li>{@link MidiChannel#getProgram()}</li>
+     * <li>{@link MidiChannel#programChange(int)}</li>
+     * </ul>
+     * </li>
+     * </ul>
+     *
      * @see <a href="https://en.wikipedia.org/wiki/General_MIDI">
-     *   https://en.wikipedia.org/wiki/General_MIDI
-     *   </a>
+     * https://en.wikipedia.org/wiki/General_MIDI
+     * </a>
      */
 
-    public void playNote(int strt, int stp, int volume) throws InvalidMidiDataException {
-        MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
-        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
-        this.receiver.send(start, -1);
-        this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
-        /*MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
-        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
-        this.receiver.send(start, -1);
-        this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
-        //this.receiver.close(); // Only call this once you're done playing *all* notes
-        */
+    public void playNote(NoteRep n) {
+
+        try {
+            MidiMessage start = null;
+            MidiMessage stop = null;
+            try {
+                start = new ShortMessage(ShortMessage.NOTE_ON, 0, calcMidiValue(n), n.getVolume());
+                stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, calcMidiValue(n), n.getVolume());
+            } catch (InvalidMidiDataException e) {
+                e.printStackTrace();
+            }
+
+            this.receiver.send(start, n.getStart() * song.getTempo());
+            this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
+        } catch (NullPointerException c) {
+            c.printStackTrace();
+        }
     }
 
     @Override
     public void run() {
-        for(int i = 0; i < song.getLength(); i++) {
-            List notes = song.getNotesStartingAtT(i);
-            for(Object o : notes) {
-                Note n = (Note)o;
-
+        for (int i = 0; i < song.getLength(); i++) {
+            List<NoteRep> notes = song.getNotesStartingAtT(i);
+            for (NoteRep n : notes) {
+                playNote(n);
             }
+        }
+        try {
+            Thread.sleep(10000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         this.receiver.close(); // Only call this once you're done playing *all* notes
     }
 
     private int calcMidiValue(NoteRep n) {
-        int value = n.getOctave()*11;
+        int value = n.getOctave() * 11;
         value += n.getPitch().ordinal();
         return value;
     }

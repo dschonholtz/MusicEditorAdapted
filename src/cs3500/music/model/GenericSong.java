@@ -205,6 +205,11 @@ public class GenericSong implements SongRep {
         return out;
     }
 
+    @Override
+    public int getTempo() {
+        return tempo;
+    }
+
     /**
      * Returns a string representation for any notes on the given line of the song.  If there are
      * more than one of the same note at the same time, only the first one will be shown.
@@ -269,4 +274,6 @@ public class GenericSong implements SongRep {
         }
         return out;
     }
+
+
 }

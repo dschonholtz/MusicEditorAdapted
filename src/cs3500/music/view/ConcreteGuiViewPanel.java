@@ -1,25 +1,17 @@
 package cs3500.music.view;
 
-import cs3500.music.model.GenericSong;
-import cs3500.music.model.Note;
-import cs3500.music.model.NoteRep;
-import cs3500.music.model.SongRep;
-import javafx.geometry.Side;
-
+import cs3500.music.model.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-
 import javax.swing.*;
 
 /**
  * Panel that actually draws the music editor gui
  */
 public class ConcreteGuiViewPanel extends JPanel {
-    private SongRep model;                //TODO should this go in the guiviewframe or here?  I feel like this class needs
-    private List<String> rangeOfNotes;            //TODO all this information to draw stuff.  but i'm not really sure wh'at sgoing on
+    private SongRep model;
+    private List<String> rangeOfNotes;
     private int songLength;
     public static final int BEAT_WIDTH = 20; // in pixels
     public static final int NOTE_HEIGHT = 20; // in pixels
@@ -33,7 +25,7 @@ public class ConcreteGuiViewPanel extends JPanel {
 
     public ConcreteGuiViewPanel() {
         super();
-        this.model = new GenericSong();                                          //TODO what else can this be initialized as?
+        this.model = new GenericSong();   //The model will go here
         this.rangeOfNotes = new ArrayList<>();
         this.songLength = 0;
     }
@@ -44,9 +36,21 @@ public class ConcreteGuiViewPanel extends JPanel {
         int SideWidth = 10;
 
         int xInit = BEAT_WIDTH + (SideWidth + 5);
+        //Draw the notes themselves
+        List<NoteRep> notes = model.getAllNotes();
+
+        for(NoteRep n : notes) {
+            //model.
+            int noteY = calculateY(n); // Calculate difference between n and lowest note add appropriate constant
+            g.setColor(Color.CYAN);
+            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
+            g.setColor(Color.BLACK);
+            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
+
+        }
 
         //top line
-        g.drawLine(xInit, NOTE_HEIGHT, songLength * BEAT_WIDTH, NOTE_HEIGHT);
+        g.drawLine(xInit, NOTE_HEIGHT, ((songLength + (songLength % 4)) * BEAT_WIDTH) - 5, NOTE_HEIGHT);
 
         for(int i = rangeOfNotes.size() - 1; i >= 0; i--) {
             String s = rangeOfNotes.get(i);
@@ -54,12 +58,12 @@ public class ConcreteGuiViewPanel extends JPanel {
             int y = count * NOTE_HEIGHT + NOTE_HEIGHT * 2;
             g.drawString(s, SideWidth, y - 5);
             // draw the lines for where the notes go
-            g.drawLine(xInit, y, songLength * BEAT_WIDTH, y);
+            g.drawLine(xInit, y, ((songLength + (songLength % 4)) * BEAT_WIDTH) - 5, y);
 
             count++;
         }
 
-        for (int j = 0; j <= songLength; j++) {
+        for (int j = 0; j <= songLength + (songLength % 4); j++) {
             int xValue = (j + 1) * BEAT_WIDTH + SideWidth + 5;
             if (j % 16 == 0) { // label every 16th beat / 4 measures
                 g.drawString(Integer.toString(j), xValue,  NOTE_HEIGHT);
@@ -69,30 +73,36 @@ public class ConcreteGuiViewPanel extends JPanel {
             }
         }
 
-        //Draw the notes themselves
-        List<NoteRep> notes = model.getAllNotes();
-        for(NoteRep n : notes) {
-            //model.
-            int noteY = NOTE_HEIGHT; // Calculate difference between n and lowest note add appropriate constant
-            g.setColor(Color.CYAN);
-            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
-            g.setColor(Color.BLACK);
-            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
-
-
-        }
+        // red time line
+        g.setColor(Color.RED);
+        g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT, (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
 
     }
 
     int calculateY(NoteRep n) {
-        return 0;
+        String high = rangeOfNotes.get(rangeOfNotes.size()-1);
+        int octave;
+        Pitch p;
+        if(high.charAt(1) == '#') {
+            p = Pitch.valueOf(high.substring(0,1) + "S");
+            octave = Integer.valueOf(high.substring(2));
+        }
+        else {
+            p = Pitch.valueOf(high.substring(0,1));
+            octave = Integer.valueOf(high.substring(1));
+        }
+
+        int ret = (octave - n.getOctave()) * 11 + p.ordinal()-n.getPitch().ordinal();
+
+        ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
+
+        return ret;
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int width = songLength * BEAT_WIDTH; //TODO whyd oes this need to be multiplied by 4? something is wrong
-        System.out.println(songLength);
-        int height = (rangeOfNotes.size() * NOTE_HEIGHT*2 + NOTE_HEIGHT * 7);
-        return new Dimension(width, height); //TODO calculate this better.  look up scroll bars?
+        int width = ((songLength + (songLength % 4)) * BEAT_WIDTH) + BEAT_WIDTH*2;
+        int height = (rangeOfNotes.size() * NOTE_HEIGHT + NOTE_HEIGHT * 4);
+        return new Dimension(width, height); //TODO look up scroll bars
     }
 }
