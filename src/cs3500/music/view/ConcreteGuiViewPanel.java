@@ -91,7 +91,7 @@ public class ConcreteGuiViewPanel extends JPanel {
             octave = Integer.valueOf(high.substring(1));
         }
 
-        int ret = (octave - n.getOctave()) * 12 + p.ordinal()-n.getPitch().ordinal();
+        int ret = (octave - n.getOctave()) * 12 + p.ordinal() - n.getPitch().ordinal();
         ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
 
         return ret;
