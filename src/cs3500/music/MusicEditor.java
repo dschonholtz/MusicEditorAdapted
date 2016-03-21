@@ -11,6 +11,8 @@ public class MusicEditor {
             throw new IOException("You havfta have at least two command line arrrggs");
         }
         IMusicView view = new ViewFactory().buildView(args[0], args[1]);
+        IMusicView view2 = new ViewFactory().buildView(args[0], args[2]);
         view.run();
+        view2.run();
     }
 }

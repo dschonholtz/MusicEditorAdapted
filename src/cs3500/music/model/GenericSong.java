@@ -26,8 +26,8 @@ public class GenericSong implements SongRep {
         @Override
         public CompositionBuilder<GenericSong> addNote(int start, int end, int instrument, int pitch, int volume) {
 
-            int octave = pitch / 11;
-            Pitch p = Pitch.values()[pitch - octave * 11];
+            int octave = pitch / 12;
+            Pitch p = Pitch.values()[pitch - octave * 12];
 
             NoteRep note = new Note(start, end-start, octave, p, instrument, volume);
             notes.add(note);
