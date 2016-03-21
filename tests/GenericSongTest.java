@@ -399,4 +399,6 @@ public class GenericSongTest {
         g1.addNote(new Note(5, 2, 4, Pitch.D, 1, 65));
         assertEquals(9, g1.getLength());
     }
+
+    //TODO test getTempo
 }

@@ -11,7 +11,7 @@ public class ViewFactory {
     public IMusicView buildView(String fileName, String viewName) throws FileNotFoundException {
         MusicReader mr = new MusicReader();
         CompositionBuilder<GenericSong> cb = new GenericSong.Builder();
-        String path = "C:\\Users\\duggy_000\\IdeaProjects\\cs3500\\MusicEditor\\src\\";             //TODO how to import this?
+        String path = "C:\\Users\\Ari\\Dropbox\\Code\\Java\\MusicEditor\\src\\";             //TODO how to import this?
 
         switch (viewName) {
             case "visual":
