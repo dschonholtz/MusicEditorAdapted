@@ -1,10 +1,7 @@
 package cs3500.music;
 
 import cs3500.music.view.*;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 import javax.sound.midi.InvalidMidiDataException;
 
 
