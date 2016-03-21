@@ -2,7 +2,7 @@ package cs3500.music.model;
 
 import java.util.List;
 
-/** A representation for a song.  Songs are defined as a */
+/** A representation for a song. */
 public interface SongRep {
     /**
      * Beats start at 0.
