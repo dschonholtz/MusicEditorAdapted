@@ -62,7 +62,6 @@ public class GenericSong implements SongRep {
     }
 
     @Override
-    /** Adds a note to the song only if it doesn't collide with any current notes */
     public void addNote(NoteRep n) {
         Objects.requireNonNull(n);
         boolean shouldAdd = true;
