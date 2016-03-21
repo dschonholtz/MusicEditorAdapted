@@ -40,7 +40,6 @@ public class ConcreteGuiViewPanel extends JPanel {
         List<NoteRep> notes = model.getAllNotes();
 
         for(NoteRep n : notes) {
-            //model.
             int noteY = calculateY(n); // Calculate difference between n and lowest note add appropriate constant
             g.setColor(Color.CYAN);
             g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
@@ -93,7 +92,6 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         int ret = (octave - n.getOctave()) * 12 + p.ordinal()-n.getPitch().ordinal();
-
         ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
 
         return ret;
@@ -103,6 +101,6 @@ public class ConcreteGuiViewPanel extends JPanel {
     public Dimension getPreferredSize() {
         int width = ((songLength + (songLength % 4)) * BEAT_WIDTH) + BEAT_WIDTH*2;
         int height = (rangeOfNotes.size() * NOTE_HEIGHT + NOTE_HEIGHT * 4);
-        return new Dimension(width, height); //TODO look up scroll bars
+        return new Dimension(width, height);
     }
 }
