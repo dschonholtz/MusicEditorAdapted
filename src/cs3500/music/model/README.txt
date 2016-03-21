@@ -1,39 +1,61 @@
-This model for a Music Editor relies on the following:
+MODEL:
+GenericSong implements SongRep
+    Contains the model of our design. Uses a list of notes to contain the song
 
-Interfaces: NoteRep, SongRep
-Classes: Note, GenericSong, NoteRepComparator
-Enum: Pitch
+Note implements NoteRep
+    This contains all of the information for a single note
 
-NoteRep is a representation of a musical note.  It ensures that, regardless of implementation,
-we will always be able to get certain details about a note.  The information deemed necessary for
-this was:
-    -The starting beat of the note, so we know when to play it
-    -The duration, so we know how long to play it
-    -The end of the note, for convenience
-    -The pitch and octave, so we know what note it is
-It was also deemed necessary to be able to change the note's start, octave, and pitch
-while still keeping the constraints of a note (for example, non-negative beats for start time).
 
-The Note class is this model's implementation of NoteRep.  Building off the interface, it simply
-stores the start, duration, octave, and pitch so they are easily accessible.  It requires that
-start be positive and that octave be between 0 and 99 (which easily encompasses human hearing).
 
-SongRep is a representation of a song, or a collection of musical notes.  To eventually be able
-to play this song, we need to be able to keep track of the beat we're on, add and remove notes.
-Other added functionality is the ability to combine two songs, either so they play simultaneously
-or one after the other.
+Differences from previous designs:
 
-The GenericSong class is this model's implementation of SongRep.  It stores its notes as a list,
-and the current beat as an integer.  Lists were chosen to represent notes because they are easy to
-iterate through to find the proper notes.  Also, while this is not currently the case, the list
-could be sorted for more ease or efficiency-- such as by time-- if necessary.
+VIEW:
+IMusicView
+    This is the interface IMusicView it only has one method: run()
+The views that implement this interface are:
+    ConsoleView is our textView
+    GuiViewFrame is our GUI view
+    MidiViewImpl is our midi view
 
-Overlapping or duplicate notes are handled in the following way:
-    -Duplicate notes will not be added by addNote
-    -Overlapping notes will not be added by addNote
-    -If there are two same notes playing at the same time, getState will print the first one
-        it finds in the list
+ConcreteGuiView contains the majority of the implementation for the GuiViewFrame however, it must remain separate due
+to limitations created by the design of swing itself.
 
-Pitch and octave were split up because pitches are a very limited range of notes, and many octaves
-of those specific notes can be played.  This makes it easy to have pitch as an enum and octaves
-simply modifying that pitch.
+Differences between this and our previous designs:
+    Ari had a design very similar to this one. Meanwhile, Doug had a list of lists where the first list's index
+    represented the index of a given beat. Unfortunately, my note representation was such that it wasn't possible to
+    differentiate between a sustained note and multiple consecutive beats. This also seriously damaged the models
+    design as a whole.
+
+    With efficiency in mind we starting writing code for a model similar to Ari's but with a hashMap to HashSets to
+    notes. Where the hashMap had key values of the start of the note and then each hashSet was a group of notes all
+    starting at that beat.
+
+    However, we quickly discovered that we did not understand the implementation of sets and hashMaps as well as lists.
+
+    Because of this, and the vastly larger amount of time it would take to create a new model from scratch with a
+    new data structure we reverted to roughly Ari's model.
+
+    From there we added in some implementation that were recommended to add in class & some from Doug's.
+
+    Tempo was added, this way the tempo of the song could be tracked and accessed as needed.
+
+    The following methods were also added:
+        List<NoteRep> getNotesStartingAtT(int t)
+        List<NoteRep> getNotesPlayingAtT(int t)
+        int getTempo()
+
+    Meanwhile in our note we changed the following fields and methods:
+        Instrument
+        Volume
+        public Note()
+        public int getVolume();
+        public int getInstrument();
+        public boolean equals(Object obj);
+
+For the console view, we simply called the getState method from the model.
+
+For the GUI view, we have the ConcreteGuiViewPanel that stores the song, its range of notes, its length, and constants
+    for the size of notes.
+
+For the MidiView, we iterated through every note exactly once and sent them to midi after calculating their start,
+    stop, pitch, and their volume.
