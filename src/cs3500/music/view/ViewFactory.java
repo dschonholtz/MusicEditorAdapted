@@ -13,19 +13,18 @@ public class ViewFactory {
     public IMusicView buildView(String fileName, String viewName) throws FileNotFoundException {
         MusicReader mr = new MusicReader();
         CompositionBuilder<GenericSong> cb = new GenericSong.Builder();
-        String path = "C:\\Users\\Ari\\Dropbox\\Code\\Java\\MusicEditor\\src\\";
 
         switch (viewName) {
             case "visual":
-                return new GuiViewFrame(mr.parseFile(new FileReader(path + fileName), cb));
+                return new GuiViewFrame(mr.parseFile(new FileReader(fileName), cb));
             case "midi":
-                return new MidiViewImpl(mr.parseFile(new FileReader(path + fileName), cb));
+                return new MidiViewImpl(mr.parseFile(new FileReader(fileName), cb));
             case "console":
-                return new ConsoleView(mr.parseFile(new FileReader(path + fileName), cb));
+                return new ConsoleView(mr.parseFile(new FileReader(fileName), cb));
             case "test":
-                return new MidiViewImpl(mr.parseFile(new FileReader(path + fileName), cb), new MockSynth());
+                return new MidiViewImpl(mr.parseFile(new FileReader(fileName), cb), new MockSynth());
             default:
-                return new GuiViewFrame(mr.parseFile(new FileReader(path + fileName), cb));
+                return new GuiViewFrame(mr.parseFile(new FileReader(fileName), cb));
         }
     }
 }
