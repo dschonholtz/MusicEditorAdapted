@@ -15,13 +15,11 @@ public class MockReceiver implements Receiver {
 
     @Override
     public void send(MidiMessage message, long timeStamp) {
-//        log.append(message);
-//        log.append(timeStamp);
+        log.append(timeStamp + " " + message + "\n");
     }
 
     @Override
     public void close() {
         System.out.println(log);
-        System.out.println("Hello world");
     }
 }

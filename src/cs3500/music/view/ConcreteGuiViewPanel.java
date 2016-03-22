@@ -75,7 +75,6 @@ public class ConcreteGuiViewPanel extends JPanel {
         // red time line
         g.setColor(Color.RED);
         g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT, (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
-
     }
 
     int calculateY(NoteRep n) {

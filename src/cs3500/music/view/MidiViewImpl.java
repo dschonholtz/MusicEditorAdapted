@@ -72,6 +72,7 @@ public class MidiViewImpl implements IMusicView {
         Objects.requireNonNull(synth);
         Synthesizer tempS;
         Receiver tempR;
+        this.song = song;
 
         try {
             tempS = synth;
