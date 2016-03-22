@@ -155,7 +155,7 @@ public class MidiViewImpl implements IMusicView {
     }
 
     private int calcMidiValue(NoteRep n) {
-        int value = n.getOctave() * 12;
+        int value = (n.getOctave() + 1) * 12;
         value += n.getPitch().ordinal();
         return value;
     }

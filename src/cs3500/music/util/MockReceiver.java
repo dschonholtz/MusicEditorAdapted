@@ -2,6 +2,7 @@ package cs3500.music.util;
 
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
+import javax.sound.midi.ShortMessage;
 
 /**
  * Created by Ari on 3/21/2016.
@@ -15,7 +16,9 @@ public class MockReceiver implements Receiver {
 
     @Override
     public void send(MidiMessage message, long timeStamp) {
-        log.append(timeStamp + " " + message + "\n");
+        ShortMessage m = (ShortMessage) message;
+
+        log.append(timeStamp + " " + m.getData1() + "\n");
     }
 
     @Override
