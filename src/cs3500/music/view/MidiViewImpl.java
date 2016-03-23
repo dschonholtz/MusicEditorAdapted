@@ -15,7 +15,6 @@ public class MidiViewImpl implements IMusicView {
     private final Synthesizer synth;
     private final Receiver receiver;
     private SongRep song;
-    private StringBuilder log;
 
     /**
      *  Public default constructor
@@ -36,8 +35,6 @@ public class MidiViewImpl implements IMusicView {
 
         synth = tempS;
         receiver = tempR;
-        this.log = new StringBuilder();
-
     }
 
     /**
@@ -60,7 +57,6 @@ public class MidiViewImpl implements IMusicView {
         }
         this.synth = tempS;
         this.receiver = tempR;
-        this.log = new StringBuilder();
     }
 
     /**
@@ -69,7 +65,7 @@ public class MidiViewImpl implements IMusicView {
      * @param song premade song to be played
      * @param synth synthesizer this midi view should use
      */
-    public MidiViewImpl(SongRep song, Synthesizer synth, StringBuilder sb) {
+    public MidiViewImpl(SongRep song, Synthesizer synth) {
         Objects.requireNonNull(song);
         Objects.requireNonNull(synth);
         Synthesizer tempS;
@@ -79,7 +75,6 @@ public class MidiViewImpl implements IMusicView {
         try {
             tempS = synth;
             tempR = tempS.getReceiver();
-//            tempS.open(); // no point because it does nothing
         } catch (MidiUnavailableException e) {
             tempS = null;
             tempR = null;
@@ -87,7 +82,6 @@ public class MidiViewImpl implements IMusicView {
         }
         this.synth = tempS;
         this.receiver = tempR;
-        this.log = sb;
     }
 
     /**
@@ -164,10 +158,4 @@ public class MidiViewImpl implements IMusicView {
         value += n.getPitch().ordinal();
         return value;
     }
-
-    public String getLog() {
-        return log.toString();
-    }
-
-
 }

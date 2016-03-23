@@ -1,11 +1,12 @@
 package cs3500.music.view;
 
 /**
- * Created by Ari on 3/19/2016.
+ * A interface that makes sure every view can be run
+ * Represents some sort of view for the music editor
  */
 public interface IMusicView {
     /**
      * Creates the view-- auditory, visual or otherwise
      */
-    public void run();
+    void run();
 }
