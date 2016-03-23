@@ -40,16 +40,18 @@ public class ConcreteGuiViewPanel extends JPanel {
         List<NoteRep> notes = model.getAllNotes();
 
         for(NoteRep n : notes) {
-            int noteY = calculateY(n); // Calculate difference between n and lowest note add appropriate constant
+            int noteY = calculateY(n);
             g.setColor(Color.CYAN);
-            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
+            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
+                    NOTE_HEIGHT);
             g.setColor(Color.BLACK);
             g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
 
         }
 
         //top line
-        g.drawLine(xInit, NOTE_HEIGHT, ((songLength + (songLength % 4)) * BEAT_WIDTH) - 5, NOTE_HEIGHT);
+        g.drawLine(xInit, NOTE_HEIGHT, ((songLength + (songLength % 4)) * BEAT_WIDTH) - 5,
+                NOTE_HEIGHT);
 
         for(int i = rangeOfNotes.size() - 1; i >= 0; i--) {
             String s = rangeOfNotes.get(i);
@@ -74,7 +76,9 @@ public class ConcreteGuiViewPanel extends JPanel {
 
         // red time line
         g.setColor(Color.RED);
-        g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT, (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
+        g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT,
+                (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5,
+                NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
     }
 
     private int calculateY(NoteRep n) {
