@@ -23,7 +23,6 @@ public class MockReceiver implements Receiver {
         long time = timeStamp / tempo;
         int note = m.getData1();
 
-//        log.append(timeStamp + " " + m.getData1() + "\n");
         log.append("note " + note + " " + onOff + " at beat " + time + "\n");
     }
 

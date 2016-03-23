@@ -12,10 +12,9 @@ import java.awt.*;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Created by dschonholtz on 3/22/2016.
+ * To test the views for the music editor
  */
 public class ViewTest {
-    //Do we want to build everything through the factory for testing or no?
 
     @Test
     public void testGetPreferedSize() {
@@ -25,10 +24,10 @@ public class ViewTest {
         gs1.addNote(new Note(5, 4, 3, Pitch.D, 3, 65));
         JPanel guiView = new ConcreteGuiViewPanel(gs1);
 
-        assertEquals(guiView.getPreferredSize(),new Dimension(200,340));
+        assertEquals(guiView.getPreferredSize(), new Dimension(200, 340));
 
         gs1.addNote(new Note(10, 50, 1, Pitch.D, 3, 65));
         guiView = new ConcreteGuiViewPanel(gs1);                       //TODO: THIS LINE IS NECESSARY THEY ARE NOT CONNECTED BY REFERENCE... WHY????
-        assertEquals(guiView.getPreferredSize(),new Dimension(1280,780));
+        assertEquals(guiView.getPreferredSize(), new Dimension(1280, 780));
     }
 }
