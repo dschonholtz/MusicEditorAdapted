@@ -1,3 +1,18 @@
+To Run from windows Command Line:
+java -jar MusicEditor.jar "FILE" "VIEW"
+Where FILE is replaced by one of the text files with music data in the same folder as the jar for example:
+"mary-little-lamb.txt"
+The word VIEW is then replaced by "console", "visual", or "midi"
+
+An example would be:
+java -jar MusicEditor.jar "mystery-1.txt" "visual"
+
+If you want to see the console output, and the visual output at the same time or see the visual output with musical
+accompaniment you can put in a third argument. This third argument will be a second view on the same song.
+An example of this would be:
+java -jar MusicEditor.jar "mystery-1.txt" "visual" "midi"
+Where this would display the the mario theme song in both the gui and the song would play through the speakers.
+
 MODEL:
 GenericSong implements SongRep
     Contains the model of our design. Uses a list of notes to contain the song
