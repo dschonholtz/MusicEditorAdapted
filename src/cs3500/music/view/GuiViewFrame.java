@@ -1,11 +1,8 @@
 package cs3500.music.view;
 
-import cs3500.music.model.GenericSong;
 import cs3500.music.model.SongRep;
-
 import java.awt.*;
 import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
-
 import javax.swing.*;
 
 /**
@@ -38,7 +35,6 @@ public class GuiViewFrame extends javax.swing.JFrame implements IMusicView {
     @Override
     public Dimension getPreferredSize(){
         return displayPanel.getPreferredSize();
-//        return new Dimension(100, 100);
     }
 
     @Override

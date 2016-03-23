@@ -24,7 +24,8 @@ public class GenericSong implements SongRep {
         }
 
         @Override
-        public CompositionBuilder<GenericSong> addNote(int start, int end, int instrument, int pitch, int volume) {
+        public CompositionBuilder<GenericSong> addNote(int start, int end, int instrument,
+                                                       int pitch, int volume) {
 
             int octave = (pitch / 12) - 1;
             Pitch p = Pitch.values()[pitch - (octave + 1) * 12];
@@ -216,7 +217,8 @@ public class GenericSong implements SongRep {
      *  @return a String representation for any notes on the given line of the song
      */
     private String printLine(int line, ArrayList<String> noteRange) {
-        String out = String.format("%" + (Integer.toString(getLength()).length() + 1) + "s", line);
+        String out = String.format("%" + (Integer.toString(getLength()).length() + 1) +
+                "s", line);
 
         for (String s : noteRange) {
             String temp = "     ";
