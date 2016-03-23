@@ -15,8 +15,8 @@ public class MockSynth implements Synthesizer {
         this.tempo = 200000;
     }
 
-    public MockSynth(int tempo) {
-        this.log = new StringBuilder();
+    public MockSynth(StringBuilder log, int tempo) {
+        this.log = log;
         this.tempo = tempo;
     }
 

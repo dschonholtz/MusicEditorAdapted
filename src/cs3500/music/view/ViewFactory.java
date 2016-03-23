@@ -13,9 +13,13 @@ import java.io.FileReader;
 public class ViewFactory {
     public IMusicView buildView(String fileName, String viewName) throws FileNotFoundException {
         MusicReader mr = new MusicReader();
-        CompositionBuilder<GenericSong> cb = new GenericSong.Builder();
+        CompositionBuilder<GenericSong> cb = new GenericSong.Builder(); //TODO is there a way to abstract this?
         SongRep song = mr.parseFile(new FileReader(fileName), cb);
 
+        return buildView(song, viewName);
+    }
+
+    public IMusicView buildView(SongRep song, String viewName) {
         switch (viewName) {
             case "visual":
                 return new GuiViewFrame(song);
@@ -24,7 +28,8 @@ public class ViewFactory {
             case "console":
                 return new ConsoleView(song);
             case "test":
-                return new MidiViewImpl(song, new MockSynth(song.getTempo()));
+                StringBuilder sb = new StringBuilder();
+                return new MidiViewImpl(song, new MockSynth(sb, song.getTempo()), sb);
             default:
                 return new GuiViewFrame(song);
         }
