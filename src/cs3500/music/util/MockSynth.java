@@ -8,9 +8,21 @@ import java.util.List;
  */
 public class MockSynth implements Synthesizer {
     StringBuilder log;
+    int tempo; // in microseconds per beat;
 
     public MockSynth() {
         this.log = new StringBuilder();
+        this.tempo = 200000;
+    }
+
+    public MockSynth(int tempo) {
+        this.log = new StringBuilder();
+        this.tempo = tempo;
+    }
+
+    @Override
+    public Receiver getReceiver() throws MidiUnavailableException {
+        return new MockReceiver(log, tempo);
     }
 
     @Override
@@ -121,11 +133,6 @@ public class MockSynth implements Synthesizer {
     @Override
     public int getMaxTransmitters() {
         return 0;
-    }
-
-    @Override
-    public Receiver getReceiver() throws MidiUnavailableException {
-        return new MockReceiver(log);
     }
 
     @Override

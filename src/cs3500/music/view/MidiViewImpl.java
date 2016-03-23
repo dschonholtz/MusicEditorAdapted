@@ -132,7 +132,7 @@ public class MidiViewImpl implements IMusicView {
             }
 
             this.receiver.send(start, n.getStart() * song.getTempo());
-            this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
+            this.receiver.send(stop, (n.getEnd() + 1) * song.getTempo());
         } catch (NullPointerException c) {
             c.printStackTrace();
         }
