@@ -17,7 +17,9 @@ public class MidiViewImpl implements IMusicView {
     private final Receiver receiver;
     private SongRep song;
 
-
+    /**
+     *  Public default constructor
+     */
     public MidiViewImpl() {
         this.song = new GenericSong();
         Synthesizer tempS;
@@ -37,6 +39,10 @@ public class MidiViewImpl implements IMusicView {
 
     }
 
+    /**
+     * Constructor for custom, pre-made songs
+     * @param song the song to be played
+     */
     public MidiViewImpl(SongRep song) {
         Objects.requireNonNull(song);
         this.song = song;
@@ -51,8 +57,34 @@ public class MidiViewImpl implements IMusicView {
             tempR = null;
             e.printStackTrace();
         }
-        synth = tempS;
-        receiver = tempR;
+        this.synth = tempS;
+        this.receiver = tempR;
+    }
+
+    /**
+     * Constructor for custom synthesizers and receivers made for mock testing
+     *
+     * @param song premade song to be played
+     * @param synth synthesizer this midi view should use
+     */
+    public MidiViewImpl(SongRep song, Synthesizer synth) {
+        Objects.requireNonNull(song);
+        Objects.requireNonNull(synth);
+        Synthesizer tempS;
+        Receiver tempR;
+        this.song = song;
+
+        try {
+            tempS = synth;
+            tempR = tempS.getReceiver();
+//            tempS.open(); // no point because it does nothing
+        } catch (MidiUnavailableException e) {
+            tempS = null;
+            tempR = null;
+            e.printStackTrace();
+        }
+        this.synth = tempS;
+        this.receiver = tempR;
     }
 
     /**
@@ -115,7 +147,7 @@ public class MidiViewImpl implements IMusicView {
             }
         }
         try {
-            Thread.sleep(10000000);
+            Thread.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -123,7 +155,7 @@ public class MidiViewImpl implements IMusicView {
     }
 
     private int calcMidiValue(NoteRep n) {
-        int value = n.getOctave() * 12;
+        int value = (n.getOctave() + 1) * 12;
         value += n.getPitch().ordinal();
         return value;
     }

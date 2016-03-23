@@ -75,7 +75,6 @@ public class ConcreteGuiViewPanel extends JPanel {
         // red time line
         g.setColor(Color.RED);
         g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT, (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
-
     }
 
     int calculateY(NoteRep n) {
@@ -91,7 +90,7 @@ public class ConcreteGuiViewPanel extends JPanel {
             octave = Integer.valueOf(high.substring(1));
         }
 
-        int ret = (octave - n.getOctave()) * 12 + p.ordinal()-n.getPitch().ordinal();
+        int ret = (octave - n.getOctave()) * 12 + p.ordinal() - n.getPitch().ordinal();
         ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
 
         return ret;

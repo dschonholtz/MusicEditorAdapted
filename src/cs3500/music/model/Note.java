@@ -16,7 +16,7 @@ public final class Note implements NoteRep {
     /** The volume of all notes in decibels (65 is average for conversation) */
     private int volume;
     /** The instrument playing the note */
-    private int instrument;                                        //TODO: Should this be moved to an enum?
+    private int instrument;
 
     /** Public default constructor defaults to middle C quarter note at time 0*/
     public Note() {
@@ -30,7 +30,6 @@ public final class Note implements NoteRep {
 
     /** Constructor choosing all fields */
     public Note(int start, int duration, int octave, Pitch pitch, int instrument, int volume) {
-        if (octave < 0) throw new IllegalArgumentException("Octave must be positive");
         if (duration < 1) {
             throw new IllegalArgumentException("Duration must be at least 1");
         }

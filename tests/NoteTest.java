@@ -5,11 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 
 /** Tests for the {@link Note} class */
 public class NoteTest {
-    @Test (expected = IllegalArgumentException.class)
-    public void testNoteOctaveNegativeException() {
-        new Note(2, 3, -1, Pitch.D, 1, 65);
-    }
-
     @Test (expected = NullPointerException.class)
     public void testNotePitchNonNull() {
         new Note(2, 3, 4, null, 1, 65);
