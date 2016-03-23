@@ -77,7 +77,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT, (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
     }
 
-    int calculateY(NoteRep n) {
+    private int calculateY(NoteRep n) {
         String high = rangeOfNotes.get(rangeOfNotes.size()-1);
         int octave;
         Pitch p;
