@@ -4,7 +4,7 @@ import cs3500.music.model.GenericSong;
 import cs3500.music.model.SongRep;
 
 /**
- * Created by Ari on 3/19/2016.
+ * Outputs a string representation of the song to the console
  */
 public class ConsoleView implements IMusicView {
     private SongRep model;

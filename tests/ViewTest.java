@@ -17,7 +17,7 @@ import static junit.framework.TestCase.assertEquals;
 public class ViewTest {
 
     @Test
-    public void testGetPreferedSize() {
+    public void testGetPreferredSize() {
         SongRep gs1 = new GenericSong();
         gs1.addNote(new Note());
         gs1.addNote(new Note(5, 4, 3,Pitch.C, 3, 65));
@@ -27,7 +27,8 @@ public class ViewTest {
         assertEquals(guiView.getPreferredSize(), new Dimension(200, 340));
 
         gs1.addNote(new Note(10, 50, 1, Pitch.D, 3, 65));
-        guiView = new ConcreteGuiViewPanel(gs1);                       //TODO: THIS LINE IS NECESSARY THEY ARE NOT CONNECTED BY REFERENCE... WHY????
+        //THIS LINE IS NECESSARY THEY ARE NOT CONNECTED BY REFERENCE... WHY????
+        guiView = new ConcreteGuiViewPanel(gs1);
         assertEquals(guiView.getPreferredSize(), new Dimension(1280, 780));
     }
 }
