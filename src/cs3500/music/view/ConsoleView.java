@@ -13,7 +13,7 @@ public class ConsoleView implements IMusicView {
         model = new GenericSong();
     }
 
-    public ConsoleView(GenericSong model) {
+    public ConsoleView(SongRep model) {
         this.model = model;
     }
 
