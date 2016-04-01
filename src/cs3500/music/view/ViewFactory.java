@@ -27,6 +27,8 @@ public class ViewFactory {
                 return new MidiViewImpl(song);
             case "console":
                 return new ConsoleView(song);
+            case "composite":
+                return new CompositeView(song);
             //case "test":
 //                StringBuilder sb = new StringBuilder();
 //                return new MidiViewImpl(song, new MockSynth(sb, song.getTempo()), sb);
