@@ -80,7 +80,8 @@ public class GenericSongTest {
         assertEquals(new ArrayList<NoteRep>(), gs1.getAllNotes());
         gs1.addNote(new Note());
         gs1.addNote(new Note(5, 4, 3, Pitch.B, 1, 65));
-        assertEquals(new ArrayList<NoteRep>(Arrays.asList(new Note(), new Note(5, 4, 3, Pitch.B, 1, 65))),
+        assertEquals(new ArrayList<NoteRep>(Arrays.asList(new Note(),
+                new Note(5, 4, 3, Pitch.B, 1, 65))),
                 gs1.getAllNotes());
     }
 
@@ -134,7 +135,8 @@ public class GenericSongTest {
         gs2.addNote(n3);
 
         gs1.combineConsecutively(gs2);
-        assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n2, new Note(8, 1, 4, Pitch.C, 1, 65),
+        assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n2,
+                new Note(8, 1, 4, Pitch.C, 1, 65),
                 new Note(9, 2, 3, Pitch.F, 1, 65))), gs1.getAllNotes());
     }
 

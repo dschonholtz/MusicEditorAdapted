@@ -139,18 +139,28 @@ public class MidiViewImpl implements IMusicView {
 
     @Override
     public void run() {
-        for (int i = 0; i < song.getLength(); i++) {
+        int currentBeat = song.getBeat();
+        List<NoteRep> notes = song.getNotesStartingAtT(currentBeat);
+        for (NoteRep n : notes) {
+            playNote(n);
+        }
+
+        /*for (int i = 0; i < song.getLength(); i++) {
             List<NoteRep> notes = song.getNotesStartingAtT(i);
             for (NoteRep n : notes) {
                 playNote(n);
             }
         }
         try {
-            Thread.sleep(1);
+            Thread.sleep(1000000000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.receiver.close(); // Only call this once you're done playing *all* notes
+        this.receiver.close(); // Only call this once you're done playing *all* notes*/
+    }
+
+    public void kill() {
+        this.receiver.close();
     }
 
     private int calcMidiValue(NoteRep n) {
