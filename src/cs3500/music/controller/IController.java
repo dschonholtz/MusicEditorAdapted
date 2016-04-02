@@ -42,7 +42,7 @@ public interface IController {
     /**
      * When the home key is pressed, the selection jumps to the begining of the song
      */
-    public void jumpToBegining();
+    public void jumpToBeginning();
 
 
 }
