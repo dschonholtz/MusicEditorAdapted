@@ -1,7 +1,14 @@
 package cs3500.music;
 
+import cs3500.music.controller.Controller;
+import cs3500.music.controller.KeyboardHandler;
+import cs3500.music.model.SongRep;
+import cs3500.music.util.SongFactory;
+
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.swing.*;
 
 
 public class MusicEditor {
@@ -9,5 +16,15 @@ public class MusicEditor {
         if(args.length < 2) {
             throw new IOException("You havfta have at least two command line arrrggs");
         }
+
+        SongRep song = new SongFactory().buildSong(args[0]);
+        Controller c = new Controller(song, args[1]);
+
+        SwingUtilities.invokeLater(() -> {
+            Timer time = new Timer(song.getTempo() / 1000, (event -> c.run()));
+            time.setInitialDelay(0);
+            time.start();
+        });
     }
+
 }

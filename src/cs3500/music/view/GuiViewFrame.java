@@ -1,8 +1,10 @@
 package cs3500.music.view;
 
+import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
 import javax.swing.*;
 
@@ -29,7 +31,7 @@ public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
         this.pack();
     }
 
-    public void initialize(){
+    public void initialize() {
         this.setVisible(true);
     }
 
@@ -41,6 +43,7 @@ public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
     @Override
     public void run() {
         initialize();
+        displayPanel.repaint();
     }
 
     @Override

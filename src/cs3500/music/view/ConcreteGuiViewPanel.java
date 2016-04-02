@@ -31,7 +31,8 @@ public class ConcreteGuiViewPanel extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         int count = 0;
         int SideWidth = 10;
 
