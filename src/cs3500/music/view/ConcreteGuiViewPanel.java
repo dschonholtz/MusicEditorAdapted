@@ -46,11 +46,26 @@ public class ConcreteGuiViewPanel extends JPanel {
 
         for(NoteRep n : notes) {
             int noteY = calculateY(n);
-            g.setColor(Color.CYAN);
-            g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
-                    NOTE_HEIGHT);
-            g.setColor(Color.BLACK);
-            g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
+
+            if((n.getStart() - xWinStart * 4) >= 0) {
+                g.setColor(Color.CYAN);
+                g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
+                        NOTE_HEIGHT);
+                g.setColor(Color.BLACK);
+                g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
+            }
+
+            // TODO notes before hand aren't being
+            // TODO rendered please help me figure out how to make the seeable this case almost does it....
+            else if ((n.getDuration() - (n.getStart() - xWinStart * 4)) > 0) { // if the duration is > then the difference between the initial start
+                                                                                // and the actual
+                g.setColor(Color.CYAN);
+                g.fillRect(xInit, noteY, BEAT_WIDTH * (n.getDuration() - (n.getStart() - xWinStart * 4)),
+                        NOTE_HEIGHT);
+                // dont draw the initial beat as it would be handled in the first if.
+                // Draw the beat starting at the initial space. draw it the length of its duration - the difference in its start and the actual start
+            }
+
 
         }
 
