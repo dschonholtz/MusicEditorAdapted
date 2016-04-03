@@ -48,12 +48,14 @@ public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
 
     @Override
     public void scrollLeft() {
-
+        if(((ConcreteGuiViewPanel)displayPanel).xWinStart > 0)
+        ((ConcreteGuiViewPanel)displayPanel).xWinStart--;// TODO ARI IS THERE A CLEANER SOLUTION???
     }
 
     @Override
     public void scrollRight() {
-
+        //if(((ConcreteGuiViewPanel)displayPanel).xWinStart < something something cast to Concrete song.songLength)
+        ((ConcreteGuiViewPanel)displayPanel).xWinStart++; // TODO ARI IS THERE A CLEANER SOLUTION???
     }
 
     @Override

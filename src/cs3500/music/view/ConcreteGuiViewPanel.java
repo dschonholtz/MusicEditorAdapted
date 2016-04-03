@@ -15,12 +15,15 @@ public class ConcreteGuiViewPanel extends JPanel {
     private int songLength;
     public static final int BEAT_WIDTH = 20; // in pixels
     public static final int NOTE_HEIGHT = 20; // in pixels
+    public int xWinStart; //TODO ARI LOOK HERE! I tried to use accessors but this is declared as a jpanel so
+    //TODO they weren't visible.... But this is our global variable that will move us left and right.
 
     public ConcreteGuiViewPanel(SongRep model) {
         super();
         this.model = model;
         this.rangeOfNotes = model.getRange();
         this.songLength = model.getLength();
+        this.xWinStart = 2;
     }
 
     public ConcreteGuiViewPanel() {
@@ -28,6 +31,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         this.model = new GenericSong();   //The model will go here
         this.rangeOfNotes = new ArrayList<>();
         this.songLength = 0;
+        this.xWinStart = 2; // number of measures scrolled to right from zero
     }
 
     @Override
@@ -43,10 +47,10 @@ public class ConcreteGuiViewPanel extends JPanel {
         for(NoteRep n : notes) {
             int noteY = calculateY(n);
             g.setColor(Color.CYAN);
-            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
+            g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
                     NOTE_HEIGHT);
             g.setColor(Color.BLACK);
-            g.fillRect(n.getStart() * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
+            g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
 
         }
 
@@ -66,7 +70,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         for (int j = 0; j <= songLength + (songLength % 4); j++) {
-            int xValue = (j + 1) * BEAT_WIDTH + SideWidth + 5;
+            int xValue = (j + 1) * BEAT_WIDTH + SideWidth + 5 - xWinStart * 4 * BEAT_WIDTH;
             if (j % 16 == 0) { // label every 16th beat / 4 measures
                 g.drawString(Integer.toString(j), xValue,  NOTE_HEIGHT);
             }
@@ -77,9 +81,12 @@ public class ConcreteGuiViewPanel extends JPanel {
 
         // red time line
         g.setColor(Color.RED);
-        g.drawLine((model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT,
-                (model.getBeat() + 1) * BEAT_WIDTH + SideWidth + 5,
-                NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
+        if(((model.getBeat() + 1) - xWinStart * 4) > 0) { // doesn't draw line when the line isn't in view :)
+            g.drawLine(((model.getBeat() + 1) - xWinStart * 4) * BEAT_WIDTH + SideWidth + 5, NOTE_HEIGHT,
+                    ((model.getBeat() + 1) - xWinStart * 4) * BEAT_WIDTH + SideWidth + 5,
+                    NOTE_HEIGHT + NOTE_HEIGHT * rangeOfNotes.size());
+        }
+
     }
 
     private int calculateY(NoteRep n) {
@@ -107,4 +114,5 @@ public class ConcreteGuiViewPanel extends JPanel {
         int height = (rangeOfNotes.size() * NOTE_HEIGHT + NOTE_HEIGHT * 4);
         return new Dimension(width, height);
     }
+
 }
