@@ -13,4 +13,5 @@ public interface IMusicView {
     void run();
 
     void addKeyListener(KeyListener keyListener);
+    void changePlayState();
 }

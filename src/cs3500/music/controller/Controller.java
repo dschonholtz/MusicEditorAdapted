@@ -1,6 +1,8 @@
 package cs3500.music.controller;
 
 import cs3500.music.model.SongRep;
+import cs3500.music.view.CompositeView;
+import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.IMusicView;
 import cs3500.music.view.ViewFactory;
 
@@ -16,7 +18,7 @@ import java.util.Map;
 /**
  * Created by Ari on 4/2/2016.
  */
-public class Controller implements IController, ActionListener {
+public class Controller implements IController {
     private final SongRep model;
     private final IMusicView view;
     private boolean playing;
@@ -39,13 +41,14 @@ public class Controller implements IController, ActionListener {
 
     @Override
     public void incrementBeat() {
+
         model.setCurrentBeat(model.getBeat() + 1);
     }
 
     @Override
     public void changePlayState() {
         playing = !playing;
-        System.out.println("you didn't fuck up quite as bad");
+        view.changePlayState();
     }
 
     @Override
@@ -66,30 +69,30 @@ public class Controller implements IController, ActionListener {
     private void setUpKeys() {
         Map<Integer, Runnable> keyPresses = new HashMap<>();
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
+        keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
+        keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
 
         KeyboardHandler kh = new KeyboardHandler();
         kh.setKeyPressedMap(keyPresses);
         view.addKeyListener(kh);
-        System.out.println("Controller added key listener");
-        System.out.println(kh.toString());
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("hello");
-        changePlayState();
-//        switch (e.getActionCommand()) {
-//            case :
-//                changePlayState();
-//                break;
-//            default:
-//                break;
-//        }
-    }
 
     class Pause implements Runnable {
         public void run() {
-            System.out.println("fuck");
+            changePlayState();
+        }
+    }
+
+    class ScrollUp implements Runnable {
+        public void run() {
+            ((CompositeView)view).gui.scrollUp();
+        }
+    }
+
+    class ScrollDown implements Runnable {
+        public void run() {
+            ((CompositeView) view).gui.scrollDown();
         }
     }
 }

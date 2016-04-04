@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
  */
 public class CompositeView implements IMusicView {
     private MidiViewImpl midi;
-    private GuiViewFrame gui;
+    public GuiViewFrame gui; //TODO DON'T FUCKING DO THIS
     private boolean playing;
 
     public CompositeView() {
@@ -35,14 +35,18 @@ public class CompositeView implements IMusicView {
 
     @Override
     public void run() {
-        midi.run();
+        if (playing) {
+            midi.run();
+        }
+
         gui.run();
     }
 
-    @Override
     public void addKeyListener(KeyListener keyListener) {
         gui.addKeyListener(keyListener);
-        System.out.println("Composite view added keylistener");
-        System.out.println(keyListener.toString());
+    }
+
+    public void changePlayState() {
+        playing = !playing;
     }
 }

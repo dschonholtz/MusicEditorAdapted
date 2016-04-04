@@ -28,4 +28,9 @@ public class ConsoleView implements IMusicView {
     public void addKeyListener(KeyListener keyListener) {
         //TODO maybe just nothing?
     }
+
+    @Override
+    public void changePlayState() {
+
+    }
 }

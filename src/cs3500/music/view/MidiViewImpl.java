@@ -118,7 +118,6 @@ public class MidiViewImpl implements IMusicView {
      */
 
     public void playNote(NoteRep n) {
-
         try {
             MidiMessage start = null;
             MidiMessage stop = null;
@@ -140,22 +139,10 @@ public class MidiViewImpl implements IMusicView {
 
     @Override
     public void run() {
-       // for (int i = 0; i < song.getLength(); i++) {
             List<NoteRep> notes = song.getNotesStartingAtT(song.getBeat());
             for (NoteRep n : notes) {
                 playNote(n);
             }
-        //}
-//        try {
-//            Thread.sleep(1);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
-    }
-
-    public void closeReciever() {
-        this.receiver.close(); // Only call this once you're done playing *all* notes
     }
 
     private int calcMidiValue(NoteRep n) {
@@ -166,6 +153,11 @@ public class MidiViewImpl implements IMusicView {
 
     @Override
     public void addKeyListener(KeyListener keyListener) {
+
+    }
+
+    @Override
+    public void changePlayState() {
 
     }
 }
