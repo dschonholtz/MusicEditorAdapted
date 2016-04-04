@@ -81,4 +81,11 @@ public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
     public boolean noteAtLocation() {
         return false;
     }
+
+//    @Override
+//    public void addKeyListener(KeyListener keyListener) {
+//        displayPanel.addKeyListener(keyListener);
+//        System.out.println("guiviewframe added keylistener");
+//        System.out.println(keyListener.toString());
+//    }
 }

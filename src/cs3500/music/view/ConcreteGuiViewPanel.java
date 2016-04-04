@@ -1,8 +1,11 @@
 package cs3500.music.view;
 
+import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.model.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.*;
 
@@ -23,7 +26,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         this.model = model;
         this.rangeOfNotes = model.getRange();
         this.songLength = model.getLength();
-        this.xWinStart = 2;
+        this.xWinStart = 0;
     }
 
     public ConcreteGuiViewPanel() {
@@ -31,7 +34,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         this.model = new GenericSong();   //The model will go here
         this.rangeOfNotes = new ArrayList<>();
         this.songLength = 0;
-        this.xWinStart = 2; // number of measures scrolled to right from zero
+        this.xWinStart = 0; // number of measures scrolled to right from zero
     }
 
     @Override
@@ -57,10 +60,10 @@ public class ConcreteGuiViewPanel extends JPanel {
 
             // TODO notes before hand aren't being
             // TODO rendered please help me figure out how to make the seeable this case almost does it....
-            else if ((n.getDuration() - (n.getStart() - xWinStart * 4)) > 0) { // if the duration is > then the difference between the initial start
+            else if (n.getDuration() + n.getStart() > xWinStart * 4) { // if the duration is > then the difference between the initial start
                                                                                 // and the actual
                 g.setColor(Color.CYAN);
-                g.fillRect(xInit, noteY, BEAT_WIDTH * (n.getDuration() - (n.getStart() - xWinStart * 4)),
+                g.fillRect(xInit, noteY, BEAT_WIDTH * (n.getDuration() + n.getStart() - xWinStart * 4),
                         NOTE_HEIGHT);
                 // dont draw the initial beat as it would be handled in the first if.
                 // Draw the beat starting at the initial space. draw it the length of its duration - the difference in its start and the actual start

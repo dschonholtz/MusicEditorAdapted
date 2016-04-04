@@ -5,6 +5,7 @@ import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
 import javax.sound.midi.*;
+import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -161,5 +162,10 @@ public class MidiViewImpl implements IMusicView {
         int value = (n.getOctave() + 1) * 12;
         value += n.getPitch().ordinal();
         return value;
+    }
+
+    @Override
+    public void addKeyListener(KeyListener keyListener) {
+
     }
 }
