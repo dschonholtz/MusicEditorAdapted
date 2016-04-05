@@ -3,6 +3,7 @@ package cs3500.music.model;
 import cs3500.music.util.CompositionBuilder;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represents a piece of music
@@ -103,11 +104,8 @@ public class GenericSong implements SongRep {
 
     @Override
     public List<NoteRep> getNotesStartingAtT(int t) {
-        ArrayList<NoteRep> out = new ArrayList<>();
-        for (NoteRep n : getAllNotes()) {
-            if (n.getStart() == t) out.add(n);
-        }
-        return out;
+        return getAllNotes().stream().filter(n -> n.getStart() == t).
+                collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
@@ -119,9 +117,7 @@ public class GenericSong implements SongRep {
             started.addAll(getNotesStartingAtT(i));
         }
 
-        for (NoteRep n : started) {
-            if (n.getEnd() >= t) out.add(n);
-        }
+        out.addAll(started.stream().filter(n -> n.getEnd() >= t).collect(Collectors.toList()));
 
         return out;
     }
@@ -152,10 +148,7 @@ public class GenericSong implements SongRep {
     @Override
     public void combineSimultaneously(SongRep other) {
         Objects.requireNonNull(other);
-
-        for (NoteRep n : other.getAllNotes()) {
-            addNote(n);
-        }
+        other.getAllNotes().forEach(this::addNote);
     }
 
     @Override
@@ -275,6 +268,4 @@ public class GenericSong implements SongRep {
         }
         return out;
     }
-
-
 }
