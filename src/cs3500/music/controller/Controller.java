@@ -71,6 +71,8 @@ public class Controller implements IController {
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
         keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
         keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
+        keyPresses.put(KeyEvent.VK_LEFT, new ScrollLeft());
+        keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
 
         KeyboardHandler kh = new KeyboardHandler();
         kh.setKeyPressedMap(keyPresses);
@@ -81,6 +83,19 @@ public class Controller implements IController {
     class Pause implements Runnable {
         public void run() {
             changePlayState();
+        }
+    }
+
+    class ScrollLeft implements Runnable {
+        @Override
+        public void run() {
+            ((CompositeView)view).gui.scrollLeft();
+        }
+    }
+
+    class ScrollRight implements Runnable {
+        public void run() {
+            ((CompositeView)view).gui.scrollRight();
         }
     }
 
