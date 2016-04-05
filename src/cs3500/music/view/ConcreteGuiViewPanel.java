@@ -172,6 +172,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         this.rangeOfNotes.add(n.toString());
+        System.out.println(rangeOfNotes);
     }
 
     public void shiftRangeDown() {
@@ -189,6 +190,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         this.rangeOfNotes.add(0, n.toString());
+        System.out.print(rangeOfNotes);
     }
 
 }
