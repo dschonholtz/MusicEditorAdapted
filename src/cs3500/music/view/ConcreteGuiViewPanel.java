@@ -227,7 +227,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         return false;
     }
 
-    public NoteRep getNoteAtLocation(Point loc) {
+    public NoteRep getNoteAtLocation(Point loc) { //todo
         int start;
         int duration;
         int octave;
