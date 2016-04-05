@@ -1,6 +1,8 @@
 package cs3500.music.view;
 
 import cs3500.music.model.*;
+import org.w3c.dom.css.Rect;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,13 @@ public class ConcreteGuiViewPanel extends JPanel {
     private SongRep model;
     private List<String> rangeOfNotes;
     private int songLength;
+    private List<Rectangle> rects = new ArrayList();
     public static final int BEAT_WIDTH = 20; // in pixels
     public static final int NOTE_HEIGHT = 20; // in  pixels
     public static final int SIDE_WIDTH = 20; // in pixels
     public static final int X_INIT = BEAT_WIDTH + (SIDE_WIDTH + 5); // upper left corner of grid
     public int xWinStart; // number of measures scrolled to right from zero
+
 
     public ConcreteGuiViewPanel(SongRep model) {
         super();
@@ -53,23 +57,30 @@ public class ConcreteGuiViewPanel extends JPanel {
      */
     private void paintNotes(Graphics g) {
         List<NoteRep> notes = model.getAllNotes();
-
+        rects.clear();
         for (NoteRep n : notes) {
             int noteY = calculateY(n);
 
+            Rectangle r;
+
             if (noteY <= NOTE_HEIGHT / 2) continue;
             if ((n.getStart() - xWinStart * 4) >= 0) {
-                g.setColor(Color.CYAN);
-                g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + X_INIT, noteY,
+                r = new Rectangle((n.getStart() - xWinStart * 4) * BEAT_WIDTH + X_INIT, noteY,
                         BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
+
+                rects.add(r);
+
+                g.setColor(Color.CYAN);
+                g.fillRect(r.x, r.y, r.width, r.height);
                 g.setColor(Color.BLACK);
                 g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + X_INIT, noteY,
                         BEAT_WIDTH, NOTE_HEIGHT);
             } else if (n.getDuration() + n.getStart() > xWinStart * 4) {
                 // duration > difference between initial start and actual
-                g.setColor(Color.CYAN);
-                g.fillRect(X_INIT, noteY, BEAT_WIDTH * (n.getDuration() +
+                r = new Rectangle(X_INIT, noteY, BEAT_WIDTH * (n.getDuration() +
                         n.getStart() - xWinStart * 4), NOTE_HEIGHT);
+                g.setColor(Color.CYAN);
+                g.fillRect(r.x, r.y, r.width, r.height);
                 // dont draw the initial beat as it would be handled in the first if.
                 // Draw the beat starting at the initial space. draw it the length of
                 // its duration - the difference in its start and the actual start
@@ -253,7 +264,18 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @return true if there is a note drawn at that location
      */
     public boolean noteAtLocation(Point loc) {
-        List<NoteRep> notes = model.getAllNotes();
+        System.out.println(loc.toString());
+        System.out.println(rects.toString());
+        for(Rectangle r : rects) {
+            if(r.contains(loc.getX() - BEAT_WIDTH / 2, loc.getY() - NOTE_HEIGHT * 2)) { //todo wtf why
+                return true;
+            }
+        }
+        return false;
+
+
+
+        //List<NoteRep> notes = model.getAllNotes();
 
         //todo
 //        for (NoteRep n : notes) {
@@ -280,9 +302,9 @@ public class ConcreteGuiViewPanel extends JPanel {
 //                boolean withinY = loc.getY() <= y2 && loc.getY() >= y1;
 //                return withinX && withinY;
 //            }
-//        }
+        //}
 
-        return false;
+        //return false;
     }
 
     /**
