@@ -208,15 +208,15 @@ public class Controller implements IController {
         public void run() {
             Point mouseLoc = view.getMousePosition();
             boolean noteAtLocation = view.noteAtLocation(mouseLoc);
-            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc, noteAtLocation);
+            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
             //model.
             if (noteAtLocation) {
                 model.removeNote(temp);
             } else if (lengthOfNextNote > 0) {
-                System.out.println("length greater then zero");
                 Note n = new Note(temp.getStart(), lengthOfNextNote, temp.getOctave(),
                         temp.getPitch(), 1, 65);
                 model.addNote(n);
+                System.out.println(lengthOfNextNote);
                 lengthOfNextNote = 0;
             }
         }

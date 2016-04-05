@@ -72,9 +72,9 @@ public class CompositeView implements GuiView { //TODO i don't know how i feel a
     public void scrollDown() { gui.scrollDown(); }
 
     @Override
-    public NoteRep getNoteAtMouseLocation(Point loc, boolean noteAtLocation)
+    public NoteRep getNoteAtMouseLocation(Point loc)
     {
-        return gui.getNoteAtMouseLocation(loc, noteAtLocation);
+        return gui.getNoteAtMouseLocation(loc);
     }
 
     @Override
