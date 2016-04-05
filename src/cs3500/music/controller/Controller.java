@@ -92,8 +92,8 @@ public class Controller implements IController {
     }
 
     private void setUpMouse() {
-        MouseHandler mh = new MouseHandler();
-        mh.setClickEvent(MouseEvent.BUTTON1, new NoteAdder());
+//        MouseHandler mh = new MouseHandler();
+//        mh.setClickEvent(MouseEvent.BUTTON1, new NoteAdder());
     }
 
 

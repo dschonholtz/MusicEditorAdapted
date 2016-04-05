@@ -59,7 +59,7 @@ public class MouseHandler implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         switch (e.getButton()) { //TODO actually add functionality
-            case MouseEvent.:
+            case MouseEvent.BUTTON1:
                 this.leftPress.run();
                 break;
             case MouseEvent.BUTTON2:

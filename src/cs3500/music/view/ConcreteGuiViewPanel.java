@@ -70,6 +70,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         //top line
+        g.setColor(Color.BLACK);
         g.drawLine(xInit, NOTE_HEIGHT, ((songLength + (songLength % 4)) * BEAT_WIDTH) - 5,
                 NOTE_HEIGHT);
 
