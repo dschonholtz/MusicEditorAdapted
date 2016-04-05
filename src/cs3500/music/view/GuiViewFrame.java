@@ -3,9 +3,8 @@ package cs3500.music.view;
 import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
+
 import java.awt.*;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
 import javax.swing.*;
 
 /**
