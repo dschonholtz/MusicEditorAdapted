@@ -7,18 +7,17 @@ import java.awt.event.MouseListener;
  * Created by Ari on 4/4/2016.
  */
 public class MouseHandler implements MouseListener {
-    Runnable leftClick;
-    Runnable middleClick;
-    Runnable rightClick;
+    private Runnable leftClick;
+    private Runnable middleClick;
+    private Runnable rightClick;
 
-    Runnable leftPress;
-    Runnable middlePress;
-    Runnable rightPress;
+    private Runnable leftPress;
+    private Runnable middlePress;
+    private Runnable rightPress;
 
-    Runnable leftRelease;
-    Runnable middleRelease;
-    Runnable rightRelease;
-    private int BUTTON1;
+    private Runnable leftRelease;
+    private Runnable middleRelease;
+    private Runnable rightRelease;
 
     public MouseHandler() {
         Runnable r = new Runnable() {
@@ -41,7 +40,7 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        switch (e.getButton()) { //TODO actually add functionality
+        switch (e.getButton()) {
             case MouseEvent.BUTTON1:
                 this.leftClick.run();
                 break;
@@ -58,7 +57,7 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        switch (e.getButton()) { //TODO actually add functionality
+        switch (e.getButton()) {
             case MouseEvent.BUTTON1:
                 this.leftPress.run();
                 break;
@@ -75,7 +74,7 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        switch (e.getButton()) { //TODO actually add functionality
+        switch (e.getButton()) {
             case MouseEvent.BUTTON1:
                 this.leftRelease.run();
                 break;

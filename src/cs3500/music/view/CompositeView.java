@@ -3,7 +3,9 @@ package cs3500.music.view;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
+import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.Objects;
 
 
@@ -47,8 +49,14 @@ public class CompositeView implements GuiView { //TODO i don't know how i feel a
         gui.run();
     }
 
+    @Override
     public void addKeyListener(KeyListener keyListener) {
         gui.addKeyListener(keyListener);
+    }
+
+    @Override
+    public void addMouseListener(MouseListener mouseListener) {
+        gui.addMouseListener(mouseListener);
     }
 
     @Override
@@ -64,13 +72,13 @@ public class CompositeView implements GuiView { //TODO i don't know how i feel a
     public void scrollDown() { gui.scrollDown(); }
 
     @Override
-    public NoteRep getNoteAtMouseLocation()
+    public NoteRep getNoteAtMouseLocation(Point loc)
     {
         return null;
     }
 
     @Override
-    public boolean noteAtLocation()
+    public boolean noteAtLocation(Point loc)
     {
         return false;
     }
