@@ -219,20 +219,23 @@ public class ConcreteGuiViewPanel extends JPanel {
      * highest to effectively shift the range up by one note
      */
     public void shiftRangeUp() {
-        this.rangeOfNotes.remove(0);
-        String s = this.rangeOfNotes.get(rangeOfNotes.size() - 1);
+        if(!rangeOfNotes.get(rangeOfNotes.size() - 1).equals("G10")) {
+            this.rangeOfNotes.remove(0);
+            String s = this.rangeOfNotes.get(rangeOfNotes.size() - 1);
 
-        Pitch p = notePitch(s);
-        int o = noteOctave(s);
-        Note n;
+            Pitch p = notePitch(s);
+            int o = noteOctave(s);
+            Note n;
 
-        if (p.equals(Pitch.B)) { // end of the octave
-            n = new Note(0, 1, o + 1, Pitch.C, 1, 65);
-        } else {
-            n = new Note(0, 1, o, Pitch.values()[p.ordinal() + 1], 1, 65);
+            if (p.equals(Pitch.B)) { // end of the octave
+                n = new Note(0, 1, o + 1, Pitch.C, 1, 65);
+            } else {
+                n = new Note(0, 1, o, Pitch.values()[p.ordinal() + 1], 1, 65);
+            }
+
+            this.rangeOfNotes.add(n.toString());
         }
 
-        this.rangeOfNotes.add(n.toString());
     }
 
     /**
@@ -240,7 +243,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * lowest to effectively shift the range down by one note
      */
     public void shiftRangeDown() {
-        if(!rangeOfNotes.get(0).equals("C0")) {
+        if(!rangeOfNotes.get(0).equals("C-1")) {
             this.rangeOfNotes.remove(rangeOfNotes.size() - 1);
             String s = this.rangeOfNotes.get(0);
 
