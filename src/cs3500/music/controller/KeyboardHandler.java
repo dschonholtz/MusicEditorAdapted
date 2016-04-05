@@ -9,7 +9,6 @@ import java.util.Map;
  * Created by Ari on 4/2/2016.
  */
 public class KeyboardHandler implements KeyListener {
-    public enum KeyPTR { PRESSED, TYPED, RELEASED }
 
     Map<Integer, Runnable> keyPressed;
     Map<Integer, Runnable> keyTyped;
@@ -21,39 +20,48 @@ public class KeyboardHandler implements KeyListener {
         keyReleased = new HashMap<>();
     }
 
-    public KeyboardHandler(Map<Integer, Runnable> pressed, Map<Integer, Runnable> typed,
-                           Map<Integer, Runnable> released) {
-        this.keyPressed = pressed;
-        this.keyTyped = typed;
-        this.keyReleased = released;
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
-        keyTyped.get(e.getKeyCode()).run();
+        if (keyTyped.containsKey(e.getKeyCode())) {
+            keyTyped.get(e.getKeyCode()).run();
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keyPressed.get(e.getKeyCode()).run();
+        if (keyPressed.containsKey(e.getKeyCode())) {
+            keyPressed.get(e.getKeyCode()).run();
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keyReleased.get(e.getKeyCode()).run();
+        if (keyReleased.containsKey(e.getKeyCode())) {
+            keyReleased.get(e.getKeyCode()).run();
+        }
     }
 
-    public void addEvent(Integer key, Runnable event, KeyPTR ptr) {
-        switch (ptr) {
-            case PRESSED:
-                keyPressed.put(key, event);
-                break;
-            case TYPED:
-                keyTyped.put(key, event);
-                break;
-            case RELEASED:
-                keyReleased.put(key, event);
-                break;
-        }
+    /**
+     * Set the map for key typed events. Key typed events in Java Swing are characters
+     */
+
+    public void setKeyTypedMap(Map<Integer, Runnable> map) {
+        keyTyped = map;
+    }
+
+    /**
+     * Set the map for key pressed events. Key pressed events in Java Swing are integer codes
+     */
+
+    public void setKeyPressedMap(Map<Integer, Runnable> map) {
+        keyPressed = map;
+    }
+
+    /**
+     * Set the map for key released events. Key released events in Java Swing are integer codes
+     */
+
+    public void setKeyReleasedMap(Map<Integer, Runnable> map) {
+        keyReleased = map;
     }
 }

@@ -1,11 +1,18 @@
 package cs3500.music.controller;
 
 import cs3500.music.model.SongRep;
+import cs3500.music.view.CompositeView;
+import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.IMusicView;
 import cs3500.music.view.ViewFactory;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -15,13 +22,12 @@ public class Controller implements IController {
     private final SongRep model;
     private final IMusicView view;
     private boolean playing;
-    private final KeyListener listener;
 
     public Controller(SongRep model, String viewType) {
         this.model = model;
         this.view = new ViewFactory().buildView(model, viewType);
         this.playing = true;
-        this.listener = setUpKeys();
+        setUpKeys();
     }
 
     @Override
@@ -35,12 +41,14 @@ public class Controller implements IController {
 
     @Override
     public void incrementBeat() {
+
         model.setCurrentBeat(model.getBeat() + 1);
     }
 
     @Override
     public void changePlayState() {
         playing = !playing;
+        view.changePlayState();
     }
 
     @Override
@@ -58,16 +66,33 @@ public class Controller implements IController {
 
     }
 
-    private KeyListener setUpKeys() {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                changePlayState();
-            }
-        };
+    private void setUpKeys() {
+        Map<Integer, Runnable> keyPresses = new HashMap<>();
+        keyPresses.put(KeyEvent.VK_SPACE, new Pause());
+        keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
+        keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
 
         KeyboardHandler kh = new KeyboardHandler();
-        kh.addEvent(KeyEvent.VK_SPACE, r, KeyboardHandler.KeyPTR.PRESSED);
-        return kh;
+        kh.setKeyPressedMap(keyPresses);
+        view.addKeyListener(kh);
+    }
+
+
+    class Pause implements Runnable {
+        public void run() {
+            changePlayState();
+        }
+    }
+
+    class ScrollUp implements Runnable {
+        public void run() {
+            ((CompositeView)view).gui.scrollUp();
+        }
+    }
+
+    class ScrollDown implements Runnable {
+        public void run() {
+            ((CompositeView) view).gui.scrollDown();
+        }
     }
 }

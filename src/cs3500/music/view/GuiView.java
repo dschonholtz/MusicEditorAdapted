@@ -32,5 +32,5 @@ public interface GuiView extends IMusicView {
     /**
      * THis returns true if there is a note at the given location
      */
-    public boolean noteAtLocation();  //TODO this needs to take in a mouse location!!!!
+     boolean noteAtLocation();  //TODO this needs to take in a mouse location!!!!
 }

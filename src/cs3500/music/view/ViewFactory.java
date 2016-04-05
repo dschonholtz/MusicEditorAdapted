@@ -14,7 +14,7 @@ public class ViewFactory {
             case "composite":
                 return new CompositeView(song);
             default:
-                return new GuiViewFrame(song);
+                return new CompositeView(song);
         }
     }
 }
