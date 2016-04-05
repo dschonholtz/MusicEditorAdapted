@@ -13,7 +13,6 @@ import javax.swing.*;
 /*
 TODO
     Click and drag
-    Lower and upper limits of scrolling
     Testing
         Keyboard
         Mouse
