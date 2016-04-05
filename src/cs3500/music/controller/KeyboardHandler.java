@@ -9,7 +9,6 @@ import java.util.Map;
  * Created by Ari on 4/2/2016.
  */
 public class KeyboardHandler implements KeyListener {
-
     Map<Integer, Runnable> keyPressed;
     Map<Integer, Runnable> keyTyped;
     Map<Integer, Runnable> keyReleased;

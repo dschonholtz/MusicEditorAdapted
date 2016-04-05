@@ -2,15 +2,8 @@ package cs3500.music.controller;
 
 import cs3500.music.model.SongRep;
 import cs3500.music.view.CompositeView;
-import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.IMusicView;
-import cs3500.music.view.ViewFactory;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +25,7 @@ public class Controller implements IController {
         this.holdingShift = false;
         this.lengthOfNextNote = 0;
         setUpKeys();
+        setUpMouse();
     }
 
     @Override
@@ -97,6 +91,11 @@ public class Controller implements IController {
         view.addKeyListener(kh);
     }
 
+    private void setUpMouse() {
+        MouseHandler mh = new MouseHandler();
+        mh.setClickEvent(MouseEvent.BUTTON1, new NoteAdder());
+    }
+
 
     class Pause implements Runnable {
         public void run() {
@@ -159,4 +158,6 @@ public class Controller implements IController {
                     + Integer.toString(numberPressed));
         }
     }
+
+
 }
