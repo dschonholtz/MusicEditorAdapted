@@ -8,32 +8,27 @@ public interface IController {
     /**
      * This increments the beat, and calls run in the combined view at the interval desginated by the tempo
      */
-    public void incrementBeat();
+     void incrementBeat();
 
     /**
      * Called by key listener
      * Changes the play state from paused to playing or vice versa
      */
-    public void changePlayState();
+    void changePlayState();
 
     /**
      * Called by mouse listener
      * Moves the note from the initial clicked location to the ending location
      */
-    public void moveNote();
+    void moveNote();
 
     /**
      * When the end key is pressed, the selection jumps to the end of the song
      */
-    public void jumpToEnd();
-
-    /**
-     * When the home key is pressed, the selection jumps to the begining of the song
-     */
-    public void jumpToBeginning();
+     void jumpTo(int beat);
 
     /**
      * Start the program
      */
-    public void run();
+    void run();
 }

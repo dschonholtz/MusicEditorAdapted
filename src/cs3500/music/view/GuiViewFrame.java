@@ -95,4 +95,8 @@ public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
         }
     }
 
+    @Override
+    public void jumpTo(int beat) {
+        displayPanel.xWinStart = beat / 4;
+    }
 }

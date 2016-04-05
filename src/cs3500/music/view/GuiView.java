@@ -39,4 +39,6 @@ public interface GuiView extends IMusicView {
     void changePlayState();
 
     void addKeyListener(KeyListener keyListener);
+
+    void jumpTo(int beat);
 }

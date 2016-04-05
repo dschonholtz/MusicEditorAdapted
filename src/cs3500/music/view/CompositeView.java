@@ -75,7 +75,13 @@ public class CompositeView implements GuiView { //TODO i don't know how i feel a
         return false;
     }
 
+    @Override
     public void changePlayState() {
         playing = !playing;
+    }
+
+    @Override
+    public void jumpTo(int beat) {
+        gui.jumpTo(beat);
     }
 }

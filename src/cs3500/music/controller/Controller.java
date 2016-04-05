@@ -56,13 +56,9 @@ public class Controller implements IController {
     }
 
     @Override
-    public void jumpToEnd() {
-        model.setCurrentBeat(model.getLength());
-    }
-
-    @Override
-    public void jumpToBeginning() {
-        model.setCurrentBeat(0);
+    public void jumpTo(int beat) {
+        model.setCurrentBeat(beat);
+        view.jumpTo(beat);
     }
 
     private void setUpKeys() {
@@ -106,10 +102,10 @@ public class Controller implements IController {
     }
 
     class SkipToStart implements Runnable {
-        public void run() { jumpToBeginning(); }
+        public void run() { jumpTo(0); }
     }
 
     class SkipToEnd implements Runnable {
-        public void run() { jumpToEnd(); }
+        public void run() { jumpTo(model.getLength()); }
     }
 }
