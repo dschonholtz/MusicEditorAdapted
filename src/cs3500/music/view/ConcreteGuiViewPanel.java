@@ -264,47 +264,12 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @return true if there is a note drawn at that location
      */
     public boolean noteAtLocation(Point loc) {
-        System.out.println(loc.toString());
-        System.out.println(rects.toString());
         for(Rectangle r : rects) {
             if(r.contains(loc.getX() - BEAT_WIDTH / 2, loc.getY() - NOTE_HEIGHT * 2)) { //todo wtf why
                 return true;
             }
         }
         return false;
-
-
-
-        //List<NoteRep> notes = model.getAllNotes();
-
-        //todo
-//        for (NoteRep n : notes) {
-//            int noteY = calculateY(n);
-//            int x1, x2, y1, y2;
-//
-//            if (noteY <= NOTE_HEIGHT / 2) continue;
-//            if ((n.getStart() - xWinStart * 4) >= 0) {
-//                x1 = (n.getStart() - xWinStart * 4) * BEAT_WIDTH + X_INIT;
-//                y1 = noteY;
-//                x2 = BEAT_WIDTH * n.getDuration();
-//                y2 = NOTE_HEIGHT;
-//
-//                boolean withinX = loc.getX() <= x2 && loc.getX() >= x1;
-//                boolean withinY = loc.getY() <= y2 && loc.getY() >= y1;
-//                return withinX && withinY;
-//            } else if (n.getDuration() + n.getStart() > xWinStart * 4) {
-//                x1 = X_INIT;
-//                y1 = noteY;
-//                x2 = BEAT_WIDTH * (n.getDuration() + n.getStart() - xWinStart * 4);
-//                y2 = NOTE_HEIGHT;
-//
-//                boolean withinX = loc.getX() <= x2 && loc.getX() >= x1;
-//                boolean withinY = loc.getY() <= y2 && loc.getY() >= y1;
-//                return withinX && withinY;
-//            }
-        //}
-
-        //return false;
     }
 
     /**
@@ -312,18 +277,37 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @return the note that would be at the given location regardless of whether one exists
      */
     public NoteRep getNoteAtLocation(Point loc) { //todo
-        int start = 0; //todo change all these; only set to get rid of error for now
-        int duration = 1;
-        int octave = 4;
-        Pitch p = Pitch.C;
+        if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) { // no minus one on purpose!
+            int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3;
+            String sNote = rangeOfNotes.get(rangeOfNotes.size() - 1 - ind);
+            int octave = noteOctave(sNote);
+            Pitch p = notePitch(sNote);
+            System.out.println(p.toString());
+            int mouseBeat = ((int)loc.getX() - X_INIT) / BEAT_WIDTH + xWinStart * 4;
+            if(!noteAtLocation(loc)) {
+                return new Note(mouseBeat, 1, octave, p, 10, 65);
+            }
+            else {
+                return new Note(mouseBeat, 1, octave, p, 10, 65); //TODO adjust this notes length correctly
+            }
 
-        String high = rangeOfNotes.get(rangeOfNotes.size() - 1);
-        int o2 = noteOctave(high);
-        Pitch p2 = notePitch(high);
+        }
+        else {
+            throw new IllegalArgumentException("That points was outside the bounds of the clickable area");
+        }
 
-//        int ret = (octave - n.getOctave()) * 12 + p.ordinal() - n.getPitch().ordinal();
-//        ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
-
-        return new Note(start, duration, octave, p, 1, 65);
+//        int start = 0; //todo change all these; only set to get rid of error for now
+//        int duration = 1;
+//        int octave = 4;
+//        Pitch p = Pitch.C;
+//
+//        String high = rangeOfNotes.get(rangeOfNotes.size() - 1);
+//        int o2 = noteOctave(high);
+//        Pitch p2 = notePitch(high);
+//
+////        int ret = (octave - n.getOctave()) * 12 + p.ordinal() - n.getPitch().ordinal();
+////        ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
+//
+//        return new Note(start, duration, octave, p, 1, 65);
     }
 }

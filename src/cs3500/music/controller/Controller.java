@@ -207,11 +207,12 @@ public class Controller implements IController {
     class NoteGod implements Runnable {
         public void run() {
             Point mouseLoc = view.getMousePosition();
-            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc); //TODO This is a temporary solution...
+            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
 
             if (view.noteAtLocation(mouseLoc)) {
                 model.removeNote(temp);
             } else if (lengthOfNextNote > 0) {
+                System.out.println("length greater then zero");
                 Note n = new Note(temp.getStart(), lengthOfNextNote, temp.getOctave(),
                         temp.getPitch(), 1, 65);
                 model.addNote(n);

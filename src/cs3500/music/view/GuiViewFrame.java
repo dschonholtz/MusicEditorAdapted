@@ -85,7 +85,6 @@ public class GuiViewFrame extends JFrame implements GuiView {
     @Override
     public boolean noteAtLocation(Point loc) {
         boolean ans = displayPanel.noteAtLocation(loc);
-        System.out.println(ans);
         return ans;
     }
 
