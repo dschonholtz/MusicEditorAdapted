@@ -276,38 +276,26 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @param loc the location we are checking
      * @return the note that would be at the given location regardless of whether one exists
      */
-    public NoteRep getNoteAtLocation(Point loc) { //todo
+    public NoteRep getNoteAtLocation(Point loc, boolean noteAtLocation) { //todo
         if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) { // no minus one on purpose!
             int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3;
             String sNote = rangeOfNotes.get(rangeOfNotes.size() - 1 - ind);
             int octave = noteOctave(sNote);
             Pitch p = notePitch(sNote);
-            System.out.println(p.toString());
             int mouseBeat = ((int)loc.getX() - X_INIT) / BEAT_WIDTH + xWinStart * 4;
-            if(!noteAtLocation(loc)) {
-                return new Note(mouseBeat, 1, octave, p, 10, 65);
+
+            List<NoteRep> notes = model.getNotesPlayingAtT(mouseBeat);
+            for(NoteRep n : notes) {
+                if(n.getPitch().equals(p) && n.getOctave() == octave) {
+                    return n;
+                }
             }
-            else {
-                return new Note(mouseBeat, 1, octave, p, 10, 65); //TODO adjust this notes length correctly
-            }
+            return new Note(mouseBeat, 1, octave, p, 1, 65); //TODO adjust this notes length correctly
+
 
         }
         else {
             throw new IllegalArgumentException("That points was outside the bounds of the clickable area");
         }
-
-//        int start = 0; //todo change all these; only set to get rid of error for now
-//        int duration = 1;
-//        int octave = 4;
-//        Pitch p = Pitch.C;
-//
-//        String high = rangeOfNotes.get(rangeOfNotes.size() - 1);
-//        int o2 = noteOctave(high);
-//        Pitch p2 = notePitch(high);
-//
-////        int ret = (octave - n.getOctave()) * 12 + p.ordinal() - n.getPitch().ordinal();
-////        ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
-//
-//        return new Note(start, duration, octave, p, 1, 65);
     }
 }

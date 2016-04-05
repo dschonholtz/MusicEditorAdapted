@@ -207,9 +207,10 @@ public class Controller implements IController {
     class NoteGod implements Runnable {
         public void run() {
             Point mouseLoc = view.getMousePosition();
-            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
-
-            if (view.noteAtLocation(mouseLoc)) {
+            boolean noteAtLocation = view.noteAtLocation(mouseLoc);
+            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc, noteAtLocation);
+            //model.
+            if (noteAtLocation) {
                 model.removeNote(temp);
             } else if (lengthOfNextNote > 0) {
                 System.out.println("length greater then zero");

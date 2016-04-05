@@ -78,8 +78,8 @@ public class GuiViewFrame extends JFrame implements GuiView {
     }
 
     @Override
-    public NoteRep getNoteAtMouseLocation(Point loc) {
-        return displayPanel.getNoteAtLocation(loc);
+    public NoteRep getNoteAtMouseLocation(Point loc, boolean noteAtLocation) {
+        return displayPanel.getNoteAtLocation(loc, noteAtLocation);
     }
 
     @Override
