@@ -218,7 +218,6 @@ public class Controller implements IController {
                 Note n = new Note(temp.getStart(), lengthOfNextNote, temp.getOctave(),
                         temp.getPitch(), 1, 65);
                 model.addNote(n);
-                System.out.println(n.getDuration());
                 lengthOfNextNote = 0;
             }
         }
