@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 /**
- * Created by Ari on 4/2/2016.
+ * Controls the model for a CompositeView and adds user interaction functionality
  */
 public class Controller implements IController {
     private final SongRep model;
@@ -22,6 +22,9 @@ public class Controller implements IController {
     private boolean holdingShift;
     private int lengthOfNextNote; // the next created note will have this length in beats
 
+    //todo public default constructor
+
+    /** Create a controller and initialize its view to use the given model */
     public Controller(SongRep model) {
         this.model = model;
         this.view = new CompositeView(model);
@@ -54,7 +57,7 @@ public class Controller implements IController {
 
     @Override
     public void moveNote() {
-
+        //todo
     }
 
     @Override
@@ -63,6 +66,9 @@ public class Controller implements IController {
         view.jumpTo(beat);
     }
 
+    /**
+     * Add all desired functionality for keyboard interaction
+     */
     private void setUpKeys() {
         Map<Integer, Runnable> keyPresses = new HashMap<>();
         Map<Integer, Runnable> keyReleases = new HashMap<>();
@@ -95,6 +101,7 @@ public class Controller implements IController {
         view.addKeyListener(kh);
     }
 
+    /** Add all desired functionality for mouse interaction */
     private void setUpMouse() {
         MouseHandler mh = new MouseHandler();
         mh.setClickEvent(MouseEvent.BUTTON1, new NoteGod());
@@ -102,22 +109,34 @@ public class Controller implements IController {
     }
 
 
+    /**
+     * Pause playback of the song
+     */
     class Pause implements Runnable {
         public void run() {
             changePlayState();
         }
     }
 
+    /**
+     * Scroll the view up
+     */
     class ScrollUp implements Runnable {
         public void run() {
             view.scrollUp();
         }
     }
 
+    /**
+     * Scroll the view down
+     */
     class ScrollDown implements Runnable {
         public void run() { view.scrollDown(); }
     }
 
+    /**
+     * Scroll the view left
+     */
     class ScrollLeft implements Runnable { //TODO note: if scrolling left of red line, will scroll you back automatically
         public void run() {
             view.scrollLeft();
@@ -128,6 +147,9 @@ public class Controller implements IController {
         }
     }
 
+    /**
+     * Scroll the view right
+     */
     class ScrollRight implements Runnable {
         public void run() {
             view.scrollRight();
@@ -138,22 +160,37 @@ public class Controller implements IController {
         }
     }
 
+    /**
+     * Jump the current beat and the view to the beginning of the song
+     */
     class SkipToStart implements Runnable {
         public void run() { jumpTo(0); }
     }
 
+    /**
+     * Jump the current beat and the view to the end of the song
+     */
     class SkipToEnd implements Runnable {
         public void run() { jumpTo(model.getLength()); }
     }
 
+    /**
+     * Recognize that shift is being held down
+     */
     class HoldShift implements Runnable {
         public void run() { holdingShift = true; }
     }
 
+    /**
+     * Recognize that shift has been released
+     */
     class ReleaseShift implements Runnable {
         public void run() { holdingShift = false; }
     }
 
+    /**
+     * Add the given digit to the length of the next note to be added by mouse click
+     */
     class SetNextNoteLength implements Runnable {
         private int numberPressed;
         SetNextNoteLength(int num) { this.numberPressed = num; }
@@ -164,6 +201,9 @@ public class Controller implements IController {
         }
     }
 
+    /**
+     * Add or remove note at the current mouse location
+     */
     class NoteGod implements Runnable {
         public void run() {
             Point mouseLoc = view.getMousePosition();
