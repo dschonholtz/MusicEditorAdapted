@@ -18,7 +18,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     private int songLength;
     public static final int BEAT_WIDTH = 20; // in pixels
     public static final int NOTE_HEIGHT = 20; // in  pixels
-    public static final int SIDE_WIDTH = 10; // in pixels
+    public static final int SIDE_WIDTH = 20; // in pixels
     public int xWinStart;
 
     public ConcreteGuiViewPanel(SongRep model) {
@@ -77,7 +77,7 @@ public class ConcreteGuiViewPanel extends JPanel {
             String s = rangeOfNotes.get(i);
             // write out the note names on the left column
             int y = count * NOTE_HEIGHT + NOTE_HEIGHT * 2;
-            g.drawString(s, SIDE_WIDTH, y - 5);
+            g.drawString(s, SIDE_WIDTH / 3, y - 5);
             // draw the lines for where the notes go
             g.drawLine(xInit, y, ((songLength + (songLength % 4)) * BEAT_WIDTH) - 5, y);
 
@@ -166,9 +166,9 @@ public class ConcreteGuiViewPanel extends JPanel {
         Note n;
 
         if (p.equals(Pitch.B)) {
-            n = new Note(0, 0, o + 1, Pitch.C, 1, 65);
+            n = new Note(0, 1, o + 1, Pitch.C, 1, 65);
         } else {
-            n = new Note(0, 0, o, Pitch.values()[p.ordinal() + 1], 1, 65);
+            n = new Note(0, 1, o, Pitch.values()[p.ordinal() + 1], 1, 65);
         }
 
         this.rangeOfNotes.add(n.toString());
@@ -183,9 +183,9 @@ public class ConcreteGuiViewPanel extends JPanel {
         Note n;
 
         if (p.equals(Pitch.C)) {
-            n = new Note(0, 0, o - 1, Pitch.B, 1, 65);
+            n = new Note(0, 1, o - 1, Pitch.B, 1, 65);
         } else {
-            n = new Note(0, 0, o, Pitch.values()[p.ordinal() - 1], 1, 65);
+            n = new Note(0, 1, o, Pitch.values()[p.ordinal() - 1], 1, 65);
         }
 
         this.rangeOfNotes.add(0, n.toString());
