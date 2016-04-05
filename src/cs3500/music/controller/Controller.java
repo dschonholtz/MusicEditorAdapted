@@ -23,12 +23,14 @@ public class Controller implements IController {
     private final CompositeView view;
     private boolean playing;
     private boolean holdingShift;
+    private int lengthOfNextNote; // the next created note will have this length in beats
 
     public Controller(SongRep model) {
         this.model = model;
         this.view = new CompositeView(model);
         this.playing = true;
         this.holdingShift = false;
+        this.lengthOfNextNote = 0;
         setUpKeys();
     }
 
@@ -66,6 +68,7 @@ public class Controller implements IController {
     private void setUpKeys() {
         Map<Integer, Runnable> keyPresses = new HashMap<>();
         Map<Integer, Runnable> keyReleases = new HashMap<>();
+        Map<Integer, Runnable> keyTypes = new HashMap<>(); //TODO not sure how these work
 
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
         keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
@@ -75,6 +78,16 @@ public class Controller implements IController {
         keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
         keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
         keyPresses.put(KeyEvent.VK_SHIFT, new HoldShift());
+        keyPresses.put(KeyEvent.VK_0, new SetNextNoteLength(0));
+        keyPresses.put(KeyEvent.VK_1, new SetNextNoteLength(1));
+        keyPresses.put(KeyEvent.VK_2, new SetNextNoteLength(2));
+        keyPresses.put(KeyEvent.VK_3, new SetNextNoteLength(3));
+        keyPresses.put(KeyEvent.VK_4, new SetNextNoteLength(4));
+        keyPresses.put(KeyEvent.VK_5, new SetNextNoteLength(5));
+        keyPresses.put(KeyEvent.VK_6, new SetNextNoteLength(6));
+        keyPresses.put(KeyEvent.VK_7, new SetNextNoteLength(7));
+        keyPresses.put(KeyEvent.VK_8, new SetNextNoteLength(8));
+        keyPresses.put(KeyEvent.VK_9, new SetNextNoteLength(9));
 
         keyReleases.put(KeyEvent.VK_SHIFT, new ReleaseShift());
 
@@ -135,5 +148,15 @@ public class Controller implements IController {
 
     class ReleaseShift implements Runnable {
         public void run() { holdingShift = false; }
+    }
+
+    class SetNextNoteLength implements Runnable {
+        int numberPressed;
+        SetNextNoteLength(int num) { this.numberPressed = num; }
+
+        public void run() {
+            lengthOfNextNote = Integer.valueOf(Integer.toString(lengthOfNextNote)
+                    + Integer.toString(numberPressed));
+        }
     }
 }
