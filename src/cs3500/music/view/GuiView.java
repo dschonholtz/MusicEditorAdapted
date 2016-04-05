@@ -44,4 +44,5 @@ public interface GuiView extends IMusicView {
     void addMouseListener(MouseListener mouseListener);
 
     void jumpTo(int beat);
+    Point getMousePosition();
 }

@@ -1,9 +1,11 @@
 package cs3500.music.controller;
 
 import cs3500.music.model.Note;
-import cs3500.music.model.Pitch;
+import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 import cs3500.music.view.CompositeView;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -95,7 +97,7 @@ public class Controller implements IController {
 
     private void setUpMouse() {
         MouseHandler mh = new MouseHandler();
-        mh.setClickEvent(MouseEvent.BUTTON1, new NoteGod(mh.x, mh.y));
+        mh.setClickEvent(MouseEvent.BUTTON1, new NoteGod());
         view.addMouseListener(mh);
     }
 
@@ -163,21 +165,15 @@ public class Controller implements IController {
     }
 
     class NoteGod implements Runnable {
-        private int x;
-        private int y;
-        NoteGod (int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
         public void run() {
-            System.out.println("Click received at " + x + ", " + y + "!");
-            System.out.println("Length of next note should be: " + lengthOfNextNote);
-            if (false) { //todo if there is a note at the position x and y
-                //todo remove that note
+            Point mouseLoc = view.getMousePosition();
+            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
+
+            if (view.noteAtLocation(mouseLoc)) {
+                model.removeNote(temp);
             } else if (lengthOfNextNote > 0) {
-                //todo add a new note of length lengthOfNextNote at position  of note at x and y
-                Note n = new Note(50, lengthOfNextNote, 4, Pitch.C, 1, 65);
+                Note n = new Note(temp.getStart(), lengthOfNextNote, temp.getOctave(),
+                        temp.getPitch(), 1, 65);
                 model.addNote(n);
                 lengthOfNextNote = 0;
             }

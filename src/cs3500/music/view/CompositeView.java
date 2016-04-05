@@ -74,13 +74,13 @@ public class CompositeView implements GuiView { //TODO i don't know how i feel a
     @Override
     public NoteRep getNoteAtMouseLocation(Point loc)
     {
-        return null;
+        return gui.getNoteAtMouseLocation(loc);
     }
 
     @Override
     public boolean noteAtLocation(Point loc)
     {
-        return false;
+        return gui.noteAtLocation(loc);
     }
 
     @Override
@@ -91,5 +91,9 @@ public class CompositeView implements GuiView { //TODO i don't know how i feel a
     @Override
     public void jumpTo(int beat) {
         gui.jumpTo(beat);
+    }
+
+    public Point getMousePosition() {
+        return gui.getMousePosition();
     }
 }

@@ -10,7 +10,7 @@ import javax.swing.*;
  * A skeleton Frame (i.e., a window) in Swing
  */
 public class GuiViewFrame extends JFrame implements GuiView {
-    private final ConcreteGuiViewPanel displayPanel; // You may want to refine this to a subtype of JPanel
+    private final ConcreteGuiViewPanel displayPanel;
 
     /**
      * Creates new GuiView
@@ -79,12 +79,14 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public NoteRep getNoteAtMouseLocation(Point loc) {
-        return null;
+        return displayPanel.getNoteAtLocation(loc);
     }
 
     @Override
     public boolean noteAtLocation(Point loc) {
-        return false;
+        boolean ans = displayPanel.noteAtLocation(loc);
+        System.out.println(ans);
+        return ans;
     }
 
     private void autoScroll() {

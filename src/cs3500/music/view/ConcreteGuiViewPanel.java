@@ -48,7 +48,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         //Draw the notes themselves
         List<NoteRep> notes = model.getAllNotes();
 
-        for(NoteRep n : notes) {
+        for (NoteRep n : notes) {
             int noteY = calculateY(n);
 
             if (noteY <= NOTE_HEIGHT / 2) continue;
@@ -193,4 +193,54 @@ public class ConcreteGuiViewPanel extends JPanel {
         this.rangeOfNotes.add(0, n.toString());
     }
 
+    public boolean noteAtLocation(Point loc) {
+        List<NoteRep> notes = model.getAllNotes();
+        int xInit = BEAT_WIDTH + (SIDE_WIDTH + 5);
+
+        //todo
+//        for (NoteRep n : notes) {
+//            int noteY = calculateY(n);
+//            int x1, x2, y1, y2;
+//
+//            if (noteY <= NOTE_HEIGHT / 2) continue;
+//            if ((n.getStart() - xWinStart * 4) >= 0) {
+//                x1 = (n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit;
+//                y1 = noteY;
+//                x2 = BEAT_WIDTH * n.getDuration();
+//                y2 = NOTE_HEIGHT;
+//
+//                boolean withinX = loc.getX() <= x2 && loc.getX() >= x1;
+//                boolean withinY = loc.getY() <= y2 && loc.getY() >= y1;
+//                return withinX && withinY;
+//            } else if (n.getDuration() + n.getStart() > xWinStart * 4) {
+//                x1 = xInit;
+//                y1 = noteY;
+//                x2 = BEAT_WIDTH * (n.getDuration() + n.getStart() - xWinStart * 4);
+//                y2 = NOTE_HEIGHT;
+//
+//                boolean withinX = loc.getX() <= x2 && loc.getX() >= x1;
+//                boolean withinY = loc.getY() <= y2 && loc.getY() >= y1;
+//                return withinX && withinY;
+//            }
+//        }
+
+        return false;
+    }
+
+    public NoteRep getNoteAtLocation(Point loc) {
+        int start;
+        int duration;
+        int octave;
+        Pitch p;
+
+        String high = rangeOfNotes.get(rangeOfNotes.size() - 1);
+        int o2 = noteOctave(high);
+        Pitch p2 = notePitch(high);
+
+//        int ret = (octave - n.getOctave()) * 12 + p.ordinal() - n.getPitch().ordinal();
+//        ret =  ret * NOTE_HEIGHT + NOTE_HEIGHT;
+
+        Note n = new Note(start, duration, octave, p, 1, 65);
+        return new Note(start, duration, octave, p, 1, 65);
+    }
 }
