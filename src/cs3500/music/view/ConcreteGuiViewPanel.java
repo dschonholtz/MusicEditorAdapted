@@ -1,11 +1,8 @@
 package cs3500.music.view;
 
-import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.model.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.*;
 
