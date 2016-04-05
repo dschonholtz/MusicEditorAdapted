@@ -10,22 +10,15 @@ public class MouseHandler implements MouseListener {
     private Runnable leftClick;
     private Runnable middleClick;
     private Runnable rightClick;
-
     private Runnable leftPress;
     private Runnable middlePress;
     private Runnable rightPress;
-
     private Runnable leftRelease;
     private Runnable middleRelease;
     private Runnable rightRelease;
 
     public MouseHandler() {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        };
+        Runnable r = () -> {};
 
         leftClick = r;
         middleClick = r;
