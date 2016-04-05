@@ -51,6 +51,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         for(NoteRep n : notes) {
             int noteY = calculateY(n);
 
+            if (noteY <= NOTE_HEIGHT / 2) continue;
             if ((n.getStart() - xWinStart * 4) >= 0) {
                 g.setColor(Color.CYAN);
                 g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
