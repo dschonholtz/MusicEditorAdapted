@@ -1,6 +1,5 @@
 package cs3500.music.view;
 
-import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
@@ -10,22 +9,22 @@ import javax.swing.*;
 /**
  * A skeleton Frame (i.e., a window) in Swing
  */
-public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
-    private final ConcreteGuiViewPanel displayPanel; // You may want to refine this to a subtype of JPanel
+public class GuiViewFrame extends JFrame implements GuiView {
+    private final ConcreteGuiViewPanel displayPanel;
 
     /**
      * Creates new GuiView
      */
     public GuiViewFrame() {
         this.displayPanel = new ConcreteGuiViewPanel();
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.getContentPane().add(displayPanel);
         this.pack();
     }
 
     public GuiViewFrame(SongRep model) {
         this.displayPanel = new ConcreteGuiViewPanel(model);
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.getContentPane().add(displayPanel);
         this.pack();
     }
@@ -79,13 +78,15 @@ public class GuiViewFrame extends javax.swing.JFrame implements GuiView {
     }
 
     @Override
-    public NoteRep getNoteAtMouseLocation() {
-        return null;
+    public NoteRep getNoteAtMouseLocation(Point loc) {
+        return displayPanel.getNoteAtLocation(loc);
     }
 
     @Override
-    public boolean noteAtLocation() {
-        return false;
+    public boolean noteAtLocation(Point loc) {
+        boolean ans = displayPanel.noteAtLocation(loc);
+        System.out.println(ans);
+        return ans;
     }
 
     private void autoScroll() {
