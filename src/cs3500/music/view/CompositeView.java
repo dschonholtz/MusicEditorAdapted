@@ -1,8 +1,10 @@
 package cs3500.music.view;
 
+import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
 import java.awt.event.KeyListener;
+import java.util.Objects;
 
 
 /**
@@ -10,9 +12,9 @@ import java.awt.event.KeyListener;
  * This also means that once per tick the screen and sounds are updated as needed but the controller controls an
  * individual tick.
  */
-public class CompositeView implements IMusicView {
+public class CompositeView implements GuiView { //TODO i don't know how i feel about it but it;s the only way i can find to do this without exposing gui field
     private MidiViewImpl midi;
-    public GuiViewFrame gui; //TODO DON'T FUCKING DO THIS
+    private GuiView gui;
     private boolean playing;
 
     public CompositeView() {
@@ -20,14 +22,17 @@ public class CompositeView implements IMusicView {
     }
 
     public CompositeView(SongRep song) {
-        //TODO TEST NULLS! This is proof of concept so I'm being lazy
+        Objects.requireNonNull(song);
+
         this.midi = new MidiViewImpl(song);
         this.gui = new GuiViewFrame(song);
         this.playing = true;
     }
 
     public CompositeView(SongRep song, boolean playing) {
-        //TODO TEST NULLS! This is proof of concept so I'm being lazy
+        Objects.requireNonNull(song);
+        Objects.requireNonNull(playing);
+
         this.midi = new MidiViewImpl(song);
         this.gui = new GuiViewFrame(song);
         this.playing = playing;
@@ -44,6 +49,30 @@ public class CompositeView implements IMusicView {
 
     public void addKeyListener(KeyListener keyListener) {
         gui.addKeyListener(keyListener);
+    }
+
+    @Override
+    public void scrollLeft() { gui.scrollLeft(); }
+
+    @Override
+    public void scrollRight() { gui.scrollRight(); }
+
+    @Override
+    public void scrollUp() { gui.scrollUp(); }
+
+    @Override
+    public void scrollDown() { gui.scrollDown(); }
+
+    @Override
+    public NoteRep getNoteAtMouseLocation()
+    {
+        return null;
+    }
+
+    @Override
+    public boolean noteAtLocation()
+    {
+        return false;
     }
 
     public void changePlayState() {

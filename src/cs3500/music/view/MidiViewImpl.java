@@ -150,14 +150,4 @@ public class MidiViewImpl implements IMusicView {
         value += n.getPitch().ordinal();
         return value;
     }
-
-    @Override
-    public void addKeyListener(KeyListener keyListener) {
-
-    }
-
-    @Override
-    public void changePlayState() {
-
-    }
 }

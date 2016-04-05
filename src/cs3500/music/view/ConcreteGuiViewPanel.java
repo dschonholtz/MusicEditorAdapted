@@ -19,8 +19,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     public static final int BEAT_WIDTH = 20; // in pixels
     public static final int NOTE_HEIGHT = 20; // in  pixels
     public static final int SIDE_WIDTH = 10; // in pixels
-    public int xWinStart; //TODO ARI LOOK HERE! I tried to use accessors but this is declared as a jpanel so
-    //TODO they weren't visible.... But this is our global variable that will move us left and right.
+    public int xWinStart;
 
     public ConcreteGuiViewPanel(SongRep model) {
         super();
@@ -52,17 +51,13 @@ public class ConcreteGuiViewPanel extends JPanel {
         for(NoteRep n : notes) {
             int noteY = calculateY(n);
 
-            if((n.getStart() - xWinStart * 4) >= 0) {
+            if ((n.getStart() - xWinStart * 4) >= 0) {
                 g.setColor(Color.CYAN);
                 g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH * n.getDuration(),
                         NOTE_HEIGHT);
                 g.setColor(Color.BLACK);
                 g.fillRect((n.getStart() - xWinStart * 4) * BEAT_WIDTH + xInit, noteY, BEAT_WIDTH, NOTE_HEIGHT);
-            }
-
-            // TODO notes before hand aren't being
-            // TODO rendered please help me figure out how to make the seeable this case almost does it....
-            else if (n.getDuration() + n.getStart() > xWinStart * 4) { // if the duration is > then the difference between the initial start
+            } else if (n.getDuration() + n.getStart() > xWinStart * 4) { // if the duration is > then the difference between the initial start
                                                                                 // and the actual
                 g.setColor(Color.CYAN);
                 g.fillRect(xInit, noteY, BEAT_WIDTH * (n.getDuration() + n.getStart() - xWinStart * 4),
@@ -99,7 +94,7 @@ public class ConcreteGuiViewPanel extends JPanel {
             }
         }
 
-        // red time line
+        // red line
         g.setColor(Color.RED);
         int cbx = currentBeatX();
         if(((model.getBeat() + 1) - xWinStart * 4) > 0) { // doesn't draw line when the line isn't in view :)

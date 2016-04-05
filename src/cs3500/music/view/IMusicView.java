@@ -11,7 +11,4 @@ public interface IMusicView {
      * Creates the view-- auditory, visual or otherwise
      */
     void run();
-
-    void addKeyListener(KeyListener keyListener);
-    void changePlayState();
 }

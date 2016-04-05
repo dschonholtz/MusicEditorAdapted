@@ -2,35 +2,41 @@ package cs3500.music.view;
 
 import cs3500.music.model.NoteRep;
 
+import java.awt.event.KeyListener;
+
 public interface GuiView extends IMusicView {
     /**
      * Scroll left
      */
-    public void scrollLeft();
+    void scrollLeft();
 
     /**
      * Scroll right
      */
-    public void scrollRight();
+    void scrollRight();
 
     /**
      * Scroll up
      */
-    public void scrollUp();
+    void scrollUp();
 
     /**
      * Scroll down
      */
-    public void scrollDown();
+    void scrollDown();
 
     /**
      * @return - This is the note at the given location regardless of whether or not there is actually a note there
      * now
      */
-    public NoteRep getNoteAtMouseLocation(); //TODO this needs to take in a mouse location!!!!
+    NoteRep getNoteAtMouseLocation(); //TODO this needs to take in a mouse location!!!!
 
     /**
      * THis returns true if there is a note at the given location
      */
-     boolean noteAtLocation();  //TODO this needs to take in a mouse location!!!!
+    boolean noteAtLocation();  //TODO this needs to take in a mouse location!!!!
+
+    void changePlayState();
+
+    void addKeyListener(KeyListener keyListener);
 }

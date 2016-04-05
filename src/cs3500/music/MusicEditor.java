@@ -18,7 +18,7 @@ public class MusicEditor {
         }
 
         SongRep song = new SongFactory().buildSong(args[0]);
-        Controller c = new Controller(song, args[1]);
+        Controller c = new Controller(song);
 
         SwingUtilities.invokeLater(() -> {
             Timer time = new Timer(song.getTempo() / 1000, (event -> c.run()));
@@ -26,5 +26,4 @@ public class MusicEditor {
             time.start();
         });
     }
-
 }

@@ -23,14 +23,4 @@ public class ConsoleView implements IMusicView {
     public void run() {
         System.out.println(model.getState());
     }
-
-    @Override
-    public void addKeyListener(KeyListener keyListener) {
-        //TODO maybe just nothing?
-    }
-
-    @Override
-    public void changePlayState() {
-
-    }
 }

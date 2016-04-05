@@ -20,12 +20,12 @@ import java.util.Map;
  */
 public class Controller implements IController {
     private final SongRep model;
-    private final IMusicView view;
+    private final CompositeView view;
     private boolean playing;
 
-    public Controller(SongRep model, String viewType) {
+    public Controller(SongRep model) {
         this.model = model;
-        this.view = new ViewFactory().buildView(model, viewType);
+        this.view = new CompositeView(model);
         this.playing = true;
         setUpKeys();
     }
@@ -41,7 +41,6 @@ public class Controller implements IController {
 
     @Override
     public void incrementBeat() {
-
         model.setCurrentBeat(model.getBeat() + 1);
     }
 
@@ -58,12 +57,12 @@ public class Controller implements IController {
 
     @Override
     public void jumpToEnd() {
-
+        model.setCurrentBeat(model.getLength());
     }
 
     @Override
     public void jumpToBeginning() {
-
+        model.setCurrentBeat(0);
     }
 
     private void setUpKeys() {
@@ -71,6 +70,10 @@ public class Controller implements IController {
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
         keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
         keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
+        keyPresses.put(KeyEvent.VK_LEFT, new ScrollLeft());
+        keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
+        keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
+        keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
 
         KeyboardHandler kh = new KeyboardHandler();
         kh.setKeyPressedMap(keyPresses);
@@ -86,13 +89,27 @@ public class Controller implements IController {
 
     class ScrollUp implements Runnable {
         public void run() {
-            ((CompositeView)view).gui.scrollUp();
+            view.scrollUp();
         }
     }
 
     class ScrollDown implements Runnable {
-        public void run() {
-            ((CompositeView) view).gui.scrollDown();
-        }
+        public void run() { view.scrollDown(); }
+    }
+
+    class ScrollLeft implements Runnable { //TODO note: if scrolling left of red line, will scroll you back automatically
+        public void run() { view.scrollLeft(); }
+    }
+
+    class ScrollRight implements Runnable {
+        public void run() { view.scrollRight(); }
+    }
+
+    class SkipToStart implements Runnable {
+        public void run() { jumpToBeginning(); }
+    }
+
+    class SkipToEnd implements Runnable {
+        public void run() { jumpToEnd(); }
     }
 }
