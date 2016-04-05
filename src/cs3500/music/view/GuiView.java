@@ -30,7 +30,7 @@ public interface GuiView extends IMusicView {
     /**
      * @return - This is the note at the given location regardless of whether there is one
      */
-    NoteRep getNoteAtMouseLocation(Point location, boolean noteAtLocation);
+    NoteRep getNoteAtMouseLocation(Point location);
 
     /**
      * @return true if there is a note at the given location

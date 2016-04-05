@@ -1,7 +1,6 @@
 package cs3500.music.view;
 
 import cs3500.music.model.*;
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -234,7 +233,6 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
 
         this.rangeOfNotes.add(n.toString());
-        System.out.println(rangeOfNotes);
     }
 
     /**
@@ -242,21 +240,23 @@ public class ConcreteGuiViewPanel extends JPanel {
      * lowest to effectively shift the range down by one note
      */
     public void shiftRangeDown() {
-        this.rangeOfNotes.remove(rangeOfNotes.size() - 1);
-        String s = this.rangeOfNotes.get(0);
+        if(!rangeOfNotes.get(0).equals("C0")) {
+            this.rangeOfNotes.remove(rangeOfNotes.size() - 1);
+            String s = this.rangeOfNotes.get(0);
 
-        Pitch p = notePitch(s);
-        int o = noteOctave(s);
-        Note n;
+            Pitch p = notePitch(s);
+            int o = noteOctave(s);
+            Note n;
 
-        if (p.equals(Pitch.C)) { // end of the octave
-            n = new Note(0, 1, o - 1, Pitch.B, 1, 65);
-        } else {
-            n = new Note(0, 1, o, Pitch.values()[p.ordinal() - 1], 1, 65);
+            if (p.equals(Pitch.C)) { // end of the octave
+                n = new Note(0, 1, o - 1, Pitch.B, 1, 65);
+            } else {
+                n = new Note(0, 1, o, Pitch.values()[p.ordinal() - 1], 1, 65);
+            }
+
+            this.rangeOfNotes.add(0, n.toString());
         }
 
-        this.rangeOfNotes.add(0, n.toString());
-        System.out.print(rangeOfNotes);
     }
 
     /**
@@ -266,6 +266,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     public boolean noteAtLocation(Point loc) {
         for(Rectangle r : rects) {
             if(r.contains(loc.getX() - BEAT_WIDTH / 2, loc.getY() - NOTE_HEIGHT * 2)) { //todo wtf why
+            //if(r.contains(loc.getX(), loc.getY())) {
                 return true;
             }
         }
@@ -276,7 +277,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @param loc the location we are checking
      * @return the note that would be at the given location regardless of whether one exists
      */
-    public NoteRep getNoteAtLocation(Point loc, boolean noteAtLocation) { //todo
+    public NoteRep getNoteAtLocation(Point loc) { //todo
         if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) { // no minus one on purpose!
             int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3;
             String sNote = rangeOfNotes.get(rangeOfNotes.size() - 1 - ind);
@@ -291,8 +292,6 @@ public class ConcreteGuiViewPanel extends JPanel {
                 }
             }
             return new Note(mouseBeat, 1, octave, p, 1, 65); //TODO adjust this notes length correctly
-
-
         }
         else {
             throw new IllegalArgumentException("That points was outside the bounds of the clickable area");
