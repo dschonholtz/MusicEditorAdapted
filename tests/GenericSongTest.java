@@ -41,12 +41,16 @@ public class GenericSongTest {
         assertEquals(1, gs1.getAllNotes().size());
         gs1.addNote(new Note(5, 4, 3, Pitch.C, 1, 65));
         assertEquals(2, gs1.getAllNotes().size());
-        gs1.addNote(new Note(5, 4, 3, Pitch.C, 1, 65));
-        assertEquals(2, gs1.getAllNotes().size());
-        gs1.addNote(new Note(6, 4, 3, Pitch.C, 1, 65)); //overlapping note won't be added
-        assertEquals(2, gs1.getAllNotes().size());
         gs1.addNote(new Note(10, 4, 3, Pitch.C, 1, 65));
         assertEquals(3, gs1.getAllNotes().size()); //consecutive notes will be added
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddNoteException() {
+        SongRep gs1 = new GenericSong();
+        gs1.addNote(new Note(5, 45, 3, Pitch.C, 1, 65));
+        gs1.addNote(new Note(40, 2, 3, Pitch.C, 1, 65));
+
     }
 
     @Test (expected = NullPointerException.class)
@@ -75,7 +79,7 @@ public class GenericSongTest {
     }
 
     @Test
-    public void testgetAllNotes() {
+    public void testGetAllNotes() {
         SongRep gs1 = new GenericSong();
         assertEquals(new ArrayList<NoteRep>(), gs1.getAllNotes());
         gs1.addNote(new Note());
