@@ -21,6 +21,9 @@ public class CompositeView implements GuiView {
     private GuiView gui;
     private boolean playing;
 
+    /**
+     * Default constructor builds a view with a model that contains one note.
+     */
     public CompositeView() {
         GenericSong song = new GenericSong();
         song.addNote(new Note());
@@ -29,6 +32,10 @@ public class CompositeView implements GuiView {
         this.playing = true;
     }
 
+    /**
+     * Builds a song
+     * @param song -  This is the song that the view uses
+     */
     public CompositeView(SongRep song) {
         Objects.requireNonNull(song);
 
@@ -37,6 +44,11 @@ public class CompositeView implements GuiView {
         this.playing = true;
     }
 
+    /**
+     * Constructor for Composite view
+     * @param song - The model the view uses
+     * @param playing - Whether or not the song is initially playing
+     */
     public CompositeView(SongRep song, boolean playing) {
         Objects.requireNonNull(song);
         Objects.requireNonNull(playing);
@@ -60,16 +72,20 @@ public class CompositeView implements GuiView {
         gui.addKeyListener(keyListener);
     }
 
+
     @Override
     public void addMouseListener(MouseListener mouseListener) {
         gui.addMouseListener(mouseListener);
     }
 
+
     @Override
     public void scrollLeft() { gui.scrollLeft(); }
 
+
     @Override
     public void scrollRight() { gui.scrollRight(); }
+
 
     @Override
     public void scrollUp() { gui.scrollUp(); }
@@ -77,11 +93,13 @@ public class CompositeView implements GuiView {
     @Override
     public void scrollDown() { gui.scrollDown(); }
 
+
     @Override
     public NoteRep getNoteAtMouseLocation(Point loc)
     {
         return gui.getNoteAtMouseLocation(loc);
     }
+
 
     @Override
     public boolean noteAtLocation(Point loc)
@@ -99,7 +117,11 @@ public class CompositeView implements GuiView {
         gui.jumpTo(beat);
     }
 
+    /**
+     * @return - returns a point with x and y where the mose was
+     */
     public Point getMousePosition() {
         return gui.getMousePosition();
     }
+
 }

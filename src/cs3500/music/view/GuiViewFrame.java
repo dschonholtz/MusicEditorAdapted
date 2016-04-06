@@ -14,7 +14,7 @@ public class GuiViewFrame extends JFrame implements GuiView {
     private final ConcreteGuiViewPanel displayPanel;
 
     /**
-     * Creates new GuiView
+     * Default constructor creates new GuiView
      */
     public GuiViewFrame() {
         this.displayPanel = new ConcreteGuiViewPanel();
@@ -23,6 +23,10 @@ public class GuiViewFrame extends JFrame implements GuiView {
         this.pack();
     }
 
+    /**
+     *
+     * @param model - the model that the view takes in
+     */
     public GuiViewFrame(SongRep model) {
         Objects.requireNonNull(model);
         this.displayPanel = new ConcreteGuiViewPanel(model);
@@ -31,6 +35,9 @@ public class GuiViewFrame extends JFrame implements GuiView {
         this.pack();
     }
 
+    /**
+     * Makes the view visible
+     */
     public void initialize() {
         this.setVisible(true);
     }
@@ -88,6 +95,9 @@ public class GuiViewFrame extends JFrame implements GuiView {
         return displayPanel.noteAtLocation(loc);
     }
 
+    /**
+     * Scrolls the view with the current beat so the pretty red line is always on the page
+     */
     private void autoScroll() {
         //compare xWinState and current beat
         if (displayPanel.currentBeatX() >= getPreferredSize().width / 2) {

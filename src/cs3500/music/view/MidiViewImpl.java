@@ -144,14 +144,15 @@ public class MidiViewImpl implements IMusicView {
             }
     }
 
+    /**
+     *
+     * @param n - The note to be used to calculate the midi value
+     * @return returns the midi value the note has for its octave and pitch
+     */
     private int calcMidiValue(NoteRep n) {
         int value = (n.getOctave() + 1) * 12;
         value += n.getPitch().ordinal();
         return value;
     }
 
-    public void close() {
-        this.receiver.close();
-        this.synth.close();
-    }
 }

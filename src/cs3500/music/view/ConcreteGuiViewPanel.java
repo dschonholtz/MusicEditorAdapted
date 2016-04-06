@@ -302,20 +302,26 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
     }
 
+    /**
+     * Scrolls the view to the left
+     */
     public void scrollLeft() {
         if (xWinStart > 0) {
             xWinStart--;
         }
     }
 
+    /**
+     * scrolls the view to the right
+     */
     public void scrollRight() {
         xWinStart++;
     }
 
-    public int getXWinStart() {
-        return xWinStart;
-    }
-
+    /**
+     * Sets the scroll value of the view, xWinStart
+     * @param x - The value xWinStart will be set to
+     */
     public void setXWinStart(int x) {
         if(x >= 0) {
             xWinStart = x;
