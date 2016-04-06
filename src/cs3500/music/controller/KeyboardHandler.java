@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Ari on 4/2/2016.
+ * Binds keys to runnable classes to add keyboard functionality
  */
 public class KeyboardHandler implements KeyListener {
     Map<Integer, Runnable> keyPressed;
