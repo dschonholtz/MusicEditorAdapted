@@ -1,6 +1,6 @@
 package cs3500.music;
 
-import cs3500.music.controller.Controller;
+import cs3500.music.controller.ControllerFactory;
 import cs3500.music.util.SongFactory;
 
 import java.io.IOException;
@@ -27,6 +27,6 @@ public class MusicEditor {
             throw new IOException("You havfta have at least two command line arrrggs");
         }
 
-        new Controller(new SongFactory().buildSong(args[0])).run();
+        new ControllerFactory(args[1], new SongFactory().buildSong(args[0])).build().run();
     }
 }

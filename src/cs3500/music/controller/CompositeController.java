@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Controls the model for a CompositeView and adds user interaction functionality
  */
-public class Controller implements IController {
+public class CompositeController implements IController {
     private final SongRep model;
     private final CompositeView view;
     private boolean playing;
@@ -29,12 +29,12 @@ public class Controller implements IController {
     /**
      * Constructs a composite view with exactly one note in its model
      */
-    public Controller() {
+    public CompositeController() {
         throw new IllegalArgumentException("You must instantiate your controller properly");
     }
 
     /** Create a controller and initialize its view to use the given model */
-    public Controller(SongRep model) {
+    public CompositeController(SongRep model) {
         this.model = model;
         this.view = new CompositeView(model);
         this.playing = true;
