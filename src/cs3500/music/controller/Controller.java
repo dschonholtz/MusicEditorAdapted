@@ -21,6 +21,7 @@ public class Controller implements IController {
     private boolean playing;
     private boolean holdingShift;
     private int lengthOfNextNote; // the next created note will have this length in beats
+    private NoteRep selectedNote;
 
     //todo public default constructor
 
@@ -105,6 +106,8 @@ public class Controller implements IController {
     private void setUpMouse() {
         MouseHandler mh = new MouseHandler();
         mh.setClickEvent(MouseEvent.BUTTON1, new NoteGod());
+        mh.setPressEvent(MouseEvent.BUTTON1, new NoteDragPress());
+        mh.setReleaseEvent(MouseEvent.BUTTON1, new NoteDragRelease());
         view.addMouseListener(mh);
     }
 
@@ -209,15 +212,48 @@ public class Controller implements IController {
             Point mouseLoc = view.getMousePosition();
             boolean noteAtLocation = view.noteAtLocation(mouseLoc);
             NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
-            //model.
             if (noteAtLocation) {
                 model.removeNote(temp);
             } else if (lengthOfNextNote > 0) {
                 Note n = new Note(temp.getStart(), lengthOfNextNote, temp.getOctave(),
                         temp.getPitch(), 1, 65);
                 model.addNote(n);
-                System.out.println(lengthOfNextNote);
                 lengthOfNextNote = 0;
+            }
+        }
+    }
+
+    /**
+     * This selects a note and then moves it when the mouse is released.
+     */
+    class NoteDragPress implements Runnable {
+        public void run() {
+            Point mouseLoc = view.getMousePosition();
+            boolean noteAtLocation = view.noteAtLocation(mouseLoc);
+            if(noteAtLocation) {
+                selectedNote = view.getNoteAtMouseLocation(mouseLoc);
+            }
+        }
+    }
+
+    /**
+     * NoteDragRelsease - This creates a new note when the mouse is released provided a note was previously selected
+     */
+    class NoteDragRelease implements Runnable {
+        public void run() {
+            Point mouseLoc = view.getMousePosition();
+            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
+
+            if(selectedNote != null) {
+                Note n = new Note(temp.getStart(), selectedNote.getDuration(), temp.getOctave(), temp.getPitch(),
+                        selectedNote.getInstrument(), selectedNote.getVolume());
+                try {
+                    model.addNote(n);
+                    model.removeNote(selectedNote);
+                } catch(IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+                selectedNote = null;
             }
         }
     }

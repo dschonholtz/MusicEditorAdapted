@@ -280,12 +280,13 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @param loc the location we are checking
      * @return the note that would be at the given location regardless of whether one exists
      */
-    public NoteRep getNoteAtLocation(Point loc) { //todo
+    public NoteRep getNoteAtLocation(Point loc) {
         if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) { // no minus one on purpose!
-            int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3;
+            int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3; // index on range of notes
             String sNote = rangeOfNotes.get(rangeOfNotes.size() - 1 - ind);
             int octave = noteOctave(sNote);
             Pitch p = notePitch(sNote);
+            // beat mouse is in
             int mouseBeat = ((int)loc.getX() - X_INIT) / BEAT_WIDTH + xWinStart * 4;
 
             List<NoteRep> notes = model.getNotesPlayingAtT(mouseBeat);
@@ -294,7 +295,7 @@ public class ConcreteGuiViewPanel extends JPanel {
                     return n;
                 }
             }
-            return new Note(mouseBeat, 1, octave, p, 1, 65); //TODO adjust this notes length correctly
+            return new Note(mouseBeat, 1, octave, p, 1, 65);
         }
         else {
             throw new IllegalArgumentException("That points was outside the bounds of the clickable area");

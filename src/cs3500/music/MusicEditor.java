@@ -12,7 +12,7 @@ import javax.swing.*;
 
 /*
 TODO
-    Click and drag
+    midi broken when adding
     Testing
         Keyboard
         Mouse
