@@ -30,14 +30,7 @@ public class Controller implements IController {
      * Constructs a composite view with exactly one note in its model
      */
     public Controller() {
-        this.model = new GenericSong();
-        model.addNote(new Note());
-        this.view = new CompositeView(model);
-        this.playing = true;
-        this.holdingShift = false;
-        this.lengthOfNextNote = 0;
-        setUpKeys();
-        setUpMouse();
+        throw new IllegalArgumentException("You must instantiate your controller properly");
     }
 
     /** Create a controller and initialize its view to use the given model */
@@ -73,18 +66,15 @@ public class Controller implements IController {
         });
     }
 
-    @Override
     public void incrementBeat() {
         model.setCurrentBeat(model.getBeat() + 1);
     }
 
-    @Override
     public void changePlayState() {
         playing = !playing;
         view.changePlayState();
     }
 
-    @Override
     public void jumpTo(int beat) {
         model.setCurrentBeat(beat);
         view.jumpTo(beat);
