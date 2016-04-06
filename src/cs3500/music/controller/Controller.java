@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,10 +53,15 @@ public class Controller implements IController {
 
 
     public void play() {
-        view.run();
-        if (playing) {
-            incrementBeat();
+        try {
+            view.run();
+            if (playing) {
+                incrementBeat();
+            }
+        }catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override

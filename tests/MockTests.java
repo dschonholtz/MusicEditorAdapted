@@ -1,9 +1,7 @@
 import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.controller.MouseHandler;
 import cs3500.music.model.*;
-import cs3500.music.util.MockReceiver;
 import cs3500.music.util.MockSynth;
-import cs3500.music.util.SongFactory;
 import cs3500.music.view.MidiViewImpl;
 import org.junit.Test;
 
@@ -11,7 +9,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,35 +101,37 @@ public class MockTests {
     }
 
     //todo
-//    @Test
-//    public void testMockMidi() {
-//        NoteRep n1 = new Note(0, 4, 4, Pitch.C, 1, 65);
-//        NoteRep n2 = new Note(3, 5, 5, Pitch.B, 1, 65);
-//        NoteRep n3 = new Note(10, 1, 3, Pitch.AS, 1, 65);
-//        ArrayList<NoteRep> notes = new ArrayList<>(Arrays.asList(n1, n2, n3));
-//        SongRep song1 = new GenericSong(notes, 200000);
-//        MidiViewImpl mvi = new MidiViewImpl(song1, new MockSynth());
-//
-//        for (int i = 0; i <= song1.getLength(); i++) {
-//            mvi.run();
-//            song1.setCurrentBeat(song1.getBeat() + 1);
-//        }
-//
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        PrintStream ps = new PrintStream(baos);
-//        PrintStream old = System.out;
-//        System.setOut(ps);
-//        mvi.close();
-//        System.out.flush();
-//        System.setOut(old);
-//
-//        assertEquals("note 60 ON at beat 0\n" +
-//                "note 60 OFF at beat 4\n" +
-//                "note 83 ON at beat 3\n" +
-//                "note 83 OFF at beat 8\n" +
-//                "note 58 ON at beat 10\n" +
-//                "note 58 OFF at beat 11\n" +
-//                "\n", baos.toString());
-//        System.out.println(baos.toString());
-//    }
+    @Test
+    public void testMockMidi() {
+        NoteRep n1 = new Note(0, 4, 4, Pitch.C, 1, 65);
+        NoteRep n2 = new Note(3, 5, 5, Pitch.B, 1, 65);
+        NoteRep n3 = new Note(10, 1, 3, Pitch.AS, 1, 65);
+        ArrayList<NoteRep> notes = new ArrayList<>(Arrays.asList(n1, n2, n3));
+        SongRep song1 = new GenericSong(notes, 200000);
+        MidiViewImpl mvi = new MidiViewImpl(song1, new MockSynth());
+
+        for (int i = 0; i <= song1.getLength(); i++) {
+            mvi.run();
+            song1.setCurrentBeat(song1.getBeat() + 1);
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        PrintStream old = System.out;
+        System.setOut(ps);
+        mvi.close();
+        System.out.flush();
+        System.setOut(old);
+
+
+
+        assertEquals("note 60 ON at beat 0\n" +
+                "note 60 OFF at beat 4\n" +
+                "note 83 ON at beat 3\n" +
+                "note 83 OFF at beat 8\n" +
+                "note 58 ON at beat 10\n" +
+                "note 58 OFF at beat 11\n" +
+                "\n", baos.toString());
+        System.out.println(baos.toString());
+    }
 }
