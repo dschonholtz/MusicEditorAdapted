@@ -63,6 +63,7 @@ public class ConcreteGuiViewPanel extends JPanel {
             Rectangle r;
 
             if (noteY <= NOTE_HEIGHT / 2) continue;
+            if (noteY >= (NOTE_HEIGHT / 2) + rangeOfNotes.size() * NOTE_HEIGHT) continue;
             if ((n.getStart() - xWinStart * 4) >= 0) {
                 r = new Rectangle((n.getStart() - xWinStart * 4) * BEAT_WIDTH + X_INIT, noteY,
                         BEAT_WIDTH * n.getDuration(), NOTE_HEIGHT);
@@ -219,7 +220,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * highest to effectively shift the range up by one note
      */
     public void shiftRangeUp() {
-        if(!rangeOfNotes.get(rangeOfNotes.size() - 1).equals("G10")) {
+        if (!rangeOfNotes.get(rangeOfNotes.size() - 1).equals("G10")) {
             this.rangeOfNotes.remove(0);
             String s = this.rangeOfNotes.get(rangeOfNotes.size() - 1);
 
@@ -243,7 +244,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * lowest to effectively shift the range down by one note
      */
     public void shiftRangeDown() {
-        if(!rangeOfNotes.get(0).equals("C-1")) {
+        if (!rangeOfNotes.get(0).equals("C-1")) {
             this.rangeOfNotes.remove(rangeOfNotes.size() - 1);
             String s = this.rangeOfNotes.get(0);
 
@@ -269,7 +270,6 @@ public class ConcreteGuiViewPanel extends JPanel {
     public boolean noteAtLocation(Point loc) {
         for(Rectangle r : rects) {
             if(r.contains(loc.getX() - BEAT_WIDTH / 2, loc.getY() - NOTE_HEIGHT * 2)) { //todo wtf why
-            //if(r.contains(loc.getX(), loc.getY())) {
                 return true;
             }
         }
@@ -281,7 +281,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @return the note that would be at the given location regardless of whether one exists
      */
     public NoteRep getNoteAtLocation(Point loc) {
-        if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) { // no minus one on purpose!
+        if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) {
             int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3; // index on range of notes
             String sNote = rangeOfNotes.get(rangeOfNotes.size() - 1 - ind);
             int octave = noteOctave(sNote);
