@@ -64,6 +64,8 @@ public class MockTests {
         mh.setClickEvent(MouseEvent.BUTTON3, () -> testMouseHelper("Right click!"));
         mh.setPressEvent(MouseEvent.BUTTON1, () -> testMouseHelper("Left press!"));
         mh.setReleaseEvent(MouseEvent.BUTTON3, () -> testMouseHelper("Right release!"));
+        mh.setMouseEnter(() -> testMouseHelper("Mouse entered!"));
+        mh.setMouseExit(() -> testMouseHelper("Mouse exited!"));
 
         MouseEvent test1 = new MouseEvent(new Button("test"), 1, 1, 1, 10, 10, 1,
                 false, MouseEvent.BUTTON1);
@@ -80,6 +82,10 @@ public class MockTests {
         assertEquals(ranM, "Right release!");
         mh.mouseClicked(test2);
         assertEquals(ranM, "Right click!");
+        mh.mouseEntered(test1);
+        assertEquals(ranM, "Mouse entered!");
+        mh.mouseExited(test2);
+        assertEquals(ranM, "Mouse exited!");
     }
 
     /**

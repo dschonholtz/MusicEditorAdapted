@@ -2,16 +2,20 @@ To Run from windows Command Line:
 java -jar MusicEditor.jar "FILE" "VIEW"
 Where FILE is replaced by one of the text files with music data in the same folder as the jar for example:
 "mary-little-lamb.txt"
-The word VIEW is then replaced by "console", "visual", or "midi"
+The word VIEW is then replaced by "composite", "console", "visual", or "midi"
 
 An example would be:
 java -jar MusicEditor.jar "mystery-1.txt" "visual"
 
-If you want to see the console output, and the visual output at the same time or see the visual output with musical
-accompaniment you can put in a third argument. This third argument will be a second view on the same song.
-An example of this would be:
-java -jar MusicEditor.jar "mystery-1.txt" "visual" "midi"
-Where this would display the the mario theme song in both the gui and the song would play through the speakers.
+CONTROLS:
+Home: Skip to beginning
+End: Skip to end of song
+Arrow keys: Scroll the view
+Shift + Left/Right arrow: Move current beat forward and back
+
+Click on a note to remove it
+Click on a note and drag it to an empty space to move it
+Type a number then click on an empty space to add a note
 
 MODEL:
 GenericSong implements SongRep
@@ -35,7 +39,20 @@ The views that implement this interface are:
 ConcreteGuiView contains the majority of the implementation for the GuiViewFrame however, it must remain separate due
 to limitations created by the design of swing itself.
 
-Differences between this and our previous designs:
+Differences in HW07:
+    Addition of controllers and factories were were changed to be built by a controller factory instead of just a view
+    factory.
+
+    Controllers add functionality to the program.  You can now manually scroll and scrub through the song,
+    pause, play, add, remove, and move notes.
+
+    Instruments now sound different in midi playback.
+
+    Added a new type of view that had both GUI and MIDI.
+
+    Wrote real tests using JUnit for the mock outputs and the console view output.
+
+Differences in HW06:
     Ari had a design very similar to this one. Meanwhile, Doug had a list of lists where the first list's index
     represented the index of a given beat. Unfortunately, my note representation was such that it wasn't possible to
     differentiate between a sustained note and multiple consecutive beats. This also seriously damaged the models

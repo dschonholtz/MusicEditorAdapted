@@ -4,16 +4,20 @@ import cs3500.music.model.SongRep;
 import cs3500.music.view.MidiViewImpl;
 
 import javax.swing.*;
+import java.util.Objects;
 
 /**
- * Created by dschonholtz on 4/6/2016.
+ * Controller for midi views
  */
 public class MidiController implements IController {
+    private SongRep model;
+    private MidiViewImpl view;
 
-    SongRep model;
-    MidiViewImpl view;
-
-    MidiController (SongRep model) {
+    /**
+     * @param model the song to play
+     */
+    public MidiController (SongRep model) {
+        Objects.requireNonNull(model);
         this.model = model;
         view = new MidiViewImpl(model);
 

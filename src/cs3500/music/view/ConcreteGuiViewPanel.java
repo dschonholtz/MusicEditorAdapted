@@ -281,7 +281,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @return the note that would be at the given location regardless of whether one exists
      */
     public NoteRep getNoteAtLocation(Point loc) {
-        if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size())) {
+        if(loc.getY() > NOTE_HEIGHT && loc.getY() < NOTE_HEIGHT * (rangeOfNotes.size() + 3)) {
             int ind = ((int) (loc.getY() / NOTE_HEIGHT)) - 3; // index on range of notes
             String sNote = rangeOfNotes.get(rangeOfNotes.size() - 1 - ind);
             int octave = noteOctave(sNote);

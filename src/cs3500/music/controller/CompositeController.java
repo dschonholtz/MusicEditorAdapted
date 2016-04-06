@@ -1,6 +1,5 @@
 package cs3500.music.controller;
 
-import cs3500.music.model.GenericSong;
 import cs3500.music.model.Note;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
@@ -10,10 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * Controls the model for a CompositeView and adds user interaction functionality
@@ -44,14 +41,16 @@ public class CompositeController implements IController {
         setUpMouse();
     }
 
-
-    public void play() {
+    /**
+     * Play the current beat of the song
+     */
+    private void play() {
         try {
             view.run();
             if (playing) {
                 incrementBeat();
             }
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
@@ -59,26 +58,43 @@ public class CompositeController implements IController {
 
     @Override
     public void run() {
-        SwingUtilities.invokeLater(() -> {
-            Timer time = new Timer(model.getTempo() / 1000, (event -> play()));
-            time.setInitialDelay(0);
-            time.start();
-        });
+        try {
+            SwingUtilities.invokeLater(() -> {
+                Timer time = new Timer(model.getTempo() / 1000, (event -> play()));
+                time.setInitialDelay(0);
+                time.start();
+            });
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Increase the current beat of the model by 1
+     */
     public void incrementBeat() {
         model.setCurrentBeat(model.getBeat() + 1);
     }
 
+    /**
+     * Change the play state from pause to play or vice cersa
+     */
     public void changePlayState() {
         playing = !playing;
         view.changePlayState();
     }
 
+    /**
+     * @return true if the current play state is true
+     */
     public boolean isPlaying() {
         return playing;
     }
 
+    /**
+     * Jumps the current beat of the model and view to the given beat
+     * @param beat the beat to jump to
+     */
     private void jumpTo(int beat) {
         model.setCurrentBeat(beat);
         view.jumpTo(beat);
@@ -90,7 +106,6 @@ public class CompositeController implements IController {
     private void setUpKeys() {
         Map<Integer, Runnable> keyPresses = new HashMap<>();
         Map<Integer, Runnable> keyReleases = new HashMap<>();
-        Map<Integer, Runnable> keyTypes = new HashMap<>();
 
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
         keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
@@ -127,7 +142,6 @@ public class CompositeController implements IController {
         mh.setReleaseEvent(MouseEvent.BUTTON1, new NoteDragRelease());
         view.addMouseListener(mh);
     }
-
 
     /**
      * Pause playback of the song
@@ -254,7 +268,7 @@ public class CompositeController implements IController {
     }
 
     /**
-     * NoteDragRelsease - This creates a new note when the mouse is released provided a note was previously selected
+     * Creates a new note when the mouse is released provided a note was previously selected
      */
     class NoteDragRelease implements Runnable {
         public void run() {

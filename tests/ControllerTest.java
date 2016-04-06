@@ -1,16 +1,18 @@
-import cs3500.music.controller.CompositeController;
-import cs3500.music.controller.ConsoleController;
+import cs3500.music.controller.*;
 import cs3500.music.model.GenericSong;
 import cs3500.music.model.Note;
 import cs3500.music.model.SongRep;
 import cs3500.music.util.SongFactory;
+import cs3500.music.view.CompositeView;
 import cs3500.music.view.ConsoleView;
-import cs3500.music.view.ViewFactory;
+import cs3500.music.view.GuiViewFrame;
+import cs3500.music.view.MidiViewImpl;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for controllers
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class ControllerTest {
 
     @Test
-    public void testCompositeController() {
+    public void testCompositeController1() {
         SongRep s = new GenericSong();
         s.addNote(new Note());
         CompositeController c = new CompositeController(s);
@@ -31,8 +33,8 @@ public class ControllerTest {
 
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testControllerException() {
+    @Test
+    public void testCompositeController2() {
         SongRep s = new GenericSong();
         s.addNote(new Note());
         CompositeController c = new CompositeController(s);
@@ -45,6 +47,126 @@ public class ControllerTest {
     @Test (expected = NullPointerException.class)
     public void testConsoleControllerNull() {
         new ConsoleController(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testCompositeControllerDefault() {
+        new CompositeController();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testControllerFactoryDefault() {
+        new ControllerFactory("breakme", new GenericSong()).build();
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testControllerFactoryNullSong() {
+        new ControllerFactory("breakme", null).build();
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testControllerFactoryNullType() {
+        new ControllerFactory(null, new GenericSong()).build();
+    }
+
+    @Test
+    public void testControllerFactoryBuildReturn() {
+        GenericSong gs = new GenericSong();
+        gs.addNote(new Note());
+        assertTrue(new ControllerFactory("visual", gs).build() instanceof GuiController);
+        assertTrue(new ControllerFactory("midi", gs).build() instanceof MidiController);
+        assertTrue(new ControllerFactory("console", gs).build() instanceof ConsoleController);
+        assertTrue(new ControllerFactory("composite", gs).build() instanceof CompositeController);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testGuiControllerNonNull() {
+        new GuiController(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testKHTypedNull() {
+        new KeyboardHandler().keyTyped(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testKHPressedNull() {
+        new KeyboardHandler().keyPressed(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testKHReleasedNull() {
+        new KeyboardHandler().keyReleased(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testKHSetTypeNull() {
+        new KeyboardHandler().setKeyTypedMap(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testKHSetPressNull() {
+        new KeyboardHandler().setKeyPressedMap(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testKHSeyReleaseNull() {
+        new KeyboardHandler().setKeyReleasedMap(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMidiControllerNull() {
+        new MidiController(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseClickedNull() {
+        new MouseHandler().mouseClicked(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMousePressedNull() {
+        new MouseHandler().mousePressed(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseReleasedNull() {
+        new MouseHandler().mouseReleased(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseEnteredNull() {
+        new MouseHandler().mouseEntered(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseExitNull() {
+        new MouseHandler().mouseExited(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseSetClickedNull() {
+        new MouseHandler().setClickEvent(1, null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseSetPressNull() {
+        new MouseHandler().setPressEvent(1, null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testMouseSetReleaseNull() {
+        new MouseHandler().setReleaseEvent(1, null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testSetMouseEnterNull() {
+        new MouseHandler().setMouseEnter(null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testSetMouseExit() {
+        new MouseHandler().setMouseExit(null);
     }
 
     @Test

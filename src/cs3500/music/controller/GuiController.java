@@ -1,24 +1,24 @@
 package cs3500.music.controller;
 
 import cs3500.music.model.SongRep;
-import cs3500.music.view.GuiView;
 import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.MidiViewImpl;
-
 import javax.swing.*;
+import java.util.Objects;
 
 /**
- * Created by dschonholtz on 4/6/2016.
+ * A controller to control a gui view
  */
-public class GuiController implements IController{
-
+public class GuiController implements IController {
     SongRep model;
     GuiViewFrame view;
 
-    GuiController (SongRep model) {
+    /**
+     * @param model the song to show in the gui view
+     */
+    public GuiController (SongRep model) {
+        Objects.requireNonNull(model);
         this.model = model;
         view = new GuiViewFrame(model);
-
     }
 
     @Override
@@ -30,7 +30,11 @@ public class GuiController implements IController{
         });
     }
 
+    /**
+     * runs the view
+     */
     private void play() {
         view.run();
+        model.setCurrentBeat(model.getBeat() + 1);
     }
 }
