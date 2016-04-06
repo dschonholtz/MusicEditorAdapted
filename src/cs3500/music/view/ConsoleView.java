@@ -19,6 +19,11 @@ public class ConsoleView implements IMusicView {
         this.model = model;
     }
 
+    public ConsoleView(SongRep model, StringBuilder log) {
+        this.model = model;
+        log.append(model.getState());
+    }
+
     @Override
     public void run() {
         System.out.println(model.getState());

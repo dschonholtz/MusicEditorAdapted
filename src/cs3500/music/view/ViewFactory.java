@@ -7,8 +7,8 @@ public class ViewFactory {
         switch (viewName) {
             case "visual":
                 return new GuiViewFrame(song);
-//            case "midi":
-//                return new MidiViewImpl(song);
+            case "midi":
+                return new MidiViewImpl(song);
             case "console":
                 return new ConsoleView(song);
             default:

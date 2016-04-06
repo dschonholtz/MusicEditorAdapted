@@ -75,7 +75,11 @@ public class CompositeController implements IController {
         view.changePlayState();
     }
 
-    public void jumpTo(int beat) {
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    private void jumpTo(int beat) {
         model.setCurrentBeat(beat);
         view.jumpTo(beat);
     }

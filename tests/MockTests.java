@@ -98,7 +98,6 @@ public class MockTests {
         ranM = s;
     }
 
-    //todo
     @Test
     public void testMockMidi() {
         NoteRep n1 = new Note(0, 4, 4, Pitch.C, 1, 65);

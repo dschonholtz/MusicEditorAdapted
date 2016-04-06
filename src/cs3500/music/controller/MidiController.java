@@ -1,7 +1,6 @@
 package cs3500.music.controller;
 
 import cs3500.music.model.SongRep;
-import cs3500.music.view.IMusicView;
 import cs3500.music.view.MidiViewImpl;
 
 import javax.swing.*;
