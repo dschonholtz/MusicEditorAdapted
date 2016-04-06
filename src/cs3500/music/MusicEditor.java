@@ -8,7 +8,6 @@ import javax.sound.midi.InvalidMidiDataException;
 
 /*
 TODO
-    FIX bottom rendering for notes!
     midi broken when adding
     Testing
         Keyboard

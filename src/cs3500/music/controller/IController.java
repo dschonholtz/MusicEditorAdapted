@@ -17,12 +17,6 @@ public interface IController {
     void changePlayState();
 
     /**
-     * Called by mouse listener
-     * Moves the note from the initial clicked location to the ending location
-     */
-    void moveNote();
-
-    /**
      * When the end key is pressed, the selection jumps to the end of the song
      */
      void jumpTo(int beat);

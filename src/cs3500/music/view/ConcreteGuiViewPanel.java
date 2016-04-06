@@ -269,7 +269,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      */
     public boolean noteAtLocation(Point loc) {
         for(Rectangle r : rects) {
-            if(r.contains(loc.getX() - BEAT_WIDTH / 2, loc.getY() - NOTE_HEIGHT * 2)) { //todo wtf why
+            if(r.contains(loc.getX() - BEAT_WIDTH / 2, loc.getY() - NOTE_HEIGHT * 2)) {
                 return true;
             }
         }

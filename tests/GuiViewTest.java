@@ -1,10 +1,8 @@
 import cs3500.music.model.GenericSong;
 import cs3500.music.model.Note;
-import cs3500.music.model.Pitch;
 import cs3500.music.model.SongRep;
 import cs3500.music.util.SongFactory;
 import cs3500.music.view.ConcreteGuiViewPanel;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import javax.swing.*;

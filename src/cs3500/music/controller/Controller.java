@@ -1,5 +1,6 @@
 package cs3500.music.controller;
 
+import cs3500.music.model.GenericSong;
 import cs3500.music.model.Note;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
@@ -24,7 +25,19 @@ public class Controller implements IController {
     private int lengthOfNextNote; // the next created note will have this length in beats
     private NoteRep selectedNote;
 
-    //todo public default constructor
+    /**
+     * Constructs a composite view with exactly one note in its model
+     */
+    public Controller() {
+        this.model = new GenericSong();
+        model.addNote(new Note());
+        this.view = new CompositeView(model);
+        this.playing = true;
+        this.holdingShift = false;
+        this.lengthOfNextNote = 0;
+        setUpKeys();
+        setUpMouse();
+    }
 
     /** Create a controller and initialize its view to use the given model */
     public Controller(SongRep model) {
@@ -40,7 +53,6 @@ public class Controller implements IController {
 
     public void play() {
         view.run();
-
         if (playing) {
             incrementBeat();
         }
@@ -67,11 +79,6 @@ public class Controller implements IController {
     }
 
     @Override
-    public void moveNote() {
-        //todo
-    }
-
-    @Override
     public void jumpTo(int beat) {
         model.setCurrentBeat(beat);
         view.jumpTo(beat);
@@ -83,7 +90,7 @@ public class Controller implements IController {
     private void setUpKeys() {
         Map<Integer, Runnable> keyPresses = new HashMap<>();
         Map<Integer, Runnable> keyReleases = new HashMap<>();
-        Map<Integer, Runnable> keyTypes = new HashMap<>(); //TODO not sure how these work
+        Map<Integer, Runnable> keyTypes = new HashMap<>();
 
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
         keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
@@ -150,7 +157,7 @@ public class Controller implements IController {
     /**
      * Scroll the view left
      */
-    class ScrollLeft implements Runnable { //TODO note: if scrolling left of red line, will scroll you back automatically
+    class ScrollLeft implements Runnable {
         public void run() {
             view.scrollLeft();
 
