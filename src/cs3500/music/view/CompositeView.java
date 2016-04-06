@@ -1,5 +1,7 @@
 package cs3500.music.view;
 
+import cs3500.music.model.GenericSong;
+import cs3500.music.model.Note;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
@@ -14,13 +16,17 @@ import java.util.Objects;
  * This also means that once per tick the screen and sounds are updated as needed but the controller controls an
  * individual tick.
  */
-public class CompositeView implements GuiView { //TODO i don't know how i feel about it but it;s the only way i can find to do this without exposing gui field
+public class CompositeView implements GuiView {
     private MidiViewImpl midi;
     private GuiView gui;
     private boolean playing;
 
     public CompositeView() {
-        //TODO we need to put stuff here
+        GenericSong song = new GenericSong();
+        song.addNote(new Note());
+        this.midi = new MidiViewImpl(song);
+        this.gui = new GuiViewFrame(song);
+        this.playing = true;
     }
 
     public CompositeView(SongRep song) {

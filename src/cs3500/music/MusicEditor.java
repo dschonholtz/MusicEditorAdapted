@@ -12,6 +12,7 @@ import javax.swing.*;
 
 /*
 TODO
+    FIX bottom rendering for notes!
     midi broken when adding
     Testing
         Keyboard

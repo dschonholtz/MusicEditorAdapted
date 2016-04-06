@@ -45,24 +45,21 @@ public class GuiViewFrame extends JFrame implements GuiView {
         displayPanel.repaint();
     }
 
-    @Override //TODO why isn't this connected to the other changePlayState
+    @Override
     public void changePlayState() {
 
     }
 
     @Override
     public void scrollLeft() {
-        if (displayPanel.xWinStart > 0) {
-            displayPanel.xWinStart--;
+        displayPanel.scrollLeft();
             repaint();
-        }
-
     }
 
     @Override
     public void scrollRight() {
-        displayPanel.xWinStart++;
-        displayPanel.repaint();
+        displayPanel.scrollRight();
+        repaint();
     }
 
     @Override
@@ -96,6 +93,6 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public void jumpTo(int beat) {
-        displayPanel.xWinStart = beat / 4;
+        displayPanel.setXWinStart(beat / 4);
     }
 }
