@@ -35,7 +35,7 @@ public final class Note implements NoteRep {
         }
         if (start < 0) {
             throw new IllegalArgumentException("Starting beat must be positive");
-        }
+        }   
         if (instrument < 0) {
             throw new IllegalArgumentException("Instrument cannot be negative");
         }
