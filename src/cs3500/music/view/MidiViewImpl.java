@@ -149,4 +149,9 @@ public class MidiViewImpl implements IMusicView {
         value += n.getPitch().ordinal();
         return value;
     }
+
+    public void close() {
+        this.receiver.close();
+        this.synth.close();
+    }
 }
