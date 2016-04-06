@@ -45,7 +45,7 @@ public class GuiViewFrame extends JFrame implements GuiView {
         displayPanel.repaint();
     }
 
-    @Override
+    @Override //TODO why isn't this connected to the other changePlayState
     public void changePlayState() {
 
     }
@@ -84,8 +84,7 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public boolean noteAtLocation(Point loc) {
-        boolean ans = displayPanel.noteAtLocation(loc);
-        return ans;
+        return displayPanel.noteAtLocation(loc);
     }
 
     private void autoScroll() {

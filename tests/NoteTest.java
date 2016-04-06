@@ -10,7 +10,7 @@ public class NoteTest {
         new Note(2, 3, 4, null, 1, 65);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test //should not throw and exception
     public void testNoteZeroDuration() {
         new Note(2, 0, 3, Pitch.C, 1, 65);
     }

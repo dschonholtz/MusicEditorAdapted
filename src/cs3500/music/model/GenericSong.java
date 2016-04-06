@@ -66,7 +66,7 @@ public class GenericSong implements SongRep {
     @Override
     public void addNote(NoteRep n) {
         Objects.requireNonNull(n);
-
+        boolean ok = true;
         for (NoteRep note : notes) {
             boolean sameNote = note.getPitch().equals(n.getPitch());
             int nLo = n.getStart();
@@ -80,11 +80,12 @@ public class GenericSong implements SongRep {
             }
 
             if (sameNote && hasOverlap) {
-                throw new IllegalArgumentException("No overlapping notes");
+                ok = false;
             }
         }
-
+        if(ok) {
             notes.add(n);
+        }
     }
 
     @Override
