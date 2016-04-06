@@ -317,8 +317,9 @@ public class ConcreteGuiViewPanel extends JPanel {
     }
 
     public void setXWinStart(int x) {
-        if(x > 0) {
+        if(x >= 0) {
             xWinStart = x;
         }
     }
+
 }

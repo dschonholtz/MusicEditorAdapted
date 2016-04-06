@@ -51,14 +51,14 @@ public class GuiViewTest {
             ConcreteGuiViewPanel gui = new ConcreteGuiViewPanel(song);
             gui.shiftRangeUp();
             assertEquals("[E3, F3, F#3, G3, G#3, A3, A#3, B3, C4, C#4, D4, D#4, E4, F4, F#4, G4]",
-                    song.getRange().toString());
+                    " ");
             gui.shiftRangeUp();
             gui.shiftRangeUp();
             gui.shiftRangeUp();
             gui.shiftRangeUp();
             gui.shiftRangeUp();
             gui.shiftRangeUp();
-            assertEquals("[E3, F3, F#3, G3, G#3, A3, A#3, B3, C4, C#4, D4, D#4, E4, F4, F#4, G4]",
+            assertEquals("Yeah this is all wrong ",
                     song.getRange().toString());
         }catch (FileNotFoundException e) {
             e.printStackTrace();
