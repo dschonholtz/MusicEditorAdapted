@@ -30,8 +30,8 @@ public final class Note implements NoteRep {
 
     /** Constructor choosing all fields */
     public Note(int start, int duration, int octave, Pitch pitch, int instrument, int volume) {
-        if (duration < 1) {
-            throw new IllegalArgumentException("Duration must be at least 1");
+        if (duration < 0) {
+            throw new IllegalArgumentException("Duration must be at least 0");
         }
         if (start < 0) {
             throw new IllegalArgumentException("Starting beat must be positive");
