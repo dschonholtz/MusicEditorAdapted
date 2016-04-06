@@ -4,6 +4,7 @@ import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
 import java.awt.*;
+import java.util.Objects;
 import javax.swing.*;
 
 /**
@@ -23,6 +24,7 @@ public class GuiViewFrame extends JFrame implements GuiView {
     }
 
     public GuiViewFrame(SongRep model) {
+        Objects.requireNonNull(model);
         this.displayPanel = new ConcreteGuiViewPanel(model);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.getContentPane().add(displayPanel);
@@ -76,11 +78,13 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public NoteRep getNoteAtMouseLocation(Point loc) {
+        Objects.requireNonNull(loc);
         return displayPanel.getNoteAtLocation(loc);
     }
 
     @Override
     public boolean noteAtLocation(Point loc) {
+        Objects.requireNonNull(loc);
         return displayPanel.noteAtLocation(loc);
     }
 

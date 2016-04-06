@@ -7,14 +7,12 @@ public class ViewFactory {
         switch (viewName) {
             case "visual":
                 return new GuiViewFrame(song);
-            case "midi":
-                return new MidiViewImpl(song);
+//            case "midi":
+//                return new MidiViewImpl(song);
             case "console":
                 return new ConsoleView(song);
-            case "composite":
-                return new CompositeView(song);
             default:
-                return new CompositeView(song);
+                return new GuiViewFrame(song);
         }
     }
 }
