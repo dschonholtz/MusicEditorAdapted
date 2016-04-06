@@ -19,6 +19,7 @@ TODO
         Mock Synth
         Mock Reciever
         test all methods yay
+
     Add non nulls and throw exceptions
     Lagging playback
     Move timer to controller
@@ -29,14 +30,10 @@ public class MusicEditor {
         if(args.length < 2) {
             throw new IOException("You havfta have at least two command line arrrggs");
         }
-
         SongRep song = new SongFactory().buildSong(args[0]);
         Controller c = new Controller(song);
+        c.run();
 
-        SwingUtilities.invokeLater(() -> {
-            Timer time = new Timer(song.getTempo() / 1000, (event -> c.run()));
-            time.setInitialDelay(0);
-            time.start();
-        });
+
     }
 }

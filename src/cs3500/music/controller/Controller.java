@@ -5,6 +5,7 @@ import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 import cs3500.music.view.CompositeView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -36,13 +37,22 @@ public class Controller implements IController {
         setUpMouse();
     }
 
-    @Override
-    public void run() {
+
+    public void play() {
         view.run();
 
         if (playing) {
             incrementBeat();
         }
+    }
+
+    @Override
+    public void run() {
+        SwingUtilities.invokeLater(() -> {
+            Timer time = new Timer(model.getTempo() / 1000, (event -> play()));
+            time.setInitialDelay(0);
+            time.start();
+        });
     }
 
     @Override
