@@ -19,7 +19,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     public static final int NOTE_HEIGHT = 20; // in  pixels
     public static final int SIDE_WIDTH = 20; // in pixels
     public static final int X_INIT = BEAT_WIDTH + (SIDE_WIDTH + 5); // upper left corner of grid
-    public int xWinStart; // number of measures scrolled to right from zero
+    private int xWinStart; // number of measures scrolled to right from zero
 
 
     public ConcreteGuiViewPanel(SongRep model) {
@@ -299,6 +299,26 @@ public class ConcreteGuiViewPanel extends JPanel {
         }
         else {
             throw new IllegalArgumentException("That points was outside the bounds of the clickable area");
+        }
+    }
+
+    public void scrollLeft() {
+        if (xWinStart > 0) {
+            xWinStart--;
+        }
+    }
+
+    public void scrollRight() {
+        xWinStart++;
+    }
+
+    public int getXWinStart() {
+        return xWinStart;
+    }
+
+    public void setXWinStart(int x) {
+        if(x > 0) {
+            xWinStart = x;
         }
     }
 }

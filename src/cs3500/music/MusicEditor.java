@@ -8,6 +8,7 @@ import javax.sound.midi.InvalidMidiDataException;
 
 /*
 TODO
+    FIX bottom rendering for notes!
     midi broken when adding
     Testing
         Keyboard
@@ -22,7 +23,7 @@ TODO
  */
 public class MusicEditor {
     public static void main(String[] args) throws IOException, InvalidMidiDataException {
-        if(args.length < 2) {
+        if(args.length > 2) {
             throw new IOException("You havfta have at least two command line arrrggs");
         }
 

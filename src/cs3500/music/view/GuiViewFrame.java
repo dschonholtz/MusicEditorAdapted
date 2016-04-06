@@ -52,17 +52,14 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public void scrollLeft() {
-        if (displayPanel.xWinStart > 0) {
-            displayPanel.xWinStart--;
+        displayPanel.scrollLeft();
             repaint();
-        }
-
     }
 
     @Override
     public void scrollRight() {
-        displayPanel.xWinStart++;
-        displayPanel.repaint();
+        displayPanel.scrollRight();
+        repaint();
     }
 
     @Override
@@ -84,8 +81,7 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public boolean noteAtLocation(Point loc) {
-        boolean ans = displayPanel.noteAtLocation(loc);
-        return ans;
+        return displayPanel.noteAtLocation(loc);
     }
 
     private void autoScroll() {
@@ -97,6 +93,6 @@ public class GuiViewFrame extends JFrame implements GuiView {
 
     @Override
     public void jumpTo(int beat) {
-        displayPanel.xWinStart = beat / 4;
+        displayPanel.setXWinStart(beat / 4);
     }
 }

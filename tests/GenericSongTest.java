@@ -1,5 +1,8 @@
 import cs3500.music.model.*;
+import cs3500.music.util.SongFactory;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,7 +18,7 @@ public class GenericSongTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testConstructorNegativeTempo() {
-        new GenericSong(new ArrayList<NoteRep>(), -5);
+        new GenericSong(new ArrayList(), -5);
     }
 
     @Test
@@ -45,11 +48,12 @@ public class GenericSongTest {
         assertEquals(3, gs1.getAllNotes().size()); //consecutive notes will be added
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testAddNoteException() {
+    @Test
+    public void testAddDuplicateNote() {
         SongRep gs1 = new GenericSong();
         gs1.addNote(new Note(5, 45, 3, Pitch.C, 1, 65));
         gs1.addNote(new Note(40, 2, 3, Pitch.C, 1, 65));
+        assertEquals(1, gs1.getAllNotes().size());
 
     }
 
@@ -150,10 +154,15 @@ public class GenericSongTest {
         gs1.combineConsecutively(null);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testEmptySong() {
+        SongRep empty = new GenericSong();
+        assertEquals("The song is empty", empty.getState());
+    }
+
     @Test
     public void testGetState() {
         SongRep maryHadALittleLamb = new GenericSong();
-        assertEquals("This song is empty", maryHadALittleLamb.getState());
 
         // melody
         maryHadALittleLamb.addNote(new Note(0, 2, 4, Pitch.E, 1, 65));
@@ -332,9 +341,8 @@ public class GenericSongTest {
         SongRep test = new GenericSong();
         test.addNote(new Note());
         test.addNote(new Note());
-
         assertEquals("    C4\n" +
-                     " 0  X  ", test.getState());
+                " 0  X  ", test.getState());
     }
 
     @Test
@@ -371,10 +379,10 @@ public class GenericSongTest {
         g.addNote(n5);
         g.addNote(n6);
 
-        assertEquals(new ArrayList(Arrays.asList(n1)), g.getNotesStartingAtT(0));
-        assertEquals(new ArrayList(Arrays.asList(n2, n3)), g.getNotesStartingAtT(2));
-        assertEquals(new ArrayList<>(), g.getNotesStartingAtT(5));
-        assertEquals(new ArrayList<>(), g.getNotesStartingAtT(50));
+        assertEquals(new ArrayList<>(Arrays.asList(n1)), g.getNotesStartingAtT(0));
+        assertEquals(new ArrayList<>(Arrays.asList(n2, n3)), g.getNotesStartingAtT(2));
+        assertEquals(new ArrayList<NoteRep>(), g.getNotesStartingAtT(5));
+        assertEquals(new ArrayList<NoteRep>(), g.getNotesStartingAtT(50));
     }
 
     @Test
@@ -406,5 +414,14 @@ public class GenericSongTest {
         assertEquals(9, g1.getLength());
     }
 
-    //TODO test getTempo
+    @Test
+    public void testGetTempo() {
+        try {
+            SongRep song = new SongFactory().buildSong("mary-little-lamb.txt");
+            assertEquals(song.getTempo(), 200000);
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
