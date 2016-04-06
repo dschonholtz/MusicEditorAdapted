@@ -10,11 +10,6 @@ public class MockSynth implements Synthesizer {
     StringBuilder log;
     int tempo; // in microseconds per beat;
 
-    public MockSynth() {
-        this.log = new StringBuilder();
-        this.tempo = 200000;
-    }
-
     public MockSynth(StringBuilder log, int tempo) {
         this.log = log;
         this.tempo = tempo;
