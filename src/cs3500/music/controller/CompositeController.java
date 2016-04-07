@@ -239,10 +239,29 @@ public class CompositeController implements IController {
     /**
      * Add or remove note at the current mouse location
      */
-    class NoteGod implements Runnable {
+    public class NoteGod implements Runnable {
+        Point givenMouseLoc;
+        boolean test;
+
+        public NoteGod() {
+            this.test = false;
+        }
+
+        public NoteGod(Point mouseLoc, boolean test) {
+            this.givenMouseLoc = mouseLoc;
+            this.test = test;
+        }
+
         public void run() {
-            Point mouseLoc = view.getMousePosition();
+            Point mouseLoc;
+            if(test) {
+                mouseLoc = givenMouseLoc;
+            }
+            else {
+                mouseLoc = view.getMousePosition();
+                }
             boolean noteAtLocation = view.noteAtLocation(mouseLoc);
+
             NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
             if (noteAtLocation) {
                 model.removeNote(temp);

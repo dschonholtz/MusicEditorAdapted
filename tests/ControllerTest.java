@@ -9,6 +9,7 @@ import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.MidiViewImpl;
 import org.junit.Test;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
@@ -168,6 +169,17 @@ public class ControllerTest {
     public void testSetMouseExit() {
         new MouseHandler().setMouseExit(null);
     }
+
+    //WE TRIED BUT WE CAN"T GET THIS TO WORK!
+//    @Test
+//    public void testNoteGod() {
+//        GenericSong gs = new GenericSong();
+//        gs.addNote(new Note());
+//        CompositeController c = new CompositeController(gs);
+//        Point p = new Point(55, 70);
+//        c. new NoteGod(p, true).run();
+//        assertEquals(0, gs.getAllNotes().size());
+//    }
 
     @Test
     public void testConsoleViewOutput() {
