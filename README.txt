@@ -46,6 +46,8 @@ Differences in HW07:
     Controllers add functionality to the program.  You can now manually scroll and scrub through the song,
     pause, play, add, remove, and move notes.
 
+    When scrubbing, aka moving the red line the beat in the model is being updated.
+
     Instruments now sound different in midi playback.
 
     Added a new type of view that had both GUI and MIDI.

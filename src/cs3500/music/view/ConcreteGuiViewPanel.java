@@ -59,7 +59,6 @@ public class ConcreteGuiViewPanel extends JPanel {
         rects.clear();
         for (NoteRep n : notes) {
             int noteY = calculateY(n);
-
             Rectangle r;
 
             if (noteY <= NOTE_HEIGHT / 2) continue;
@@ -298,7 +297,8 @@ public class ConcreteGuiViewPanel extends JPanel {
             return new Note(mouseBeat, 1, octave, p, 1, 65);
         }
         else {
-            throw new IllegalArgumentException("That points was outside the bounds of the clickable area");
+            throw new IllegalArgumentException("That points was outside " +
+                    "the bounds of the clickable area");
         }
     }
 

@@ -12,8 +12,10 @@ import java.util.Objects;
 
 
 /**
- * The idea here is to abstract the work of key handlers to the controller as the view shouldn't care.
- * This also means that once per tick the screen and sounds are updated as needed but the controller controls an
+ * The idea here is to abstract the work of key handlers to the controller
+ * as the view shouldn't care.
+ * This also means that once per tick the screen and sounds are
+ * updated as needed but the controller controls an
  * individual tick.
  */
 public class CompositeView implements GuiView {

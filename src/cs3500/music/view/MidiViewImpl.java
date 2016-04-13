@@ -121,9 +121,11 @@ public class MidiViewImpl implements IMusicView {
             MidiMessage start = null;
             MidiMessage stop = null;
             try {
-                start = new ShortMessage(ShortMessage.NOTE_ON, n.getInstrument() - 1, calcMidiValue(n),
+                start = new ShortMessage(ShortMessage.NOTE_ON,
+                        n.getInstrument() - 1, calcMidiValue(n),
                         n.getVolume());
-                stop = new ShortMessage(ShortMessage.NOTE_OFF, n.getInstrument() - 1, calcMidiValue(n),
+                stop = new ShortMessage(ShortMessage.NOTE_OFF,
+                        n.getInstrument() - 1, calcMidiValue(n),
                         n.getVolume());
             } catch (InvalidMidiDataException e) {
                 e.printStackTrace();

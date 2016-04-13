@@ -296,8 +296,8 @@ public class CompositeController implements IController {
             NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
 
             if(selectedNote != null) {
-                Note n = new Note(temp.getStart(), selectedNote.getDuration(), temp.getOctave(), temp.getPitch(),
-                        selectedNote.getInstrument(), selectedNote.getVolume());
+                Note n = new Note(temp.getStart(), selectedNote.getDuration(), temp.getOctave(),
+                        temp.getPitch(), selectedNote.getInstrument(), selectedNote.getVolume());
                 try {
                     model.addNote(n);
                     model.removeNote(selectedNote);

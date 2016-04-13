@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
- * Builds a song given the name of the song assuming the text file that represents the song is in the same directory
+ * Builds a song given the name of the song assuming the text file that
+ * represents the song is in the same directory
  */
 public class SongFactory {
     public SongRep buildSong(String fileName) throws FileNotFoundException {

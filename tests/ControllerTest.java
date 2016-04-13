@@ -174,9 +174,12 @@ public class ControllerTest {
 //    @Test
 //    public void testNoteGod() {
 //        GenericSong gs = new GenericSong();
-//        gs.addNote(new Note());
+//        gs.addNote(new Note()); // c4 at location 0
 //        CompositeController c = new CompositeController(gs);
-//        Point p = new Point(55, 70);
+//        c.changePlayState();
+//        c.run();
+//        c.incrementBeat();
+//        Point p = new Point(50, 25);
 //        c. new NoteGod(p, true).run();
 //        assertEquals(0, gs.getAllNotes().size());
 //    }
