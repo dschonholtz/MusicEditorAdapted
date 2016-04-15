@@ -3,32 +3,32 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-/** Tests for the {@link Note} class */
-public class NoteTest {
+/** Tests for the {@link OurNote} class */
+public class OurNoteTest {
     @Test (expected = NullPointerException.class)
     public void testNotePitchNonNull() {
-        new Note(2, 3, 4, null, 1, 65);
+        new OurNote(2, 3, 4, null, 1, 65);
     }
 
     @Test //should not throw and exception
     public void testNoteZeroDuration() {
-        new Note(2, 0, 3, Pitch.C, 1, 65);
+        new OurNote(2, 0, 3, Pitch.C, 1, 65);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNoteNegativeStart() { new Note(-1, 2, 3, Pitch.D, 1, 65); }
+    public void testNoteNegativeStart() { new OurNote(-1, 2, 3, Pitch.D, 1, 65); }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNoteNegativeInstrument() { new Note(1, 1, 1, Pitch.C, -1, 65); }
+    public void testNoteNegativeInstrument() { new OurNote(1, 1, 1, Pitch.C, -1, 65); }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNoteNegativeVolume() { new Note(1, 1, 1, Pitch.C, 2, -1); }
+    public void testNoteNegativeVolume() { new OurNote(1, 1, 1, Pitch.C, 2, -1); }
 
     @Test
     public void testGetStart() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(10, 2, 4, Pitch.C, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(10, 2, 4, Pitch.C, 1, 65);
 
         assertEquals(0, n1.getStart());
         assertEquals(5, n2.getStart());
@@ -37,9 +37,9 @@ public class NoteTest {
 
     @Test
     public void testGetDuration() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(10, 2, 4, Pitch.C, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(10, 2, 4, Pitch.C, 1, 65);
 
         assertEquals(1, n1.getDuration());
         assertEquals(4, n2.getDuration());
@@ -48,9 +48,9 @@ public class NoteTest {
 
     @Test
     public void testGetPitch() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(10, 2, 4, Pitch.CS, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(10, 2, 4, Pitch.CS, 1, 65);
 
         assertEquals(Pitch.C, n1.getPitch());
         assertEquals(Pitch.D, n2.getPitch());
@@ -59,9 +59,9 @@ public class NoteTest {
 
     @Test
     public void testGetOctave() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(10, 2, 4, Pitch.CS, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(10, 2, 4, Pitch.CS, 1, 65);
 
         assertEquals(4, n1.getOctave());
         assertEquals(3, n2.getOctave());
@@ -70,10 +70,10 @@ public class NoteTest {
 
     @Test
     public void testGetEnd() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(10, 2, 4, Pitch.CS, 1, 65);
-        Note n4 = new Note(0, 5, 4, Pitch.B, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(10, 2, 4, Pitch.CS, 1, 65);
+        OurNote n4 = new OurNote(0, 5, 4, Pitch.B, 1, 65);
 
         assertEquals(0, n1.getEnd());
         assertEquals(8, n2.getEnd());
@@ -83,9 +83,9 @@ public class NoteTest {
 
     @Test
     public void testNoteToString() {
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(10, 2, 4, Pitch.CS, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(10, 2, 4, Pitch.CS, 1, 65);
 
         assertEquals("C4", n1.toString());
         assertEquals("D3", n2.toString());
@@ -94,10 +94,10 @@ public class NoteTest {
 
     @Test
     public void testNoteEquality() {
-        Note n1 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n2 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n3 = new Note(5, 4, 3, Pitch.E, 1, 65);
-        Note n4 = new Note(5, 4, 3, Pitch.E, 3, 70);
+        OurNote n1 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n3 = new OurNote(5, 4, 3, Pitch.E, 1, 65);
+        OurNote n4 = new OurNote(5, 4, 3, Pitch.E, 3, 70);
 
         assertEquals(n1, n2);
         assertEquals(n1, n1);
@@ -115,8 +115,8 @@ public class NoteTest {
 
     @Test
     public void testGetVolume() {
-        Note n1 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n2 = new Note(5, 4, 2, Pitch.C, 5, 500);
+        OurNote n1 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n2 = new OurNote(5, 4, 2, Pitch.C, 5, 500);
 
         assertEquals(65, n1.getVolume());
         assertEquals(500, n2.getVolume());
@@ -124,8 +124,8 @@ public class NoteTest {
 
     @Test
     public void testGetInstrument() {
-        Note n1 = new Note(5, 4, 3, Pitch.D, 1, 65);
-        Note n2 = new Note(5, 4, 2, Pitch.C, 5, 500);
+        OurNote n1 = new OurNote(5, 4, 3, Pitch.D, 1, 65);
+        OurNote n2 = new OurNote(5, 4, 2, Pitch.C, 5, 500);
 
         assertEquals(1, n1.getInstrument());
         assertEquals(5, n2.getInstrument());

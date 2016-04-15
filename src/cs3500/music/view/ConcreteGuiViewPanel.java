@@ -225,12 +225,12 @@ public class ConcreteGuiViewPanel extends JPanel {
 
             Pitch p = notePitch(s);
             int o = noteOctave(s);
-            Note n;
+            OurNote n;
 
             if (p.equals(Pitch.B)) { // end of the octave
-                n = new Note(0, 1, o + 1, Pitch.C, 1, 65);
+                n = new OurNote(0, 1, o + 1, Pitch.C, 1, 65);
             } else {
-                n = new Note(0, 1, o, Pitch.values()[p.ordinal() + 1], 1, 65);
+                n = new OurNote(0, 1, o, Pitch.values()[p.ordinal() + 1], 1, 65);
             }
 
             this.rangeOfNotes.add(n.toString());
@@ -249,12 +249,12 @@ public class ConcreteGuiViewPanel extends JPanel {
 
             Pitch p = notePitch(s);
             int o = noteOctave(s);
-            Note n;
+            OurNote n;
 
             if (p.equals(Pitch.C)) { // end of the octave
-                n = new Note(0, 1, o - 1, Pitch.B, 1, 65);
+                n = new OurNote(0, 1, o - 1, Pitch.B, 1, 65);
             } else {
-                n = new Note(0, 1, o, Pitch.values()[p.ordinal() - 1], 1, 65);
+                n = new OurNote(0, 1, o, Pitch.values()[p.ordinal() - 1], 1, 65);
             }
 
             this.rangeOfNotes.add(0, n.toString());
@@ -294,7 +294,7 @@ public class ConcreteGuiViewPanel extends JPanel {
                     return n;
                 }
             }
-            return new Note(mouseBeat, 1, octave, p, 1, 65);
+            return new OurNote(mouseBeat, 1, octave, p, 1, 65);
         }
         else {
             throw new IllegalArgumentException("That points was outside " +

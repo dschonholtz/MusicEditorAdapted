@@ -1,6 +1,6 @@
 package cs3500.music.controller;
 
-import cs3500.music.model.Note;
+import cs3500.music.model.OurNote;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 import cs3500.music.view.CompositeView;
@@ -266,7 +266,7 @@ public class CompositeController implements IController {
             if (noteAtLocation) {
                 model.removeNote(temp);
             } else if (lengthOfNextNote > 0) {
-                Note n = new Note(temp.getStart(), lengthOfNextNote, temp.getOctave(),
+                OurNote n = new OurNote(temp.getStart(), lengthOfNextNote, temp.getOctave(),
                         temp.getPitch(), 1, 65);
                 model.addNote(n);
                 lengthOfNextNote = 0;
@@ -296,7 +296,7 @@ public class CompositeController implements IController {
             NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
 
             if(selectedNote != null) {
-                Note n = new Note(temp.getStart(), selectedNote.getDuration(), temp.getOctave(),
+                OurNote n = new OurNote(temp.getStart(), selectedNote.getDuration(), temp.getOctave(),
                         temp.getPitch(), selectedNote.getInstrument(), selectedNote.getVolume());
                 try {
                     model.addNote(n);

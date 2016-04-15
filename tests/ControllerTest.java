@@ -1,15 +1,11 @@
 import cs3500.music.controller.*;
 import cs3500.music.model.GenericSong;
-import cs3500.music.model.Note;
+import cs3500.music.model.OurNote;
 import cs3500.music.model.SongRep;
 import cs3500.music.util.SongFactory;
-import cs3500.music.view.CompositeView;
 import cs3500.music.view.ConsoleView;
-import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.MidiViewImpl;
 import org.junit.Test;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
@@ -23,7 +19,7 @@ public class ControllerTest {
     @Test
     public void testCompositeController1() {
         SongRep s = new GenericSong();
-        s.addNote(new Note());
+        s.addNote(new OurNote());
         CompositeController c = new CompositeController(s);
         assertEquals(c.isPlaying(), true);
         c.changePlayState(); // paused
@@ -37,7 +33,7 @@ public class ControllerTest {
     @Test
     public void testCompositeController2() {
         SongRep s = new GenericSong();
-        s.addNote(new Note());
+        s.addNote(new OurNote());
         CompositeController c = new CompositeController(s);
         c.changePlayState(); // paused
         c.run();
@@ -73,7 +69,7 @@ public class ControllerTest {
     @Test
     public void testControllerFactoryBuildReturn() {
         GenericSong gs = new GenericSong();
-        gs.addNote(new Note());
+        gs.addNote(new OurNote());
         assertTrue(new ControllerFactory("visual", gs).build() instanceof GuiController);
         assertTrue(new ControllerFactory("midi", gs).build() instanceof MidiController);
         assertTrue(new ControllerFactory("console", gs).build() instanceof ConsoleController);
@@ -174,7 +170,7 @@ public class ControllerTest {
 //    @Test
 //    public void testNoteGod() {
 //        GenericSong gs = new GenericSong();
-//        gs.addNote(new Note()); // c4 at location 0
+//        gs.addNote(new OurNote()); // c4 at location 0
 //        CompositeController c = new CompositeController(gs);
 //        c.changePlayState();
 //        c.run();

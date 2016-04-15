@@ -16,7 +16,7 @@ public class MusicReader {
      *   <ul>
      *     <li>Tempo lines: the keyword "tempo" followed by a number,
      *      describing the tempo in microseconds per beat</li>
-     *     <li>Note lines: the keyword "note" followed by five numbers indicating
+     *     <li>OurNote lines: the keyword "note" followed by five numbers indicating
      *      the start and end times of the note, the instrument,
      *      the pitch, and the volume</li>
      *   </ul>

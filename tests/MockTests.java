@@ -106,9 +106,9 @@ public class MockTests {
 
     @Test
     public void testMockMidi() {
-        NoteRep n1 = new Note(0, 4, 4, Pitch.C, 1, 65);
-        NoteRep n2 = new Note(3, 5, 5, Pitch.B, 1, 65);
-        NoteRep n3 = new Note(10, 1, 3, Pitch.AS, 1, 65);
+        NoteRep n1 = new OurNote(0, 4, 4, Pitch.C, 1, 65);
+        NoteRep n2 = new OurNote(3, 5, 5, Pitch.B, 1, 65);
+        NoteRep n3 = new OurNote(10, 1, 3, Pitch.AS, 1, 65);
         ArrayList<NoteRep> notes = new ArrayList<>(Arrays.asList(n1, n2, n3));
         SongRep song1 = new GenericSong(notes, 200000);
         StringBuilder log = new StringBuilder();

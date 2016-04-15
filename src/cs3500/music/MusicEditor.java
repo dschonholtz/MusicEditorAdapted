@@ -9,7 +9,7 @@ import javax.sound.midi.InvalidMidiDataException;
 public class MusicEditor {
     public static void main(String[] args) throws IOException, InvalidMidiDataException {
 
-        if(args.length > 2) {
+        if(args.length < 2) {
             throw new IllegalArgumentException("You havfta have at least two" +
                     " command line arrrggs");
         }

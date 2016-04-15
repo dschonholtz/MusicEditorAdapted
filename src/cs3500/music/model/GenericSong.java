@@ -31,7 +31,7 @@ public class GenericSong implements SongRep {
             int octave = (pitch / 12) - 1;
             Pitch p = Pitch.values()[pitch - (octave + 1) * 12];
 
-            NoteRep note = new Note(start, end-start, octave, p, instrument, volume);
+            NoteRep note = new OurNote(start, end-start, octave, p, instrument, volume);
             notes.add(note);
             return this;
         }
@@ -153,7 +153,7 @@ public class GenericSong implements SongRep {
         Objects.requireNonNull(other);
         int thisSongLength = getLength();
         for (NoteRep n : other.getAllNotes()) {
-            Note n2 = new Note(n.getStart() + thisSongLength, n.getDuration(), n.getOctave(),
+            OurNote n2 = new OurNote(n.getStart() + thisSongLength, n.getDuration(), n.getOctave(),
                     n.getPitch(), n.getInstrument(), n.getVolume());
             notes.add(n2);
         }

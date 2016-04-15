@@ -1,7 +1,7 @@
 package cs3500.music.view;
 
 import cs3500.music.model.GenericSong;
-import cs3500.music.model.Note;
+import cs3500.music.model.OurNote;
 import cs3500.music.model.NoteRep;
 import cs3500.music.model.SongRep;
 
@@ -28,7 +28,7 @@ public class CompositeView implements GuiView {
      */
     public CompositeView() {
         GenericSong song = new GenericSong();
-        song.addNote(new Note());
+        song.addNote(new OurNote());
         this.midi = new MidiViewImpl(song);
         this.gui = new GuiViewFrame(song);
         this.playing = true;

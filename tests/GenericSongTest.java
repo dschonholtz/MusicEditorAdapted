@@ -40,19 +40,19 @@ public class GenericSongTest {
     public void testAddNote() {
         SongRep gs1 = new GenericSong();
         assertEquals(0, gs1.getAllNotes().size());
-        gs1.addNote(new Note());
+        gs1.addNote(new OurNote());
         assertEquals(1, gs1.getAllNotes().size());
-        gs1.addNote(new Note(5, 4, 3, Pitch.C, 1, 65));
+        gs1.addNote(new OurNote(5, 4, 3, Pitch.C, 1, 65));
         assertEquals(2, gs1.getAllNotes().size());
-        gs1.addNote(new Note(10, 4, 3, Pitch.C, 1, 65));
+        gs1.addNote(new OurNote(10, 4, 3, Pitch.C, 1, 65));
         assertEquals(3, gs1.getAllNotes().size()); //consecutive notes will be added
     }
 
     @Test
     public void testAddDuplicateNote() {
         SongRep gs1 = new GenericSong();
-        gs1.addNote(new Note(5, 45, 3, Pitch.C, 1, 65));
-        gs1.addNote(new Note(40, 2, 3, Pitch.C, 1, 65));
+        gs1.addNote(new OurNote(5, 45, 3, Pitch.C, 1, 65));
+        gs1.addNote(new OurNote(40, 2, 3, Pitch.C, 1, 65));
         assertEquals(1, gs1.getAllNotes().size());
 
     }
@@ -66,13 +66,13 @@ public class GenericSongTest {
     @Test
     public void testRemoveNote() {
         SongRep gs1 = new GenericSong();
-        gs1.addNote(new Note());
-        gs1.addNote(new Note(5, 4, 3, Pitch.C, 1, 65));
-        gs1.addNote(new Note(5, 4, 3, Pitch.D, 1, 65));
+        gs1.addNote(new OurNote());
+        gs1.addNote(new OurNote(5, 4, 3, Pitch.C, 1, 65));
+        gs1.addNote(new OurNote(5, 4, 3, Pitch.D, 1, 65));
         assertEquals(3, gs1.getAllNotes().size());
-        gs1.removeNote(new Note(5, 4, 3, Pitch.C, 1, 65));
+        gs1.removeNote(new OurNote(5, 4, 3, Pitch.C, 1, 65));
         assertEquals(2, gs1.getAllNotes().size());
-        gs1.removeNote(new Note(3, 3, 3, Pitch.E, 1, 65));
+        gs1.removeNote(new OurNote(3, 3, 3, Pitch.E, 1, 65));
         assertEquals(2, gs1.getAllNotes().size());
     }
 
@@ -86,18 +86,18 @@ public class GenericSongTest {
     public void testGetAllNotes() {
         SongRep gs1 = new GenericSong();
         assertEquals(new ArrayList<NoteRep>(), gs1.getAllNotes());
-        gs1.addNote(new Note());
-        gs1.addNote(new Note(5, 4, 3, Pitch.B, 1, 65));
-        assertEquals(new ArrayList<NoteRep>(Arrays.asList(new Note(),
-                new Note(5, 4, 3, Pitch.B, 1, 65))),
+        gs1.addNote(new OurNote());
+        gs1.addNote(new OurNote(5, 4, 3, Pitch.B, 1, 65));
+        assertEquals(new ArrayList<NoteRep>(Arrays.asList(new OurNote(),
+                new OurNote(5, 4, 3, Pitch.B, 1, 65))),
                 gs1.getAllNotes());
     }
 
     @Test (expected = UnsupportedOperationException.class)
     public void testGetNotesUnmodifiable() {
         SongRep gs1 = new GenericSong();
-        gs1.addNote(new Note());
-        gs1.getAllNotes().add(new Note(5, 4, 3, Pitch.F, 1, 65));
+        gs1.addNote(new OurNote());
+        gs1.getAllNotes().add(new OurNote(5, 4, 3, Pitch.F, 1, 65));
     }
 
     @Test
@@ -105,9 +105,9 @@ public class GenericSongTest {
         SongRep gs1 = new GenericSong();
         SongRep gs2 = new GenericSong();
 
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.G, 1, 65);
-        Note n3 = new Note(1, 2, 3, Pitch.F, 1, 65);
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.G, 1, 65);
+        OurNote n3 = new OurNote(1, 2, 3, Pitch.F, 1, 65);
 
         gs1.addNote(n1);
         gs1.addNote(n2);
@@ -131,10 +131,10 @@ public class GenericSongTest {
         SongRep gs1 = new GenericSong();
         SongRep gs2 = new GenericSong();
 
-        Note n1 = new Note();
-        Note n2 = new Note(5, 4, 3, Pitch.G, 1, 65);
-        Note n3 = new Note(1, 2, 3, Pitch.F, 1, 65);
-        Note n4 = new Note();
+        OurNote n1 = new OurNote();
+        OurNote n2 = new OurNote(5, 4, 3, Pitch.G, 1, 65);
+        OurNote n3 = new OurNote(1, 2, 3, Pitch.F, 1, 65);
+        OurNote n4 = new OurNote();
 
         gs1.addNote(n1);
         gs1.addNote(n2);
@@ -144,8 +144,8 @@ public class GenericSongTest {
 
         gs1.combineConsecutively(gs2);
         assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n2,
-                new Note(8, 1, 4, Pitch.C, 1, 65),
-                new Note(9, 2, 3, Pitch.F, 1, 65))), gs1.getAllNotes());
+                new OurNote(8, 1, 4, Pitch.C, 1, 65),
+                new OurNote(9, 2, 3, Pitch.F, 1, 65))), gs1.getAllNotes());
     }
 
     @Test (expected = NullPointerException.class)
@@ -165,42 +165,42 @@ public class GenericSongTest {
         SongRep maryHadALittleLamb = new GenericSong();
 
         // melody
-        maryHadALittleLamb.addNote(new Note(0, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(2, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(4, 2, 4, Pitch.C, 1, 65));
-        maryHadALittleLamb.addNote(new Note(6, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(8, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(10, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(12, 3, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(16, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(18, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(20,4, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(24, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(26, 2, 4, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(28, 4, 4, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(32, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(34, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(36, 2, 4, Pitch.C, 1, 65));
-        maryHadALittleLamb.addNote(new Note(38, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(40, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(42, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(44, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(46, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(48, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(50, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(52, 2, 4, Pitch.E, 1, 65));
-        maryHadALittleLamb.addNote(new Note(54, 2, 4, Pitch.D, 1, 65));
-        maryHadALittleLamb.addNote(new Note(56, 8, 4, Pitch.C, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(0, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(2, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(4, 2, 4, Pitch.C, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(6, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(8, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(10, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(12, 3, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(16, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(18, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(20,4, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(24, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(26, 2, 4, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(28, 4, 4, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(32, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(34, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(36, 2, 4, Pitch.C, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(38, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(40, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(42, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(44, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(46, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(48, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(50, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(52, 2, 4, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(54, 2, 4, Pitch.D, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(56, 8, 4, Pitch.C, 1, 65));
 
         // bass
-        maryHadALittleLamb.addNote(new Note(0, 7, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(8, 7, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(16, 8, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(24, 2, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(32, 8, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(40, 8, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(48, 8, 3, Pitch.G, 1, 65));
-        maryHadALittleLamb.addNote(new Note(56, 8, 3, Pitch.E, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(0, 7, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(8, 7, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(16, 8, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(24, 2, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(32, 8, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(40, 8, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(48, 8, 3, Pitch.G, 1, 65));
+        maryHadALittleLamb.addNote(new OurNote(56, 8, 3, Pitch.E, 1, 65));
 
         assertEquals("     E3   F3  F#3   G3  G#3   A3  A#3   B3   C4  C#4   D4  D#4   E4" +
                 "   F4  F#4" +
@@ -339,8 +339,8 @@ public class GenericSongTest {
     @Test
     public void testGetStateDoubleNotes() {
         SongRep test = new GenericSong();
-        test.addNote(new Note());
-        test.addNote(new Note());
+        test.addNote(new OurNote());
+        test.addNote(new OurNote());
         assertEquals("    C4\n" +
                 " 0  X  ", test.getState());
     }
@@ -348,11 +348,11 @@ public class GenericSongTest {
     @Test
     public void testGetStateManyShortNotes() {
         SongRep test = new GenericSong();
-        test.addNote(new Note(0, 1, 4, Pitch.AS, 1, 65));
-        test.addNote(new Note(1, 1, 4, Pitch.AS, 1, 65));
-        test.addNote(new Note(2, 1, 4, Pitch.AS, 1, 65));
-        test.addNote(new Note(3, 1, 4, Pitch.AS, 1, 65));
-        test.addNote(new Note(2, 2, 4, Pitch.E, 1, 65));
+        test.addNote(new OurNote(0, 1, 4, Pitch.AS, 1, 65));
+        test.addNote(new OurNote(1, 1, 4, Pitch.AS, 1, 65));
+        test.addNote(new OurNote(2, 1, 4, Pitch.AS, 1, 65));
+        test.addNote(new OurNote(3, 1, 4, Pitch.AS, 1, 65));
+        test.addNote(new OurNote(2, 2, 4, Pitch.E, 1, 65));
 
         assertEquals("    E4   F4  F#4   G4  G#4   A4  A#4\n" +
                      " 0                                X  \n" +
@@ -365,12 +365,12 @@ public class GenericSongTest {
     @Test
     public void testGetNotesStartingAtT() {
         GenericSong g = new GenericSong();
-        NoteRep n1 = new Note(0, 2, 4, Pitch.E, 1, 65);
-        NoteRep n2 = new Note(2, 2, 4, Pitch.D, 1, 65);
-        NoteRep n3 = new Note(2, 2, 4, Pitch.B, 1, 65);
-        NoteRep n4 = new Note(4, 2, 4, Pitch.C, 1, 65);
-        NoteRep n5 = new Note(6, 2, 4, Pitch.D, 1, 65);
-        NoteRep n6 = new Note(8, 2, 4, Pitch.E, 1, 65);
+        NoteRep n1 = new OurNote(0, 2, 4, Pitch.E, 1, 65);
+        NoteRep n2 = new OurNote(2, 2, 4, Pitch.D, 1, 65);
+        NoteRep n3 = new OurNote(2, 2, 4, Pitch.B, 1, 65);
+        NoteRep n4 = new OurNote(4, 2, 4, Pitch.C, 1, 65);
+        NoteRep n5 = new OurNote(6, 2, 4, Pitch.D, 1, 65);
+        NoteRep n6 = new OurNote(8, 2, 4, Pitch.E, 1, 65);
 
         g.addNote(n1);
         g.addNote(n2);
@@ -388,10 +388,10 @@ public class GenericSongTest {
     @Test
     public void testGetNotesPlayingAtT() {
         GenericSong g = new GenericSong();
-        NoteRep n1 = new Note(0, 2, 4, Pitch.E, 1, 65);
-        NoteRep n2 = new Note(2, 2, 4, Pitch.D, 1, 65);
-        NoteRep n3 = new Note(2, 10, 4, Pitch.B, 1, 65);
-        NoteRep n4 = new Note(4, 2, 4, Pitch.C, 1, 65);
+        NoteRep n1 = new OurNote(0, 2, 4, Pitch.E, 1, 65);
+        NoteRep n2 = new OurNote(2, 2, 4, Pitch.D, 1, 65);
+        NoteRep n3 = new OurNote(2, 10, 4, Pitch.B, 1, 65);
+        NoteRep n4 = new OurNote(4, 2, 4, Pitch.C, 1, 65);
 
         g.addNote(n1);
         g.addNote(n2);
@@ -408,9 +408,9 @@ public class GenericSongTest {
     public void testGetLength() {
         GenericSong g1 = new GenericSong();
         assertEquals(0, g1.getLength());
-        g1.addNote(new Note(0, 10, 4, Pitch.C, 1, 65));
+        g1.addNote(new OurNote(0, 10, 4, Pitch.C, 1, 65));
         assertEquals(9, g1.getLength());
-        g1.addNote(new Note(5, 2, 4, Pitch.D, 1, 65));
+        g1.addNote(new OurNote(5, 2, 4, Pitch.D, 1, 65));
         assertEquals(9, g1.getLength());
     }
 
