@@ -32,7 +32,7 @@ public interface SongRep {
     /**
      * @return an unmodifiable list of all the notes in this song
      */
-    List<NoteRep> getAllNotes();
+    List<NoteRep> getAllNoteReps();
 
     /**
      * Gets a list of all the notes in this song that have a starting time of t

@@ -3,7 +3,7 @@ package cs3500.music.model;
 import java.util.Objects;
 
 /** Represents a musical note */
-public final class OurNote implements NoteRep {
+public class OurNote implements NoteRep {
 
     /** The starting beat of the note */
     private int start;

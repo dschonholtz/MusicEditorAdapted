@@ -17,7 +17,7 @@ public interface Model {
     /** @return true if any notes are being played at beat b */
     boolean containsKey(int b);
     /** @return the list of notes that start playing at beat b */
-    List<Note> getNotesAtBeat(int b); //TODO Our note classes are named the same, need to fix
+    List<Note> getNotesAtBeat(int b);
     /** @return the list of all notes in the model */
     List<Note> getAllNotes();
     /** @return a string representing the model */

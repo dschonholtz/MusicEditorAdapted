@@ -95,13 +95,13 @@ public class GenericSong implements SongRep {
     }
 
     @Override
-    public List<NoteRep> getAllNotes() {
+    public List<NoteRep> getAllNoteReps() {
         return Collections.unmodifiableList(notes);
     }
 
     @Override
     public List<NoteRep> getNotesStartingAtT(int t) {
-        return getAllNotes().stream().filter(n -> n.getStart() == t).
+        return getAllNoteReps().stream().filter(n -> n.getStart() == t).
                 collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -145,14 +145,14 @@ public class GenericSong implements SongRep {
     @Override
     public void combineSimultaneously(SongRep other) {
         Objects.requireNonNull(other);
-        other.getAllNotes().forEach(this::addNote);
+        other.getAllNoteReps().forEach(this::addNote);
     }
 
     @Override
     public void combineConsecutively(SongRep other) {
         Objects.requireNonNull(other);
         int thisSongLength = getLength();
-        for (NoteRep n : other.getAllNotes()) {
+        for (NoteRep n : other.getAllNoteReps()) {
             OurNote n2 = new OurNote(n.getStart() + thisSongLength, n.getDuration(), n.getOctave(),
                     n.getPitch(), n.getInstrument(), n.getVolume());
             notes.add(n2);

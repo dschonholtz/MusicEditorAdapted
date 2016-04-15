@@ -3,5 +3,7 @@ Created Model interface to match otherView
 Declared all methods used by otherView in Model
 
 Changed Note class to OurNote
-Created Note interface to match otherView
-Declared all methods used by otherView in Note
+Created Note class to match otherView
+Made OurNote non final so we could extend (I don't know why it was in the first place... we wanted it to be non-mutable,
+    I think, but we just have to not give access to anything.  Should still be fine)
+All methods otherView uses on notes are in the Note class now

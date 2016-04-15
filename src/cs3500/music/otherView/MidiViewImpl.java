@@ -65,7 +65,7 @@ public class MidiViewImpl implements View {
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
-    this.receiver.send(start1, note.getStartFrom());
+    this.receiver.send(start1, note.getStartFrom()); //todo what exactly does this return? start in microseconds? what about tempo?
 
   }
 
@@ -122,7 +122,7 @@ public class MidiViewImpl implements View {
   public void displayOneBeat(Model model) {
     if (currentBeat <= model.getMaxBeats() + 1) {
       //  System.out.print("Current Beat: " + currentBeat + "\n");
-      java.util.List<Note> sorted = model.getAllNotes();
+      java.util.List<Note> sorted = model.getAllNotes(); //todo they don't even use their map to make this more efficient?
       for (Note note : sorted) {
         if (currentBeat == note.getStartFrom()) {
           this.playNote(note);

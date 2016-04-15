@@ -55,7 +55,7 @@ public class ConcreteGuiViewPanel extends JPanel {
      * @param g the <code>Graphics</code> object to protect
      */
     private void paintNotes(Graphics g) {
-        List<NoteRep> notes = model.getAllNotes();
+        List<NoteRep> notes = model.getAllNoteReps();
         rects.clear();
         for (NoteRep n : notes) {
             int noteY = calculateY(n);
