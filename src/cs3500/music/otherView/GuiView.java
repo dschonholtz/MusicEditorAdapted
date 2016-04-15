@@ -1,8 +1,5 @@
 package cs3500.music.otherView;
 
-
-import com.sun.javafx.sg.prism.NGShape;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import cs3500.music.model.*;
 
 import javax.swing.*;
