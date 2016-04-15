@@ -1,0 +1,7 @@
+Created ModelAdapter class
+Created Model interface to match otherView
+Declared all methods used by otherView in Model
+
+Changed Note class to OurNote
+Created Note interface to match otherView
+Declared all methods used by otherView in Note
