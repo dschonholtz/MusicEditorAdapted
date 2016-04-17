@@ -102,4 +102,14 @@ public interface SongRep {
      * @return the tempo of this song
      */
     int getTempo();
+
+    /**
+     * @return the highest note in this song
+     */
+    NoteRep getHighestNote();
+
+    /**
+     * @return the lowest note in this song
+     */
+    NoteRep getLowestNote();
 }

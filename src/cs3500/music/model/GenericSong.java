@@ -231,8 +231,8 @@ public class GenericSong implements SongRep {
         return out;
     }
 
-    /** @return the lowest note in this song (as on a piano) */
-    private NoteRep getLowestNote() {
+    @Override
+    public NoteRep getLowestNote() {
         if (notes.isEmpty()) throw new IllegalArgumentException("There are no notes");
 
         NoteRep lowestNote = notes.get(0);
@@ -243,8 +243,8 @@ public class GenericSong implements SongRep {
         return lowestNote;
     }
 
-    /** @return the highest note in this song (as on a piano) */
-    private NoteRep getHighestNote() {
+    @Override
+    public NoteRep getHighestNote() {
         if (notes.isEmpty()) throw new IllegalArgumentException("There are no notes");
 
         NoteRep highestNote = notes.get(0);

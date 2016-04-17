@@ -1,7 +1,6 @@
 package cs3500.music.controller;
 
-import cs3500.music.model.SongRep;
-
+import cs3500.music.model.Model;
 import java.util.Objects;
 
 /**
@@ -9,13 +8,13 @@ import java.util.Objects;
  */
 public class ControllerFactory {
     String viewType;
-    SongRep model;
+    Model model;
 
     /**
      * @param viewType "console", "midi", "visual", or "composite", the type of view you want
      * @param model what song the controller should build initially
      */
-    public ControllerFactory(String viewType, SongRep model) {
+    public ControllerFactory(String viewType, Model model) {
         Objects.requireNonNull(viewType);
         Objects.requireNonNull(model);
         this.viewType = viewType;
@@ -27,8 +26,8 @@ public class ControllerFactory {
      */
     public IController build() {
         switch(viewType) {
-            case "composite":
-                return new CompositeController(model);
+//            case "composite":
+//                return new CompositeController(model);
             case "midi":
                 return new MidiController(model);
             case "console":

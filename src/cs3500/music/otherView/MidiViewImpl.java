@@ -61,7 +61,7 @@ public class MidiViewImpl implements View {
     int volume = note.getVolume();
     ShortMessage start1 = new ShortMessage();
     try {
-      start1.setMessage(ShortMessage.NOTE_ON, instrument, pitch, volume);
+      start1.setMessage(ShortMessage.NOTE_ON, instrument - 1, pitch, volume);
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
@@ -80,7 +80,7 @@ public class MidiViewImpl implements View {
     int volume = note.getVolume();
     ShortMessage stop1 = new ShortMessage();
     try {
-      stop1.setMessage(ShortMessage.NOTE_OFF, instrument, pitch, volume);
+      stop1.setMessage(ShortMessage.NOTE_OFF, instrument - 1, pitch, volume);
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }

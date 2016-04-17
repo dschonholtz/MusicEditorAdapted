@@ -1,7 +1,8 @@
 package cs3500.music.controller;
 
+import cs3500.music.model.Model;
 import cs3500.music.model.SongRep;
-import cs3500.music.view.MidiViewImpl;
+import cs3500.music.otherView.MidiViewImpl;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -10,16 +11,16 @@ import java.util.Objects;
  * Controller for midi views
  */
 public class MidiController implements IController {
-    private SongRep model;
+    private Model model;
     private MidiViewImpl view;
 
     /**
      * @param model the song to play
      */
-    public MidiController (SongRep model) {
+    public MidiController (Model model) {
         Objects.requireNonNull(model);
         this.model = model;
-        view = new MidiViewImpl(model);
+        view = new MidiViewImpl();
 
     }
 
@@ -33,7 +34,8 @@ public class MidiController implements IController {
     }
 
     private void play() {
-        model.setCurrentBeat(model.getBeat() + 1);
-        view.run();
+//        model.setCurrentBeat(model.getBeat() + 1);
+//        view.run();
+        view.displayOneBeat(model);
     }
 }

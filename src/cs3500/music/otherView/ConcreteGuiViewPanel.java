@@ -85,7 +85,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     for (int i = 0; i < totalPitches; i++) {
       g2.drawLine(GRID * 2, i * GRID + GRID, totalBeats * GRID * 4 - GRID * 2, i * GRID + GRID);
       if (i != totalPitches - 1) {
-        g2.drawString(Note.convertToNote(model.getLowestPitch() + i).toString(), 0, //todo this is a static call, which I can't do from an interface
+        g2.drawString(Note.convertToNote(model.getLowestPitch() + i).toString(), 0,
           (totalPitches - i) * GRID - 5);
       }
     }

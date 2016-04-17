@@ -51,30 +51,30 @@ public class ControllerTest {
         new CompositeController();
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testControllerFactoryDefault() {
-        new ControllerFactory("breakme", new GenericSong()).build();
-    }
-
-    @Test (expected = NullPointerException.class)
-    public void testControllerFactoryNullSong() {
-        new ControllerFactory("breakme", null).build();
-    }
-
-    @Test (expected = NullPointerException.class)
-    public void testControllerFactoryNullType() {
-        new ControllerFactory(null, new GenericSong()).build();
-    }
-
-    @Test
-    public void testControllerFactoryBuildReturn() {
-        GenericSong gs = new GenericSong();
-        gs.addNote(new OurNote());
-        assertTrue(new ControllerFactory("visual", gs).build() instanceof GuiController);
-        assertTrue(new ControllerFactory("midi", gs).build() instanceof MidiController);
-        assertTrue(new ControllerFactory("console", gs).build() instanceof ConsoleController);
-        assertTrue(new ControllerFactory("composite", gs).build() instanceof CompositeController);
-    }
+//    @Test (expected = IllegalArgumentException.class)
+//    public void testControllerFactoryDefault() {
+//        new ControllerFactory("breakme", new GenericSong()).build();
+//    }
+//
+//    @Test (expected = NullPointerException.class)
+//    public void testControllerFactoryNullSong() {
+//        new ControllerFactory("breakme", null).build();
+//    }
+//
+//    @Test (expected = NullPointerException.class)
+//    public void testControllerFactoryNullType() {
+//        new ControllerFactory(null, new GenericSong()).build();
+//    }
+//
+//    @Test
+//    public void testControllerFactoryBuildReturn() {
+//        GenericSong gs = new GenericSong();
+//        gs.addNote(new OurNote());
+//        assertTrue(new ControllerFactory("visual", gs).build() instanceof GuiController);
+//        assertTrue(new ControllerFactory("midi", gs).build() instanceof MidiController);
+//        assertTrue(new ControllerFactory("console", gs).build() instanceof ConsoleController);
+//        assertTrue(new ControllerFactory("composite", gs).build() instanceof CompositeController);
+//    }
 
     @Test (expected = NullPointerException.class)
     public void testGuiControllerNonNull() {

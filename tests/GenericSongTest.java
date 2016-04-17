@@ -39,13 +39,13 @@ public class GenericSongTest {
     @Test
     public void testAddNote() {
         SongRep gs1 = new GenericSong();
-        assertEquals(0, gs1.getAllNotes().size());
+        assertEquals(0, gs1.getAllNoteReps().size());
         gs1.addNote(new OurNote());
-        assertEquals(1, gs1.getAllNotes().size());
+        assertEquals(1, gs1.getAllNoteReps().size());
         gs1.addNote(new OurNote(5, 4, 3, Pitch.C, 1, 65));
-        assertEquals(2, gs1.getAllNotes().size());
+        assertEquals(2, gs1.getAllNoteReps().size());
         gs1.addNote(new OurNote(10, 4, 3, Pitch.C, 1, 65));
-        assertEquals(3, gs1.getAllNotes().size()); //consecutive notes will be added
+        assertEquals(3, gs1.getAllNoteReps().size()); //consecutive notes will be added
     }
 
     @Test
@@ -53,7 +53,7 @@ public class GenericSongTest {
         SongRep gs1 = new GenericSong();
         gs1.addNote(new OurNote(5, 45, 3, Pitch.C, 1, 65));
         gs1.addNote(new OurNote(40, 2, 3, Pitch.C, 1, 65));
-        assertEquals(1, gs1.getAllNotes().size());
+        assertEquals(1, gs1.getAllNoteReps().size());
 
     }
 
@@ -69,11 +69,11 @@ public class GenericSongTest {
         gs1.addNote(new OurNote());
         gs1.addNote(new OurNote(5, 4, 3, Pitch.C, 1, 65));
         gs1.addNote(new OurNote(5, 4, 3, Pitch.D, 1, 65));
-        assertEquals(3, gs1.getAllNotes().size());
+        assertEquals(3, gs1.getAllNoteReps().size());
         gs1.removeNote(new OurNote(5, 4, 3, Pitch.C, 1, 65));
-        assertEquals(2, gs1.getAllNotes().size());
+        assertEquals(2, gs1.getAllNoteReps().size());
         gs1.removeNote(new OurNote(3, 3, 3, Pitch.E, 1, 65));
-        assertEquals(2, gs1.getAllNotes().size());
+        assertEquals(2, gs1.getAllNoteReps().size());
     }
 
     @Test (expected = NullPointerException.class)
@@ -83,21 +83,21 @@ public class GenericSongTest {
     }
 
     @Test
-    public void testGetAllNotes() {
+    public void testgetAllNoteReps() {
         SongRep gs1 = new GenericSong();
-        assertEquals(new ArrayList<NoteRep>(), gs1.getAllNotes());
+        assertEquals(new ArrayList<NoteRep>(), gs1.getAllNoteReps());
         gs1.addNote(new OurNote());
         gs1.addNote(new OurNote(5, 4, 3, Pitch.B, 1, 65));
         assertEquals(new ArrayList<NoteRep>(Arrays.asList(new OurNote(),
                 new OurNote(5, 4, 3, Pitch.B, 1, 65))),
-                gs1.getAllNotes());
+                gs1.getAllNoteReps());
     }
 
     @Test (expected = UnsupportedOperationException.class)
     public void testGetNotesUnmodifiable() {
         SongRep gs1 = new GenericSong();
         gs1.addNote(new OurNote());
-        gs1.getAllNotes().add(new OurNote(5, 4, 3, Pitch.F, 1, 65));
+        gs1.getAllNoteReps().add(new OurNote(5, 4, 3, Pitch.F, 1, 65));
     }
 
     @Test
@@ -116,8 +116,8 @@ public class GenericSongTest {
         gs2.addNote(n3);
 
         gs1.combineSimultaneously(gs2);
-        assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n2, n3)), gs1.getAllNotes());
-        assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n3)), gs2.getAllNotes());
+        assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n2, n3)), gs1.getAllNoteReps());
+        assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n3)), gs2.getAllNoteReps());
     }
 
     @Test (expected = NullPointerException.class)
@@ -145,7 +145,7 @@ public class GenericSongTest {
         gs1.combineConsecutively(gs2);
         assertEquals(new ArrayList<NoteRep>(Arrays.asList(n1, n2,
                 new OurNote(8, 1, 4, Pitch.C, 1, 65),
-                new OurNote(9, 2, 3, Pitch.F, 1, 65))), gs1.getAllNotes());
+                new OurNote(9, 2, 3, Pitch.F, 1, 65))), gs1.getAllNoteReps());
     }
 
     @Test (expected = NullPointerException.class)
