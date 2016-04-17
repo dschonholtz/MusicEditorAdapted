@@ -24,6 +24,8 @@ it also resets shit?  I used it both to resume and to reset to 0.  That's super 
 
 They're dancing around nulls a little bit which is bad practice I guess
 
+Scrolling around works I guess
+
 Since we're pretty sure their shit reset, how did they do these things before?  If there is a way to make them work
 without changing their code, it would be better.  For now, this is working.
 IMPORTANT NOTE: HAD TO CHANGE THEIR MIDIVIEWIMPL TO USE INSTRUMENT - 1 OR WE GOT OOB EXCEPTIONS IN DF-TTFAF.TXT

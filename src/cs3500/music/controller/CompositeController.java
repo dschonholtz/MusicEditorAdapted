@@ -81,10 +81,10 @@ public class CompositeController implements IController {
         Map<Integer, Runnable> keyReleases = new HashMap<>();
 //
         keyPresses.put(KeyEvent.VK_SPACE, new Pause());
-//        keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
-//        keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
-//        keyPresses.put(KeyEvent.VK_LEFT, new ScrollLeft());
-//        keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
+        keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
+        keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
+        keyPresses.put(KeyEvent.VK_LEFT, new ScrollLeft());
+        keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
         keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
 //        keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
 //        keyPresses.put(KeyEvent.VK_SHIFT, new HoldShift());
@@ -125,49 +125,34 @@ public class CompositeController implements IController {
         }
     }
 
-    //todo to scroll around we need to access the action stuff that's directly in the guiviewimpl and that could be a problem
-//    /**
-//     * Scroll the view up
-//     */
-//    class ScrollUp implements Runnable {
-//        public void run() {
-//            view.scrollUp();
-//        }
-//    }
-//
-//    /**
-//     * Scroll the view down
-//     */
-//    class ScrollDown implements Runnable {
-//        public void run() { view.scrollDown(); }
-//    }
-//
-//    /**
-//     * Scroll the view left
-//     */
-//    class ScrollLeft implements Runnable {
-//        public void run() {
-//            view.scrollLeft();
-//
-//            if (holdingShift) {
-//                model.setCurrentBeat(Math.max(0, model.getBeat() - 4));
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Scroll the view right
-//     */
-//    class ScrollRight implements Runnable {
-//        public void run() {
-//            view.scrollRight();
-//
-//            if (holdingShift) {
-//                model.setCurrentBeat(model.getBeat() + 4);
-//            }
-//        }
-//    }
-//
+    /**
+     * Scroll the view up
+     */
+    class ScrollUp implements Runnable {
+        public void run() { view.controlPanel(model, "U"); }
+    }
+
+    /**
+     * Scroll the view down
+     */
+    class ScrollDown implements Runnable {
+        public void run() { view.controlPanel(model, "D"); }
+    }
+
+    /**
+     * Scroll the view left
+     */
+    class ScrollLeft implements Runnable {
+        public void run() { view.controlPanel(model, "L"); }
+    }
+
+    /**
+     * Scroll the view right
+     */
+    class ScrollRight implements Runnable {
+        public void run() { view.controlPanel(model, "R"); }
+    }
+
     /**
      * Jump the current beat and the view to the beginning of the song
      */
