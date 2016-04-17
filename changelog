@@ -16,3 +16,6 @@ Controller factory changed to take in a Model instead of a SongRep
 
 MidiViewImpl directly changes the model.  This is bad design but it works.
 IMPORTANT NOTE: HAD TO CHANGE THEIR MIDIVIEWIMPL TO USE INSTRUMENT - 1 OR WE GOT OOB EXCEPTIONS IN DF-TTFAF.TXT
+
+Composite controller changed significantly
+Runnables are not working at all currently

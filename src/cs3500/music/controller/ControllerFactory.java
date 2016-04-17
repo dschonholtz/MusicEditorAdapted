@@ -26,8 +26,8 @@ public class ControllerFactory {
      */
     public IController build() {
         switch(viewType) {
-//            case "composite":
-//                return new CompositeController(model);
+            case "composite":
+                return new CompositeController(model);
             case "midi":
                 return new MidiController(model);
             case "console":
