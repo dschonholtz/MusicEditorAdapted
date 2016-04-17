@@ -69,4 +69,9 @@ public class Note implements NoteRep {
     public int getInstrument() {
         return n.getInstrument();
     }
+
+    @Override
+    public String toString() {
+        return n.toString();
+    }
 }
