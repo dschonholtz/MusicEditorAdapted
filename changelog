@@ -18,13 +18,14 @@ MidiViewImpl directly changes the model.  This is bad design but it works.
 
 Composite controller changed significantly
 Can pause/play and reset currently.
+Scrolling works I guess
+Took out scrubbing
+trying to figure out how to skip midi to the end.
 
 Their play method in compositeview is super weird?  When used to resume it resumes where it was but
 it also resets shit?  I used it both to resume and to reset to 0.  That's super weird.
 
 They're dancing around nulls a little bit which is bad practice I guess
-
-Scrolling around works I guess
 
 Since we're pretty sure their shit reset, how did they do these things before?  If there is a way to make them work
 without changing their code, it would be better.  For now, this is working.

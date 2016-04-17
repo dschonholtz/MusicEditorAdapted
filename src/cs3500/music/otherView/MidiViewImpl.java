@@ -65,8 +65,7 @@ public class MidiViewImpl implements View {
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
-    this.receiver.send(start1, note.getStartFrom()); //todo what exactly does this return? start in microseconds? what about tempo?
-
+    this.receiver.send(start1, note.getStartFrom());
   }
 
   /**

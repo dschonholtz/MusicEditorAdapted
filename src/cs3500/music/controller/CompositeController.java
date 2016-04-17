@@ -21,7 +21,6 @@ public class CompositeController implements IController {
     private final Model model;
     private final CompositeViewImpl view;
     private boolean playing;
-    private boolean holdingShift;
     private int lengthOfNextNote; // the next created note will have this length in beats
     private NoteRep selectedNote;
 
@@ -37,7 +36,6 @@ public class CompositeController implements IController {
         this.model = model;
         this.view = new CompositeViewImpl();
         this.playing = true;
-        this.holdingShift = false;
         this.lengthOfNextNote = 0;
         setUpKeys();
 //        setUpMouse();
@@ -64,15 +62,6 @@ public class CompositeController implements IController {
         return playing;
     }
 
-//    /**
-//     * Jumps the current beat of the model and view to the given beat
-//     * @param beat the beat to jump to
-//     */
-//    private void jumpTo(int beat) {
-//        model.setCurrentBeat(beat);
-//        view.jumpTo(beat);
-//    }
-
     /**
      * Add all desired functionality for keyboard interaction
      */
@@ -86,8 +75,7 @@ public class CompositeController implements IController {
         keyPresses.put(KeyEvent.VK_LEFT, new ScrollLeft());
         keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
         keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
-//        keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
-//        keyPresses.put(KeyEvent.VK_SHIFT, new HoldShift());
+        keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
 //        keyPresses.put(KeyEvent.VK_0, new SetNextNoteLength(0));
 //        keyPresses.put(KeyEvent.VK_1, new SetNextNoteLength(1));
 //        keyPresses.put(KeyEvent.VK_2, new SetNextNoteLength(2));
@@ -98,9 +86,7 @@ public class CompositeController implements IController {
 //        keyPresses.put(KeyEvent.VK_7, new SetNextNoteLength(7));
 //        keyPresses.put(KeyEvent.VK_8, new SetNextNoteLength(8));
 //        keyPresses.put(KeyEvent.VK_9, new SetNextNoteLength(9));
-//
-//        keyReleases.put(KeyEvent.VK_SHIFT, new ReleaseShift());
-//
+
         KeyboardHandler kh = new KeyboardHandler();
         kh.setKeyPressedMap(keyPresses);
         kh.setKeyReleasedMap(keyReleases);
@@ -157,31 +143,15 @@ public class CompositeController implements IController {
      * Jump the current beat and the view to the beginning of the song
      */
     class SkipToStart implements Runnable {
-        public void run() {
-            view.play(model);
-        }
+        public void run() { view.play(model); }
     }
-//
-//    /**
-//     * Jump the current beat and the view to the end of the song
-//     */
-//    class SkipToEnd implements Runnable {
-//        public void run() { jumpTo(model.getLength()); }
-//    }
-//
-//    /**
-//     * Recognize that shift is being held down
-//     */
-//    class HoldShift implements Runnable {
-//        public void run() { holdingShift = true; }
-//    }
-//
-//    /**
-//     * Recognize that shift has been released
-//     */
-//    class ReleaseShift implements Runnable {
-//        public void run() { holdingShift = false; }
-//    }
+
+    /**
+     * Jump the current beat and the view to the end of the song
+     */
+    class SkipToEnd implements Runnable {
+        public void run() { view.controlPanel(model, "E"); }
+    }
 //
 //    /**
 //     * Add the given digit to the length of the next note to be added by mouse click
