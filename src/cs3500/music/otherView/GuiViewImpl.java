@@ -62,15 +62,15 @@ public class GuiViewImpl extends JFrame implements GuiView {
     displayPanel.repaint();
   }
 
-  @Override
-  public void addKeyListener(KeyListener listener) {
-    displayPanel.addKeyListener(listener);
-  }
+//  @Override
+//  public void addKeyListener(KeyListener listener) {
+//    displayPanel.addKeyListener(listener);
+//  }
 
-  @Override
-  public void addMouseListener(MouseListener listener) {
-    displayPanel.addMouseListener(listener);
-  }
+//  @Override
+//  public void addMouseListener(MouseListener listener) {
+//    displayPanel.addMouseListener(listener);
+//  }
 
   @Override
   public void resetFocus() {

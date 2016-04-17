@@ -39,7 +39,7 @@ public class CompositeController implements IController {
         this.playing = true;
         this.holdingShift = false;
         this.lengthOfNextNote = 0;
-//        setUpKeys();
+        setUpKeys();
 //        setUpMouse();
     }
 
@@ -73,19 +73,19 @@ public class CompositeController implements IController {
 //        view.jumpTo(beat);
 //    }
 
-//    /**
-//     * Add all desired functionality for keyboard interaction
-//     */
-//    private void setUpKeys() {
-//        Map<Integer, Runnable> keyPresses = new HashMap<>();
-//        Map<Integer, Runnable> keyReleases = new HashMap<>();
+    /**
+     * Add all desired functionality for keyboard interaction
+     */
+    private void setUpKeys() {
+        Map<Integer, Runnable> keyPresses = new HashMap<>();
+        Map<Integer, Runnable> keyReleases = new HashMap<>();
 //
-//        keyPresses.put(KeyEvent.VK_SPACE, new Pause());
+        keyPresses.put(KeyEvent.VK_SPACE, new Pause());
 //        keyPresses.put(KeyEvent.VK_DOWN, new ScrollDown());
 //        keyPresses.put(KeyEvent.VK_UP, new ScrollUp());
 //        keyPresses.put(KeyEvent.VK_LEFT, new ScrollLeft());
 //        keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
-//        keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
+        keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
 //        keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
 //        keyPresses.put(KeyEvent.VK_SHIFT, new HoldShift());
 //        keyPresses.put(KeyEvent.VK_0, new SetNextNoteLength(0));
@@ -101,11 +101,11 @@ public class CompositeController implements IController {
 //
 //        keyReleases.put(KeyEvent.VK_SHIFT, new ReleaseShift());
 //
-//        KeyboardHandler kh = new KeyboardHandler();
-//        kh.setKeyPressedMap(keyPresses);
-//        kh.setKeyReleasedMap(keyReleases);
-//        view.addKeyListener(kh);
-//    }
+        KeyboardHandler kh = new KeyboardHandler();
+        kh.setKeyPressedMap(keyPresses);
+        kh.setKeyReleasedMap(keyReleases);
+        view.addKeyListener(kh);
+    }
 //
 //    /** Add all desired functionality for mouse interaction */
 //    private void setUpMouse() {
@@ -116,15 +116,16 @@ public class CompositeController implements IController {
 //        view.addMouseListener(mh);
 //    }
 //
-//    /**
-//     * Pause playback of the song
-//     */
-//    class Pause implements Runnable {
-//        public void run() {
-//            changePlayState();
-//        }
-//    }
-//
+    /**
+     * Pause playback of the song
+     */
+    class Pause implements Runnable {
+        public void run() {
+            changePlayState();
+        }
+    }
+
+    //todo to scroll around we need to access the action stuff that's directly in the guiviewimpl and that could be a problem
 //    /**
 //     * Scroll the view up
 //     */
@@ -167,12 +168,14 @@ public class CompositeController implements IController {
 //        }
 //    }
 //
-//    /**
-//     * Jump the current beat and the view to the beginning of the song
-//     */
-//    class SkipToStart implements Runnable {
-//        public void run() { jumpTo(0); }
-//    }
+    /**
+     * Jump the current beat and the view to the beginning of the song
+     */
+    class SkipToStart implements Runnable {
+        public void run() {
+            view.play(model);
+        }
+    }
 //
 //    /**
 //     * Jump the current beat and the view to the end of the song

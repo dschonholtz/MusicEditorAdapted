@@ -84,9 +84,7 @@ public class CompositeViewImpl implements GuiView {
   }
 
   @Override
-  public void reset() {
-    guiView.reset();
-  }
+  public void reset() { guiView.reset(); }
 
   @Override
   public JScrollPane getScrollPane() {
