@@ -33,4 +33,5 @@ public interface Model {
     /** @param n - The note to be removed. */
     void removeNote(NoteRep n);
 
+
 }

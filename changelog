@@ -34,3 +34,4 @@ IMPORTANT NOTE: HAD TO CHANGE THEIR MIDIVIEWIMPL TO USE INSTRUMENT - 1 OR WE GOT
 IMPORTANT NOTE: HAD TO COMMENT OUT ADDKEYLISTENER AND ADDMOUSELISTENER IN GUYVIEWIMPL TO ADD THEM PROPERLY
 
 Publicly gets the actual Concrete View this is bad...
+Red Line Midi View and Beat are all managed seperately which can lead to disjointed views, and the model.

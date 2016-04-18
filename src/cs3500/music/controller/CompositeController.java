@@ -151,11 +151,9 @@ public class CompositeController implements IController {
      */
     class SkipToEnd implements Runnable {
         public void run() {
-            view.getDisplayPanel().setLineX(model.getMaxBeats() * 20 + 60);
             view.controlPanel(model, "E"); }
     }
-//
-//    /**
+////    /**
 //     * Add the given digit to the length of the next note to be added by mouse click
 //     */
 //    class SetNextNoteLength implements Runnable {
