@@ -11,7 +11,7 @@ public class Note implements NoteRep {
         this.n = n;
     }
 
-    /** @return an integer representation of a note //todo what's the difference between this and PitchInInt? */
+    /** @return an integer representation of a note */
     public int toInt() {
         return pitchInInt();
     }
@@ -30,9 +30,9 @@ public class Note implements NoteRep {
         return value;
     }
 
-    /** @return the start of the note */ //TODO IS THIS BEATS OR MICROSECONDS???
+    /** @return the start of the note */
     public int getStartFrom() { //todo how does this calculate start in microseconds?
-        return getStart(); //todo maybe this is wrong idk
+        return getStart();
     }
 
     @Override

@@ -1,9 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="MusicEditor:jar">
+  <artifact type="jar" name="MusicEditor:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/MusicEditor_jar</output-path>
     <root id="archive" name="MusicEditor.jar">
       <element id="module-output" name="MusicEditor" />
-      <element id="library" level="project" name="hamcrest-core-1.3" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../hamcrest-core-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../junit-4.12.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

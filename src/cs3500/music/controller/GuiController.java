@@ -1,10 +1,7 @@
 package cs3500.music.controller;
 
 import cs3500.music.model.Model;
-import cs3500.music.model.SongRep;
 import cs3500.music.otherView.GuiViewImpl;
-import cs3500.music.view.GuiViewFrame;
-import javax.swing.*;
 import java.util.Objects;
 
 /**

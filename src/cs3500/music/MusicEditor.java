@@ -17,6 +17,7 @@ public class MusicEditor {
 
 //        new ControllerFactory(args[1], new SongFactory().buildSong(args[0])).build().run();
 
-        new ControllerFactory(args[1], new ModelAdapter(new SongFactory().buildSong(args[0]))).build().run();
+        new ControllerFactory(args[1], new ModelAdapter(new SongFactory().buildSong(args[0])))
+			.build().run();
     }
 }
