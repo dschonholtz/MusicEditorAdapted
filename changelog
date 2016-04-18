@@ -21,6 +21,7 @@ Can pause/play and reset currently.
 Scrolling works I guess
 Took out scrubbing
 trying to figure out how to skip midi to the end.
+Changed skip to end to implement the compositeView's display panel's method setLineX
 
 Their play method in compositeview is super weird?  When used to resume it resumes where it was but
 it also resets shit?  I used it both to resume and to reset to 0.  That's super weird.
@@ -31,3 +32,5 @@ Since we're pretty sure their shit reset, how did they do these things before?  
 without changing their code, it would be better.  For now, this is working.
 IMPORTANT NOTE: HAD TO CHANGE THEIR MIDIVIEWIMPL TO USE INSTRUMENT - 1 OR WE GOT OOB EXCEPTIONS IN DF-TTFAF.TXT
 IMPORTANT NOTE: HAD TO COMMENT OUT ADDKEYLISTENER AND ADDMOUSELISTENER IN GUYVIEWIMPL TO ADD THEM PROPERLY
+
+Publicly gets the actual Concrete View this is bad...

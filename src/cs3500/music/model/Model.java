@@ -1,5 +1,7 @@
 package cs3500.music.model;
 
+import cs3500.music.util.CompositionBuilder;
+
 import java.util.List;
 
 /**
@@ -22,5 +24,13 @@ public interface Model {
     List<Note> getAllNotes();
     /** @return a string representing the model */
     String display();
+    /**
+     * Adds a note to the song
+     * @param n - The note to be added
+     */
+    void addNote(NoteRep n);
+
+    /** @param n - The note to be removed. */
+    void removeNote(NoteRep n);
 
 }

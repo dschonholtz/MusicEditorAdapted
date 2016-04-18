@@ -38,7 +38,7 @@ public class CompositeController implements IController {
         this.playing = true;
         this.lengthOfNextNote = 0;
         setUpKeys();
-//        setUpMouse();
+        setUpMouse();
     }
 
     @Override
@@ -92,16 +92,16 @@ public class CompositeController implements IController {
         kh.setKeyReleasedMap(keyReleases);
         view.addKeyListener(kh);
     }
-//
-//    /** Add all desired functionality for mouse interaction */
-//    private void setUpMouse() {
-//        MouseHandler mh = new MouseHandler();
-//        mh.setClickEvent(MouseEvent.BUTTON1, new NoteGod());
-//        mh.setPressEvent(MouseEvent.BUTTON1, new NoteDragPress());
-//        mh.setReleaseEvent(MouseEvent.BUTTON1, new NoteDragRelease());
-//        view.addMouseListener(mh);
-//    }
-//
+
+    /** Add all desired functionality for mouse interaction */
+    private void setUpMouse() {
+        MouseHandler mh = new MouseHandler();
+        mh.setClickEvent(MouseEvent.BUTTON1, new NoteGod());
+       /// mh.setPressEvent(MouseEvent.BUTTON1, new NoteDragPress());
+        //mh.setReleaseEvent(MouseEvent.BUTTON1, new NoteDragRelease());
+        view.addMouseListener(mh);
+    }
+
     /**
      * Pause playback of the song
      */
@@ -150,7 +150,9 @@ public class CompositeController implements IController {
      * Jump the current beat and the view to the end of the song
      */
     class SkipToEnd implements Runnable {
-        public void run() { view.controlPanel(model, "E"); }
+        public void run() {
+            view.getDisplayPanel().setLineX(model.getMaxBeats() * 20 + 60);
+            view.controlPanel(model, "E"); }
     }
 //
 //    /**
@@ -166,43 +168,44 @@ public class CompositeController implements IController {
 //        }
 //    }
 //
-//    /**
-//     * Add or remove note at the current mouse location
-//     */
-//    public class NoteGod implements Runnable {
-//        Point givenMouseLoc;
-//        boolean test;
-//
-//        public NoteGod() {
-//            this.test = false;
-//        }
-//
-//        public NoteGod(Point mouseLoc, boolean test) {
-//            this.givenMouseLoc = mouseLoc;
-//            this.test = test;
-//        }
-//
-//        public void run() {
-//            Point mouseLoc;
-//            if(test) {
-//                mouseLoc = givenMouseLoc;
-//            }
-//            else {
-//                mouseLoc = view.getMousePosition();
-//                }
-//            boolean noteAtLocation = view.noteAtLocation(mouseLoc);
-//
-//            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
-//            if (noteAtLocation) {
-//                model.removeNote(temp);
-//            } else if (lengthOfNextNote > 0) {
-//                OurNote n = new OurNote(temp.getStart(), lengthOfNextNote, temp.getOctave(),
-//                        temp.getPitch(), 1, 65);
-//                model.addNote(n);
-//                lengthOfNextNote = 0;
-//            }
-//        }
-//    }
+    /**
+     * Add or remove note at the current mouse location
+     */
+    public class NoteGod implements Runnable {
+        Point givenMouseLoc;
+        boolean test;
+
+        public NoteGod() {
+            this.test = false;
+        }
+
+        public NoteGod(Point mouseLoc, boolean test) {
+            this.givenMouseLoc = mouseLoc;
+            this.test = test;
+        }
+
+        public void run() {
+            Point mouseLoc;
+            if(test) {
+                mouseLoc = givenMouseLoc;
+            }
+            else {
+                mouseLoc = view.getDisplayPanel().getMousePosition();
+                }
+            System.out.println("Original Mouse LocationL: " + mouseLoc.toString());
+            NoteRep temp = view.getNote(new Point(mouseLoc.x/20 - 3, mouseLoc.y/20 - 2));
+            System.out.println("The note it finds at " + (mouseLoc.x/20 - 3) + (mouseLoc.y/20 - 2) + temp.toString());
+            if (temp != null) {
+                model.removeNote(temp);
+            } else if (lengthOfNextNote > 0) {
+                //TEMP IS NULL!!!!!
+                OurNote n = new OurNote(temp.getStart(), lengthOfNextNote, temp.getOctave(),
+                        temp.getPitch(), 1, 65);
+                model.addNote(n);
+                lengthOfNextNote = 0;
+            }
+        }
+    }
 //
 //    /**
 //     * This selects a note and then moves it when the mouse is released.

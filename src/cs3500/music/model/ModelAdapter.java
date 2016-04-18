@@ -1,5 +1,7 @@
 package cs3500.music.model;
 
+import cs3500.music.util.CompositionBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,4 +69,16 @@ public class ModelAdapter implements Model {
     public String display() {
         return song.getState();
     }
+
+    @Override
+    public void addNote(NoteRep n) {
+        song.addNote(n);
+    }
+
+    @Override
+    public void removeNote(NoteRep n) {
+        this.song.removeNote(n);
+    }
+
+
 }
