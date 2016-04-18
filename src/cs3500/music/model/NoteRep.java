@@ -18,4 +18,6 @@ public interface NoteRep {
     int getVolume();
     /** @return the instrument number */
     int getInstrument();
+    /** @return this NoteRep */
+    NoteRep returnNote();
 }

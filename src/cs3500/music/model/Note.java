@@ -74,4 +74,9 @@ public class Note implements NoteRep {
     public String toString() {
         return n.toString();
     }
+
+    @Override
+    public NoteRep returnNote() {
+        return this.n;
+    }
 }

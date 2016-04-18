@@ -76,16 +76,16 @@ public class CompositeController implements IController {
         keyPresses.put(KeyEvent.VK_RIGHT, new ScrollRight());
         keyPresses.put(KeyEvent.VK_HOME, new SkipToStart());
         keyPresses.put(KeyEvent.VK_END, new SkipToEnd());
-//        keyPresses.put(KeyEvent.VK_0, new SetNextNoteLength(0));
-//        keyPresses.put(KeyEvent.VK_1, new SetNextNoteLength(1));
-//        keyPresses.put(KeyEvent.VK_2, new SetNextNoteLength(2));
-//        keyPresses.put(KeyEvent.VK_3, new SetNextNoteLength(3));
-//        keyPresses.put(KeyEvent.VK_4, new SetNextNoteLength(4));
-//        keyPresses.put(KeyEvent.VK_5, new SetNextNoteLength(5));
-//        keyPresses.put(KeyEvent.VK_6, new SetNextNoteLength(6));
-//        keyPresses.put(KeyEvent.VK_7, new SetNextNoteLength(7));
-//        keyPresses.put(KeyEvent.VK_8, new SetNextNoteLength(8));
-//        keyPresses.put(KeyEvent.VK_9, new SetNextNoteLength(9));
+        keyPresses.put(KeyEvent.VK_0, new SetNextNoteLength(0));
+        keyPresses.put(KeyEvent.VK_1, new SetNextNoteLength(1));
+        keyPresses.put(KeyEvent.VK_2, new SetNextNoteLength(2));
+        keyPresses.put(KeyEvent.VK_3, new SetNextNoteLength(3));
+        keyPresses.put(KeyEvent.VK_4, new SetNextNoteLength(4));
+        keyPresses.put(KeyEvent.VK_5, new SetNextNoteLength(5));
+        keyPresses.put(KeyEvent.VK_6, new SetNextNoteLength(6));
+        keyPresses.put(KeyEvent.VK_7, new SetNextNoteLength(7));
+        keyPresses.put(KeyEvent.VK_8, new SetNextNoteLength(8));
+        keyPresses.put(KeyEvent.VK_9, new SetNextNoteLength(9));
 
         KeyboardHandler kh = new KeyboardHandler();
         kh.setKeyPressedMap(keyPresses);
@@ -151,21 +151,23 @@ public class CompositeController implements IController {
      */
     class SkipToEnd implements Runnable {
         public void run() {
+            view.getDisplayPanel().setLineX(model.getMaxBeats() * 20 + 60);
             view.controlPanel(model, "E"); }
     }
-////    /**
-//     * Add the given digit to the length of the next note to be added by mouse click
-//     */
-//    class SetNextNoteLength implements Runnable {
-//        private int numberPressed;
-//        SetNextNoteLength(int num) { this.numberPressed = num; }
-//
-//        public void run() {
-//            lengthOfNextNote = Integer.valueOf(Integer.toString(lengthOfNextNote)
-//                    + Integer.toString(numberPressed));
-//        }
-//    }
-//
+
+    /**
+     * Add the given digit to the length of the next note to be added by mouse click
+     */
+    class SetNextNoteLength implements Runnable {
+        private int numberPressed;
+        SetNextNoteLength(int num) { this.numberPressed = num; }
+
+        public void run() {
+            lengthOfNextNote = Integer.valueOf(Integer.toString(lengthOfNextNote)
+                    + Integer.toString(numberPressed));
+        }
+    }
+
     /**
      * Add or remove note at the current mouse location
      */
@@ -184,17 +186,20 @@ public class CompositeController implements IController {
 
         public void run() {
             Point mouseLoc;
-            if(test) {
+            if (test) {
                 mouseLoc = givenMouseLoc;
             }
             else {
                 mouseLoc = view.getDisplayPanel().getMousePosition();
-                }
-            System.out.println("Original Mouse LocationL: " + mouseLoc.toString());
-            NoteRep temp = view.getNote(new Point(mouseLoc.x/20 - 3, mouseLoc.y/20 - 2));
-            System.out.println("The note it finds at " + (mouseLoc.x/20 - 3) + (mouseLoc.y/20 - 2) + temp.toString());
+            }
+
+            System.out.println("Original Mouse Location: " + mouseLoc.toString());
+            NoteRep temp = view.getNote(new Point(mouseLoc.x/20 - 2, mouseLoc.y/20 - 1));
+            System.out.println(temp);
+
             if (temp != null) {
-                model.removeNote(temp);
+                model.removeNote(temp.returnNote());
+                System.out.println("trying to remove");
             } else if (lengthOfNextNote > 0) {
                 //TEMP IS NULL!!!!!
                 OurNote n = new OurNote(temp.getStart(), lengthOfNextNote, temp.getOctave(),

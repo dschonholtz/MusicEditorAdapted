@@ -97,4 +97,9 @@ public final class OurNote implements NoteRep {
     public int hashCode() {
         return Objects.hash(start, duration, octave, pitch, instrument, volume);
     }
+
+    @Override
+    public NoteRep returnNote() {
+        return this;
+    }
 }
