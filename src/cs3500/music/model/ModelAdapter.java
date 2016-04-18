@@ -80,5 +80,10 @@ public class ModelAdapter implements Model {
         this.song.removeNote(n);
     }
 
+    @Override
+    public List<String> getRange() {
+        return song.getRange();
+    }
+
 
 }

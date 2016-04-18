@@ -1,16 +1,14 @@
 package cs3500.music.controller;
 
-import cs3500.music.model.Model;
-import cs3500.music.model.OurNote;
-import cs3500.music.model.NoteRep;
-import cs3500.music.model.SongRep;
+import cs3500.music.model.*;
 import cs3500.music.otherView.CompositeViewImpl;
 import cs3500.music.view.CompositeView;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -195,19 +193,47 @@ public class CompositeController implements IController {
 
             System.out.println("Original Mouse Location: " + mouseLoc.toString());
             NoteRep temp = view.getNote(new Point(mouseLoc.x/20 - 2, mouseLoc.y/20 - 1));
-            System.out.println(temp);
 
             if (temp != null) {
                 model.removeNote(temp.returnNote());
                 System.out.println("trying to remove");
             } else if (lengthOfNextNote > 0) {
                 //TEMP IS NULL!!!!!
-                OurNote n = new OurNote(temp.getStart(), lengthOfNextNote, temp.getOctave(),
-                        temp.getPitch(), 1, 65);
-                model.addNote(n);
+                List<String> range = model.getRange();
+                String noteS = range.get(range.size() - (mouseLoc.y/20));
+                System.out.println(noteS);
+                Pitch p = notePitch(noteS);
+                int octave = noteOctave(noteS);
+                OurNote n = new OurNote(mouseLoc.x/20 - 2, lengthOfNextNote, octave,
+                        p, 1, 65);
+                model.addNote(new Note(n));
                 lengthOfNextNote = 0;
             }
         }
+    }
+
+    private int noteOctave(String s) {
+        int o;
+
+        if(s.charAt(1) == '#') {
+            o = Integer.valueOf(s.substring(2));
+        }
+        else {
+            o = Integer.valueOf(s.substring(1));
+        }
+        return o;
+    }
+
+    private Pitch notePitch(String s) {
+        Pitch p;
+
+        if(s.charAt(1) ==  '#') {
+            p = Pitch.valueOf(s.substring(0,1) + "S");
+        }
+        else {
+            p = Pitch.valueOf(s.substring(0,1));
+        }
+        return p;
     }
 //
 //    /**

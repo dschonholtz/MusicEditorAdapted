@@ -2,6 +2,7 @@ package cs3500.music.model;
 
 import cs3500.music.util.CompositionBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,5 +34,6 @@ public interface Model {
     /** @param n - The note to be removed. */
     void removeNote(NoteRep n);
 
+    List<String> getRange();
 
 }
