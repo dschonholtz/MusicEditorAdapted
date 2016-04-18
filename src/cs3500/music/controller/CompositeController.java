@@ -193,15 +193,12 @@ public class CompositeController implements IController {
                 mouseLoc = view.getDisplayPanel().getMousePosition();
             }
 
-            System.out.println("Original Mouse Location: " + mouseLoc.toString());
             NoteRep temp = view.getNote(new Point(mouseLoc.x/20 - 2, mouseLoc.y/20 - 1));
             System.out.println(temp);
 
             if (temp != null) {
                 model.removeNote(temp.returnNote());
-                System.out.println("trying to remove");
             } else if (lengthOfNextNote > 0) {
-                //TEMP IS NULL!!!!!
                 OurNote n = new OurNote(temp.getStart(), lengthOfNextNote, temp.getOctave(),
                         temp.getPitch(), 1, 65);
                 model.addNote(n);
@@ -209,39 +206,36 @@ public class CompositeController implements IController {
             }
         }
     }
-//
-//    /**
-//     * This selects a note and then moves it when the mouse is released.
-//     */
-//    class NoteDragPress implements Runnable {
-//        public void run() {
-//            Point mouseLoc = view.getMousePosition();
-//            boolean noteAtLocation = view.noteAtLocation(mouseLoc);
-//            if(noteAtLocation) {
-//                selectedNote = view.getNoteAtMouseLocation(mouseLoc);
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Creates a new note when the mouse is released provided a note was previously selected
-//     */
-//    class NoteDragRelease implements Runnable {
-//        public void run() {
-//            Point mouseLoc = view.getMousePosition();
-//            NoteRep temp = view.getNoteAtMouseLocation(mouseLoc);
-//
-//            if(selectedNote != null) {
-//                OurNote n = new OurNote(temp.getStart(), selectedNote.getDuration(), temp.getOctave(),
-//                        temp.getPitch(), selectedNote.getInstrument(), selectedNote.getVolume());
-//                try {
-//                    model.addNote(n);
-//                    model.removeNote(selectedNote);
-//                } catch(IllegalArgumentException e) {
-//                    e.printStackTrace();
-//                }
-//                selectedNote = null;
-//            }
-//        }
-//    }
+
+    /**
+     * This selects a note and then moves it when the mouse is released.
+     */
+    class NoteDragPress implements Runnable {
+        public void run() {
+            Point mouseLoc = view.getDisplayPanel().getMousePosition();
+            NoteRep noteAtLocation = view.getNote(new Point(mouseLoc.x / 20 - 2, mouseLoc.y / 2 - 1));
+            selectedNote = noteAtLocation;
+        }
+    }
+
+    /**
+     * Creates a new note when the mouse is released provided a note was previously selected
+     */
+    class NoteDragRelease implements Runnable {
+        public void run() {
+
+            if (selectedNote != null) {
+                OurNote temp = null;
+                OurNote n = new OurNote(temp.getStart(), selectedNote.getDuration(), temp.getOctave(),
+                        temp.getPitch(), selectedNote.getInstrument(), selectedNote.getVolume());
+                try {
+                    model.addNote(n);
+                    model.removeNote(selectedNote);
+                } catch(IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+                selectedNote = null;
+            }
+        }
+    }
 }
